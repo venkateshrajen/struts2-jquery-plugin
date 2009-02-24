@@ -8,9 +8,21 @@ jQuery javascript library.
 
 The goal is to provide a highly functional yet very lightweight ajax plugin for the struts2 framework.
 
-The framework will focus on providing the most useful ajax features for the most common UI tags and widgets. The following features, tags & widgets are currently under implementation:
+The framework will focus on providing the most useful ajax features for the most common UI tags and widgets.
+
+=== Basic Usage === 
+
+To use the struts2-jquery tags
+
+  # Include the [http://code.google.com/p/struts2-jquery-plugin/source/browse/ struts2-jquery-plugin.jar] in your application classpath
+  # Include the <sj:head> tag in the head of your jsp page
+  # Use the ajax enable struts2 tags <sj:xxxx> tags.
+
+
+The following features, tags & widgets are currently under implementation:
 
 === Tags ===
+  * *[head]* - _Required_ tag included in document head that addds required framework dependencies
   * *[div]* - Allowing dynamically loading content into any div
   * *[anchor]* - Provides links for form submission and remote content loading using ajax. Integrated with the *div* tag as remote content containers
   * *[submit]* - Provides buttons for form submission and remote content loading using ajax<br/> Integrated with the *div* tag as remote content containers
