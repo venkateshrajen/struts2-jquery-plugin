@@ -11,18 +11,18 @@ The goal is to provide a highly functional yet very lightweight ajax plugin for 
 The framework will focus on providing the most useful ajax features for the most common UI tags and widgets. The following features, tags & widgets are currently under implementation:
 
 === Tags ===
-  * *[[div]]* - Allowing dynamically loading content into any div
-  * *[[anchor]]* - Provides links for form submission and remote content loading using ajax. Integrated with the *div* tag as remote content containers
-  * *[[submit]]* - Provides buttons for form submission and remote content loading using ajax<br/> Integrated with the *div* tag as remote content containers
-  * *[[bind]]* - Generic binding tag to add standard ajax functionality to a variety of components
+  * *[div]* - Allowing dynamically loading content into any div
+  * *[anchor]* - Provides links for form submission and remote content loading using ajax. Integrated with the *div* tag as remote content containers
+  * *[submit]* - Provides buttons for form submission and remote content loading using ajax<br/> Integrated with the *div* tag as remote content containers
+  * *[bind]* - Generic binding tag to add standard ajax functionality to a variety of components
 
 === Widgets ===
-  * *[[tabbedPane]]* - A tabbed pane widget that allows for remote and dynamic loading, reloading, selecting etc. of tabs
-  * *[[datepicker]]* - TBD
-  * *[[autocomplete]]* - (awaiting inclusion in jquery-ui)
-  * *[[dialog]]* - TBD
-  * *[[progress bar]]* - TBD
-  * *[[ajax upload]]* - TBD
+  * *[tabbedPane]* - A tabbed pane widget that allows for remote and dynamic loading, reloading, selecting etc. of tabs
+  * *[datepicker]* - TBD
+  * *[autocomplete]* - (awaiting inclusion in jquery-ui)
+  * *[dialog]* - TBD
+  * *[progress bar]* - TBD
+  * *[ajax upload]* - TBD
 
 
 === Features ===
