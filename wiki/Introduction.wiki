@@ -27,4 +27,4 @@ The framework will focus on providing the most useful ajax features for the most
 
 === Features ===
   * *publish/subcribe* - The implementation provides, uses and makes available a publish/subscribe model that allows for very decoupled event triggering using topics.
-  * *extensibility* - TDB (jQuery options, extensibility points?)
+  * *extensibility* - TDB (jQuery options, other extensibility points?)
