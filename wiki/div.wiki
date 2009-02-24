@@ -1,0 +1,8 @@
+#summary struts2 jquery div tag usage
+
+Usage of the div tag is as follows:
+
+{{
+
+
+}}
