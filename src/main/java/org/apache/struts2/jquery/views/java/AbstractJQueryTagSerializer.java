@@ -1,6 +1,7 @@
 package org.apache.struts2.jquery.views.java;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
@@ -17,10 +18,13 @@ public abstract class AbstractJQueryTagSerializer extends XHTMLTagSerializer {
     protected Attributes jqueryAttributes;
     
     protected TemplateRenderingContext context;
+    
+    protected Writer writer ;
 
     public void setup(TemplateRenderingContext context) {
     	super.setup(context);
         this.context = context;
+        writer = context.getWriter();
     }
     
     @SuppressWarnings("unchecked")
