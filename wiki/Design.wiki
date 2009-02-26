@@ -37,18 +37,18 @@ The following is a mapping of ajax atrributes to category for each feature:
     * _Listener Topics_ : hideTopics, showTopics, removeTopics
     * _Publish Topics_ :
     * _Special_ :
-    
-  * *Interactive*
-    * _Inherits_ : Base
-    * _Listener Topics_ : enableTopics, disableTopics
-    * _Publish Topics_ : 
-    * _Special_ : 
 
   * *Container*
     * _Inherits_ : Base
     * _Listener Topics_ : reloadTopics
     * _Publish Topics_ : onAfterTopics, onBeforeTopics, onErrorTopics, onSuccessTopics, onAlwaysTopics
     * _Special_ : src, loadingText, errorText, indicatorId
+    
+  * *Interactive*
+    * _Inherits_ : Base
+    * _Listener Topics_ : enableTopics, disableTopics
+    * _Publish Topics_ : 
+    * _Special_ : 
   
   * *Action*
     * _Inherits_ : Interactive
@@ -67,7 +67,7 @@ The following is a mapping of Tag/Component to features. In addition to the feat
  * *head*: FEATURES(), UNIQUE(compressed, locale, baseRelativePath) 
  * *div*: FEATURES(Base,Container) 
  * *tabbedPane*: FEATURES(Base), UNIQUE(isCache)
- * *tab*: FEATURES(Base,Container,Interactive), UNIQUE(selectTopics, onSelectTopics, isSelected, isDisabled) 
+ * *tab*: FEATURES(Base,Input), UNIQUE(isSelected, isDisabled) 
  * *a*: FEATURES(Base,Action)
  * *submit*: FEATURES(Base,Action)
  * *select*: FEATURES(Base,Input)
