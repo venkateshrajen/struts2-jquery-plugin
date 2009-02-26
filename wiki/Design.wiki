@@ -53,10 +53,10 @@ The following is a mapping of ajax atrributes to category for each feature:
 
 The following is a mapping of Tag/Component to features. In addition to the features (and therefore the various ajax attribute implied/provide by that feature) some tabs may have unique attributes - described as UNIQUE().
 
- * *head*: FEATURES() UNIQUE(compressed, locale, baseRelativePath) 
+ * *head*: FEATURES(), UNIQUE(compressed, locale, baseRelativePath) 
  * *div*: FEATURES(Base,Container) 
- * *tabbedPane*: FEATURES(Base) 
- * *tab*: FEATURES(Base,Container)  UNIQUE(selectTopics, onSelectTopics) 
+ * *tabbedPane*: FEATURES(Base), UNIQUE(isCache)
+ * *tab*: FEATURES(Base,Container), UNIQUE(selectTopics, disableTopics, onSelectTopics, onDisableTopics, selected) 
  * *a*: FEATURES(Base,Action)
  * *submit*: FEATURES(Base,Action)
  * *select*: FEATURES(Base,Input)
