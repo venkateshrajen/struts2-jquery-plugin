@@ -22,6 +22,7 @@ Tags/Components can be classified by type/features which define the set of ajax 
 The current tag features/types are:
   # *Base* - This describes the base set of ajax attributes for _almost_ all ajax tags (the head tag is the one exception)
   # *Container* - This describes the set of ajax attributes for tags which can contain _page_ content loaded remotely via ajax
+  # *Interactive* - This describes the base set of ajax attributes for tags which can be interacted with
   # *Action* - This describes the set of ajax attributes for tags which can be clicked to perform an action (usually using a remote url)
   # *Input* - This describes the set of ajax attributes for tags which accept user input and can contain json content loaded remotely via ajax
 
@@ -32,21 +33,31 @@ For each tag feature, there are three categories of ajax attributes exposed:
 
 The following is a mapping of ajax atrributes to category for each feature:
  * *Base* 
-    * _Listener Topics_ : hideTopics, showTopics, removeTopics, enableTopics, disableTopics
+    * _Inherits_ :
+    * _Listener Topics_ : hideTopics, showTopics, removeTopics
     * _Publish Topics_ :
     * _Special_ :
-  
+    
+  * *Interactive*
+    * _Inherits_ : Base
+    * _Listener Topics_ : enableTopics, disableTopics
+    * _Publish Topics_ : 
+    * _Special_ : 
+
   * *Container*
+    * _Inherits_ : Base
     * _Listener Topics_ : reloadTopics
     * _Publish Topics_ : onAfterTopics, onBeforeTopics, onErrorTopics, onSuccessTopics, onAlwaysTopics
     * _Special_ : src, loadingText, errorText
   
   * *Action*
+    * _Inherits_ : Interactive
     * _Listener Topics_ : 
     * _Publish Topics_ : onClickTopics
     * _Special_ : targets, href, formIds, validate, indicatorId, 
 
   * *Input*
+    * _Inherits_ : Interactive
     * _Listener Topics_ : focusTopics, reloadTopics
     * _Publish Topics_ : onChangeTopics, onBlurTopics, onFocusTopics
     * _Special_ : src
