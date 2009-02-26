@@ -15,6 +15,7 @@ The framework will focus on providing the most useful ajax features for the most
 To use the struts2-jquery tags
 
   # Include the [http://code.google.com/p/struts2-jquery-plugin/source/browse/ struts2-jquery-plugin.jar] in your application classpath
+  # Include the struts jquery tag library on your jsp page (<font color='#6c6c6c'><%@ taglib prefix="sj" uri="/struts-jquery-tags" %></font>)
   # Include the <sj:head> tag in the head of your jsp page
   # Use the ajax enable struts2 tags <sj:xxxx> tags.
 
