@@ -3,7 +3,7 @@
 
 = Introduction =
 
-sturts2-jquery-plugin is a Struts2 plugin that ajax-enables many struts tags using the
+The <b>struts2-jquery-plugin</b> is a Struts2 plugin that ajax-enables many struts tags using the
 jQuery javascript library.
 
 The goal is to provide a highly functional yet very lightweight ajax plugin for the struts2 framework.
