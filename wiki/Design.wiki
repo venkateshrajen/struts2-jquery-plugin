@@ -48,13 +48,13 @@ The following is a mapping of ajax atrributes to category for each feature:
     * _Inherits_ : Base
     * _Listener Topics_ : reloadTopics
     * _Publish Topics_ : onAfterTopics, onBeforeTopics, onErrorTopics, onSuccessTopics, onAlwaysTopics
-    * _Special_ : src, loadingText, errorText
+    * _Special_ : src, loadingText, errorText, indicatorId
   
   * *Action*
     * _Inherits_ : Interactive
     * _Listener Topics_ : 
     * _Publish Topics_ : onClickTopics
-    * _Special_ : targets, href, formIds, validate, indicatorId, 
+    * _Special_ : targets, href, formIds, validate, 
 
   * *Input*
     * _Inherits_ : Interactive
