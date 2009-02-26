@@ -38,18 +38,18 @@ The following is a mapping of ajax atrributes to category for each feature:
   
   * *Container*
     * _Listener Topics_ : reloadTopics
-    * _Publish Topics_ : onAfterLoadTopics, onBeforeLoadTopics, onErrorTopics, onSuccessTopics, onAlwaysTopics
+    * _Publish Topics_ : onAfterTopics, onBeforeTopics, onErrorTopics, onSuccessTopics, onAlwaysTopics
     * _Special_ : src, loadingText, errorText
   
   * *Action*
     * _Listener Topics_ : 
-    * _Publish Topics_ : onClick
+    * _Publish Topics_ : onClickTopics
     * _Special_ : targets, href, formId, validate, indicatorId, 
 
   * *Input*
     * _Listener Topics_ : focusTopics, reloadTopics, validateTopics
-    * _Publish Topics_ : onChange, onBlur, onFocus
-    * _Special_ : src, validate
+    * _Publish Topics_ : onChangeTopics, onBlurTopics, onFocusTopics
+    * _Special_ : src
 
 The following is a mapping of Tag/Component to features. In addition to the features (and therefore the various ajax attribute implied/provide by that feature) some tabs may have unique attributes - described as UNIQUE().
 
