@@ -1,11 +1,22 @@
 #summary This is a page on the architecture of the struts2-jquery plugin
 #labels Phase-Design,Featured
 
-= Overview=
+= Overview =
+
+The struts2-jquery-plugin is a plugin providing first-class support for AJAX to struts2. The plugin uses the [http://www.jquery.com jQuery] javascript library and a very lightweight publish/subscribe framework built on jQuery to implement a set of tags and tag widgets that enable asynchronous loading of UI components and de-coupled interaction between UI components in a simple, standard way.
+
+  * Struts2
+    * tags
+    * templates
+
+  * jQuery
+    * core 
+    * publish/subscribe
+    * widgets
 
 
 = Tag/Component Design =
-Some initial thoughts.
+Some initial thoughts...
 Tags/Components can be classified by type/features which define the set of ajax attributes that the tags expose and allow for better reuse/maintenance of ajax implementation code.
 
 The current tag features/types are:
