@@ -44,7 +44,7 @@ The following is a mapping of ajax atrributes to category for each feature:
   * *Action*
     * _Listener Topics_ : 
     * _Publish Topics_ : onClickTopics
-    * _Special_ : targets, href, formId, validate, indicatorId, 
+    * _Special_ : targets, href, formIds, validate, indicatorId, 
 
   * *Input*
     * _Listener Topics_ : focusTopics, reloadTopics, validateTopics
