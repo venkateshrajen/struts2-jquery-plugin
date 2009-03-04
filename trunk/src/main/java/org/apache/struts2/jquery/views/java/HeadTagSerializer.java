@@ -16,6 +16,7 @@ public class HeadTagSerializer implements TagGenerator, TagSerializer {
 	private final static String  JQUERY_FILE_PREFIX = "jquery-1.3.2";
 	private final static String  JQUERY_UI_FILE_PREFIX = "jquery-ui-1.6rc6";
 	private final static String  JQUERY_SUBSCRIBE_FILE_PREFIX = "jquery.subscribe.0.1";
+	private final static String  JQUERY_STRUTS_FILE_PREFIX = "jquery-struts";
 
 	private final static String  FILE_SUFFIX = ".js";
 	private final static String  MIN_FILE_SUFFIX = ".min.js";
@@ -54,6 +55,7 @@ public class HeadTagSerializer implements TagGenerator, TagSerializer {
     	String jqueryFile;
     	String jqueryUIFile;
     	String jquerySubscribeFile;
+    	String jqueryStrutsFile;
 
         String basePath = ServletActionContext.getRequest().getContextPath();
         if (basePath == null) { basePath = ""; }
@@ -63,12 +65,14 @@ public class HeadTagSerializer implements TagGenerator, TagSerializer {
     		jqueryFile = JQUERY_FILE_PREFIX + FILE_SUFFIX; 
         	jqueryUIFile = JQUERY_UI_FILE_PREFIX + FILE_SUFFIX; 
         	jquerySubscribeFile = JQUERY_SUBSCRIBE_FILE_PREFIX + FILE_SUFFIX; 
+        	jqueryStrutsFile = JQUERY_STRUTS_FILE_PREFIX + FILE_SUFFIX; 
     	
     	} else {
-
+    		
     		jqueryFile = JQUERY_FILE_PREFIX + MIN_FILE_SUFFIX; 
         	jqueryUIFile = JQUERY_UI_FILE_PREFIX + MIN_FILE_SUFFIX; 
         	jquerySubscribeFile = JQUERY_SUBSCRIBE_FILE_PREFIX + MIN_FILE_SUFFIX; 
+        	jqueryStrutsFile = JQUERY_STRUTS_FILE_PREFIX + MIN_FILE_SUFFIX; 
     	}
     	
     	if(params.get("baseRelativePath") != null) {
@@ -78,12 +82,14 @@ public class HeadTagSerializer implements TagGenerator, TagSerializer {
         	writer.write("<script language=\"JavaScript\" type=\"text/javascript\" base=\"" + basePath + "\" src=\"" + basePath + "/" + jqueryFile + "\" includeParams=\"none\" encode=\"false\"/></script>");
         	writer.write("<script language=\"JavaScript\" type=\"text/javascript\" base=\"" + basePath + "\" src=\"" + basePath + "/" + jqueryUIFile + "\" includeParams=\"none\" encode=\"false\"/></script>");
         	writer.write("<script language=\"JavaScript\" type=\"text/javascript\" base=\"" + basePath + "\" src=\"" + basePath + "/" + jquerySubscribeFile + "\" includeParams=\"none\" encode=\"false\"/></script>");
+        	writer.write("<script language=\"JavaScript\" type=\"text/javascript\" base=\"" + basePath + "\" src=\"" + basePath + "/" + jqueryStrutsFile + "\" includeParams=\"none\" encode=\"false\"/></script>");
     	
     	} else {
 
         	writer.write("<script language=\"JavaScript\" type=\"text/javascript\" base=\"" + basePath + "\" src=\"" + basePath + "/struts/jquery/" + jqueryFile + "\"/></script>");
         	writer.write("<script language=\"JavaScript\" type=\"text/javascript\" base=\"" + basePath + "\" src=\"" + basePath + "/struts/jquery/" + jqueryUIFile + "\"/></script>");
         	writer.write("<script language=\"JavaScript\" type=\"text/javascript\" base=\"" + basePath + "\" src=\"" + basePath + "/struts/jquery/" + jquerySubscribeFile + "\"/></script>");
+        	writer.write("<script language=\"JavaScript\" type=\"text/javascript\" base=\"" + basePath + "\" src=\"" + basePath + "/struts/jquery/" + jqueryStrutsFile + "\"/></script>");
     	}
     	
     	/*writer.write("<script language=\"JavaScript\" src=\"" + basePath + "/struts/utils.js\" base=\"" + basePath + "\" type=\"text/javascript\"></script>");*/

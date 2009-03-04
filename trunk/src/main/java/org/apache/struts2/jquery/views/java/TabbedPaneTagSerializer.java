@@ -9,7 +9,7 @@ import org.apache.struts2.jquery.components.Tab;
 import org.apache.struts2.jquery.components.TabbedPane;
 import org.apache.struts2.views.java.Attributes;
 
-public class TabbedPaneTagSerializer extends AbstractJQueryTagSerializer {
+public class TabbedPaneTagSerializer extends BaseTagSerializer {
 
 	 public void start(String name, Attributes attrs) throws IOException {
        
@@ -25,92 +25,21 @@ public class TabbedPaneTagSerializer extends AbstractJQueryTagSerializer {
 		super.end(name);
 		
     	Map params = context.getParameters();
+    	jqueryAttributes.addIfExists("isCache", params.get("isCache"));
     	jqueryAttributes.addIfExists("selected", params.get("selected"));
-    	jqueryAttributes.addIfExists("iscache", params.get("iscache"));
-    	jqueryAttributes.addIfExists("disabled", params.get("disabled"));
     	
 	    String id = jqueryAttributes.get("id");
 	    
-	    boolean prevOption = false;
 	    if(id != null) {
-			
-		    writer.write("\n<script type='text/javascript'>");
-
-	    	writer.write("\n\t$.subscribeHandler('reloadTab', function(event, data){");
-	    	writer.write("\n\t\t$(\"#" + id + "\").tabs('load', event.data);");
-	    	writer.write("\n\t});");
-
-	    	writer.write("\n\t$.subscribeHandler('selectTab', function(event, data){");
-	    	writer.write("\n\t\t$(\"#" + id + "\").tabs('select', event.data);");
-	    	writer.write("\n\t});");
-
-	    	writer.write("\n\t$.subscribeHandler('disableTab', function(event, data){");
-	    	writer.write("\n\t\t$(\"#" + id + "\").tabs('disable', event.data);");
-	    	writer.write("\n\t});");
-
-	    	writer.write("\n\t$.subscribeHandler('enableTab', function(event, data){");
-	    	writer.write("\n\t\t$(\"#" + id + "\").tabs('enable', event.data);");
-	    	writer.write("\n\t});");
-
-	    	writer.write("\n\t$.subscribeHandler('removeTab', function(event, data){");
-	    	writer.write("\n\t\t$(\"#" + id + "\").tabs('remove', event.data);");
-	    	writer.write("\n\t});");
-	        
-	        writer.write("\n</script>");
-	        
-	        	        
+				        
 	    	writer.write("\n<script type='text/javascript'>");
 		    
-	    	writer.write("\n\tvar $tabs = $(\"#" + id + "\").tabs({");
-	    	
-	    	if(jqueryAttributes.get("selected") != null) {
-
-		    	writer.write("selected: " + jqueryAttributes.get("selected"));
-		    	prevOption = true;
-	    	}
-
-	    	if(jqueryAttributes.get("iscache") != null) {
-
-		    	writer.write((prevOption == true ? "," : "") + " cache: " + jqueryAttributes.get("iscache"));	
-		    	prevOption = true;
-	    	}
-
-	    	if(jqueryAttributes.get("disabled") != null) {
-
-	    		StringTokenizer disabledIds = new StringTokenizer(jqueryAttributes.get("disabled"),",");
+	    	//instantiate the tabbed pane
+	    	writer.write("\n\tvar $tabs = $(\"#" + id + "\").tabs({" + (jqueryAttributes.get("isCache") != null ? " cache: " + jqueryAttributes.get("isCache") : "") 
+	    			+ (jqueryAttributes.get("selected") != null ? " selected: " + jqueryAttributes.get("selected") : "") + "})");
 	    		
-	    		StringBuilder idArray = new StringBuilder("[");
-	    		
-	    		boolean prevId = false;
-	    		while(disabledIds.hasMoreTokens()){
-	    			
-	    			String disabledId = disabledIds.nextToken();
-	    			
-	    			try{ 
-	    				
-	    				idArray.append((prevId == true ? "," : "") + Integer.parseInt(disabledId));
-	    				prevId = true;
-	    				
-	    			}catch(NumberFormatException ne){}
-	    		}
-	    		
-	    		idArray.append("]");
-	    		
-		    	writer.write((prevOption == true ? "," : "") + " disabled: " + idArray.toString());	
-	    	}
-
-	    	writer.write("});");
-
-	    	/*
-	    	if (jqueryAttributes.containsKey("reloadTopics")) {
-	        	StringTokenizer topics = new StringTokenizer(jqueryAttributes.get("reloadTopics"),",");
-	        	while(topics.hasMoreTokens()){
-	            	writer.write("\n$('#" + id + "').subscribe('" + topics.nextToken() + "','reload');");
-	        	}
-	        }
-	    	*/
-
-			List<Tab> tabs  = ((TabbedPane)context.getTag()).getTabs();
+	    	List<Tab> tabs  = ((TabbedPane)context.getTag()).getTabs();
+			
 			for (int i = 0 ; i < tabs.size(); ++i) {
 				  
 				Tab tab = tabs.get(i);
@@ -119,7 +48,7 @@ public class TabbedPaneTagSerializer extends AbstractJQueryTagSerializer {
 					
 					StringTokenizer topics = new StringTokenizer(tab.getReloadTopics(),",");
 		        	while(topics.hasMoreTokens()){
-		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','reloadTab', " + i + ");");
+		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','_strut2_jquery_reloadTab', " + i + ");");
 		        	}
 				}
 				  
@@ -127,7 +56,7 @@ public class TabbedPaneTagSerializer extends AbstractJQueryTagSerializer {
 					
 					StringTokenizer topics = new StringTokenizer(tab.getEnableTopics(),",");
 		        	while(topics.hasMoreTokens()){
-		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','enableTab', " + i + ");");
+		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','_strut2_jquery_enableTab', " + i + ");");
 		        	}
 				}
 				  
@@ -135,15 +64,15 @@ public class TabbedPaneTagSerializer extends AbstractJQueryTagSerializer {
 					
 					StringTokenizer topics = new StringTokenizer(tab.getDisableTopics(),",");
 		        	while(topics.hasMoreTokens()){
-		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','disableTab', " + i + ");");
+		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','_strut2_jquery_disableTab', " + i + ");");
 		        	}
 				}
 				  
-				if(tab.getSelectTopics() != null) {
+				if(tab.getFocusTopics() != null) {
 					
-					StringTokenizer topics = new StringTokenizer(tab.getSelectTopics(),",");
+					StringTokenizer topics = new StringTokenizer(tab.getFocusTopics(),",");
 		        	while(topics.hasMoreTokens()){
-		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','selectTab', " + i + ");");
+		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','_strut2_jquery_selectTab', " + i + ");");
 		        	}
 				}
 				  
@@ -151,12 +80,37 @@ public class TabbedPaneTagSerializer extends AbstractJQueryTagSerializer {
 					
 					StringTokenizer topics = new StringTokenizer(tab.getRemoveTopics(),",");
 		        	while(topics.hasMoreTokens()){
-		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','removeTab', " + i + ");");
+		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','_strut2_jquery_removeTab', " + i + ");");
 		        	}
+				}
+				  
+				if(tab.getRemoveTopics() != null) {
+					
+					StringTokenizer topics = new StringTokenizer(tab.getHideTopics(),",");
+		        	while(topics.hasMoreTokens()){
+		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','_strut2_jquery_hideTab', " + i + ");");
+		        	}
+				}
+				  
+				if(tab.getRemoveTopics() != null) {
+					
+					StringTokenizer topics = new StringTokenizer(tab.getShowTopics(),",");
+		        	while(topics.hasMoreTokens()){
+		            	writer.write("\n\t$tabs.subscribe('" + topics.nextToken() + "','_strut2_jquery_showTab', " + i + ");");
+		        	}
+				}
+				  
+				if(tab.getIsDisabled() != null && tab.getIsDisabled() == true) {
+					writer.write("\n\t$tabs.tabs('disable'," + i + ");");
+				}
+				  
+				if(tab.getIsSelected() != null && tab.getIsSelected() == true) {
+					writer.write("\n\t$tabs.tabs('select'," + i + ");");
 				}
 			}
 			
 	        writer.write("\n</script>");
+	        
 	    }
     }
 }
