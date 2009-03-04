@@ -25,9 +25,9 @@ public class Head extends org.apache.struts2.components.Head {
         return TEMPLATE;
     }
 
-    public void evaluateParams() {
+    public void evaluateExtraParams() {
     	
-        super.evaluateParams();
+        super.evaluateExtraParams();
         
         if (this.compressed != null)
             addParameter("compressed", findValue(this.compressed, Boolean.class));

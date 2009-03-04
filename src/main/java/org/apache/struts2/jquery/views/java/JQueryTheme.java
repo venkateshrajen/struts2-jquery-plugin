@@ -38,19 +38,19 @@ public class JQueryTheme extends DefaultTheme {
 		{
             put("head", new FactoryList(HeadTagSerializer.class));
             
-            put("div", new FactoryList(DivHandler.class, ScriptingEventsHandler.class, CommonAttributesHandler.class, CommonIdHandler.class, XHTMLTagSerializer.class));
+            put("div", new FactoryList(DivHandler.class, ScriptingEventsHandler.class, CommonAttributesHandler.class, XHTMLTagSerializer.class));
             put("div-close", new FactoryList(DivHandler.CloseHandler.class, DivTagSerializer.class));
             
-            put("a", new FactoryList(AnchorHandler.class, ScriptingEventsHandler.class, CommonAttributesHandler.class, CommonIdHandler.class, XHTMLTagSerializer.class));
+            put("a", new FactoryList(AnchorHandler.class, ScriptingEventsHandler.class, CommonAttributesHandler.class, XHTMLTagSerializer.class));
             put("a-close", new FactoryList(AnchorHandler.CloseHandler.class, AnchorTagSerializer.class));
             
-            put("submit", new FactoryList(SubmitHandler.class, ScriptingEventsHandler.class, CommonAttributesHandler.class, CommonIdHandler.class, XHTMLTagSerializer.class));
+            put("submit", new FactoryList(SubmitHandler.class, ScriptingEventsHandler.class, CommonAttributesHandler.class, XHTMLTagSerializer.class));
             put("submit-close", new FactoryList(SubmitHandler.CloseHandler.class, SubmitTagSerializer.class));
 
-            put("tab", new FactoryList(AnchorHandler.class, TabTagSerializer.class));
-            put("tab-close", new FactoryList(AnchorHandler.CloseHandler.class, TabTagSerializer.class));
+            put("tab", new FactoryList(TabHandler.class, TabTagSerializer.class));
+            put("tab-close", new FactoryList(TabHandler.CloseHandler.class, TabTagSerializer.class));
             
-            put("tabbedpane", new FactoryList(DivHandler.class, CommonIdHandler.class, TabbedPaneTagSerializer.class));
+            put("tabbedpane", new FactoryList(DivHandler.class, TabbedPaneTagSerializer.class));
             put("tabbedpane-close", new FactoryList(DivHandler.CloseHandler.class, TabbedPaneTagSerializer.class));
             
             put("text", new FactoryList(TextFieldHandler.class, ScriptingEventsHandler.class, CommonAttributesHandler.class, XHTMLTagSerializer.class));

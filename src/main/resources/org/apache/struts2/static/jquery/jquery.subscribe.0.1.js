@@ -14,8 +14,8 @@
 
 (function($){
 	
-	var _subscribe_topics = {};
-	var _subscribe_handlers = {}; 
+	_subscribe_topics = {};
+	_subscribe_handlers = {}; 
 	
 	$.fn.extend({
 		
@@ -67,11 +67,11 @@
 		 * Subscribes an object to particular topic with a handler.
 		 * When the topic is published, this elements handler will be executed.
 		 * 
-		 * The handler parameter is a handler function and is of the form function(event, data), where the
-		 * and the context ('this') refers to the element itself 
-		 * 
-		 * The data parameter is additional data that is passed to the event handler as event.data
-		 * 
+		 * Parameters:
+		 *  -topics- is the string name of the topic
+		 *  -handler- is a handler function and is of the form function(event, data), in which the 'this' refers to the element itself.
+		 *  		  handler can be a function or can be a string referring to a function previously registered using the $.subscribeHandler() function
+		 *  -data- is additional data that is passed to the event handler as event.data when the topic is published
 		 */
 		subscribe :  function(topic, handler, data) {	
 				
@@ -99,8 +99,7 @@
 		},
 		
 		/**
-		 * Remove a subscription of an element to a topic. The element must have and
-		 * id
+		 * Remove a subscription of an element to a topic. The element must have an id
 		 */
 		unsubscribe :  function(topic) {	
 				
@@ -121,7 +120,12 @@
 		},
 		
 		/**
-		 * publishes a topic (triggers handlers on all topic subscribers)
+		 * Publishes a topic (triggers handlers on all topic subscribers)
+		 * This ends up calling any subscribed handlers which are functions of the form function (event, data)
+		 * where:
+		 * 		-event- is a standard jQuery event object
+		 *  	-event.data- is the data parameter passed to the subscribe() function when this published topic was subscribed to
+		 *  	-data- is the data parameter that was passed to this publish() method
 		 */
 		publish : function(topic, data) {	
 		
@@ -131,11 +135,14 @@
 				
 				var object = _subscribe_topics[topic].objects[i];
 				
-				if($.isArray(object) && object.length > 0) {		// handle '__noId__' elements (if any)
+				if($.isArray(object)) {		// handle '__noId__' elements (if any)
 
-					for(j in object) {
-						
-						object[j].trigger(topic,data);
+					if(object.length > 0) {
+					
+						for(j in object) {
+							
+							object[j].trigger(topic,data);
+						}
 					}
 					
 				} else {
@@ -149,6 +156,12 @@
 		
 		/**
 		 * Binds an objects event handler to a publish call
+		 * 
+		 * Upon the event trigerring, this ends up calling any subscribed handlers which are functions of the form function (event, data)
+		 * where:
+		 * 		-event- is a standard jQuery event object
+		 *  	-event.data- is the data parameter passed to the subscribe() function when this published topic was subscribed to
+		 *  	-data- is the data parameter that was passed to this publishOnEvent() method
 		 */
 		publishOnEvent : function(event, topic, data) {	
 		
@@ -195,15 +208,5 @@
 		}
 		
 	});
-	
-	/**
-	 * Standard topic handlers
-	 */
-	_subscribe_handlers['reload'] = function reload(event, data)
-	{
-		$(this).load($(this).data("url"), data, $(this).data("oncomplete"));
-		
-		//oncomplete function is of signature:  function(responseText, textStatus, XMLHttpRequest)
-	};
-				
+					
 })(jQuery);
