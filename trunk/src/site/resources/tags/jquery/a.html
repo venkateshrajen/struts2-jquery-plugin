@@ -20,7 +20,7 @@ Please do not edit it directly.
 		<!-- START SNIPPET: tagattributes -->
 		<table width="100%">
 			<tr>
-				<td colspan="6"><h4>Dynamic Attributes Allowed:</h4> false</td>
+				<td colspan="6"><h4>Dynamic Attributes Allowed:</h4> true</td>
 			</tr>
 			<tr>
 				<td colspan="6">&nbsp;</td>
@@ -115,7 +115,7 @@ Please do not edit it directly.
 				</tr>
 				<tr>
 					<td align="left" valign="top">href</td>
-					<td align="left" valign="top"><strong>true</strong></td>
+					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
@@ -128,6 +128,14 @@ Please do not edit it directly.
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">HTML id attribute</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">indicatorId</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">If loading content into a target, Id of element that will be displayed during loading and hidden afterwards (will override settings for the target container)</td>
 				</tr>
 				<tr>
 					<td align="left" valign="top">javascriptTooltip</td>
@@ -170,6 +178,14 @@ Please do not edit it directly.
 					<td align="left" valign="top">Define label position of form element (top/left)</td>
 				</tr>
 				<tr>
+					<td align="left" valign="top">loadingText</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">If loading content into a target, The text to be displayed during load (will be shown if any provided, will override settings for the target container)</td>
+				</tr>
+				<tr>
 					<td align="left" valign="top">name</td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
@@ -184,6 +200,30 @@ Please do not edit it directly.
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">A comma delimited list of topics that published when the element is clicked</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">onCompleteTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A comma delimited list of topics that published when the element ajax request is completed (will override settings for a target container if provided)</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">onErrorTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A comma delimited list of topics that published when the element ajax request returns an error (will override settings for a target container if provided)</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">onSuccessTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A comma delimited list of topics that published when the element ajax request is completed successfully  (will override settings for a target container if provided)</td>
 				</tr>
 				<tr>
 					<td align="left" valign="top">onblur</td>
@@ -347,7 +387,7 @@ Please do not edit it directly.
 				</tr>
 				<tr>
 					<td align="left" valign="top">targets</td>
-					<td align="left" valign="top"><strong>true</strong></td>
+					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>

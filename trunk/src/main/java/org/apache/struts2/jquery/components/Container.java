@@ -34,7 +34,7 @@ public interface Container extends Base {
 	@StrutsTagAttribute(name="errorText", description="The text to be displayed on load error", type="String", defaultValue="false")
     public void setErrorText(String errorText);
 	
-	@StrutsTagAttribute(name="indicatorId", description="Id of element that will be displayed during execution of this element's action and hidden afterwards", type="String", defaultValue="")
+	@StrutsTagAttribute(name="indicatorId", description="Id of element that will be displayed during loading and hidden afterwards", type="String", defaultValue="")
     public void setIndicatorId(String indicatorId);
 
 }

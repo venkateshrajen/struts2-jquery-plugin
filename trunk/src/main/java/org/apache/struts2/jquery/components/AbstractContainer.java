@@ -38,7 +38,7 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
         if (onBeforeTopics != null)
             addParameter("onBeforeTopics", findString(onBeforeTopics));
         if (onCompleteTopics != null)
-            addParameter("onAfterTonCompleteTopicsopics", findString(onCompleteTopics));
+            addParameter("onCompleteTopics", findString(onCompleteTopics));
         if (onErrorTopics != null)
             addParameter("onErrorTopics", findString(onErrorTopics));
         if (onSuccessTopics != null)

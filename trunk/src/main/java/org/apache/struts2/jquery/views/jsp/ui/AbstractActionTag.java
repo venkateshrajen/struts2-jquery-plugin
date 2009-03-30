@@ -18,7 +18,12 @@ public class AbstractActionTag extends AbstractInteractiveTag implements Action 
     protected String href;				//The url to execute
     protected String formIds;			//the forms
     protected String validate;			//text to be displayed on load error
-	
+	protected String indicatorId;		//If loading content into a target, Id of element that will be displayed during loading and hidden afterwards
+	protected String loadingText;		//If loading content into a target, The text to be displayed during load
+	protected String onCompleteTopics;
+	protected String onSuccessTopics;
+	protected String onErrorTopics;
+
 	public AbstractActionTag() {
 		super();
 	}
@@ -34,6 +39,11 @@ public class AbstractActionTag extends AbstractInteractiveTag implements Action 
 		action.setHref(href);
 		action.setFormIds(formIds);
 		action.setValidate(validate);
+		action.setIndicatorId(indicatorId);
+		action.setLoadingText(loadingText);
+		action.setOnCompleteTopics(onCompleteTopics);
+		action.setOnSuccessTopics(onSuccessTopics);
+		action.setOnErrorTopics(onErrorTopics);
     }
 	
 	@Override
@@ -60,5 +70,24 @@ public class AbstractActionTag extends AbstractInteractiveTag implements Action 
 	public void setValidate(String validate) {
 		this.validate = validate;
 	}
+	
+	public void setIndicatorId(String indicatorId) {
+		this.indicatorId = indicatorId;
+	}
 
+	public void setLoadingText(String loadingText) {
+		this.loadingText = loadingText;
+	}
+
+	public void setOnCompleteTopics(String onCompleteTopics) {
+		this.onCompleteTopics = onCompleteTopics;
+	}
+
+	public void setOnSuccessTopics(String onSuccessTopics) {
+		this.onSuccessTopics = onSuccessTopics;
+	}
+
+	public void setOnErrorTopics(String onErrorTopics) {
+		this.onErrorTopics = onErrorTopics;
+	}
 }

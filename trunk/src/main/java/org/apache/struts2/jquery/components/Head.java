@@ -8,7 +8,9 @@ import org.apache.struts2.views.annotations.StrutsTagAttribute;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
-@StrutsTag(name="head", tldTagClass="org.apache.struts2.jquery.views.jsp.ui.HeadTag", description="Enables the jquery ajax tags by injecting required dependencies into page")
+@StrutsTag(name="head", tldTagClass="org.apache.struts2.jquery.views.jsp.ui.HeadTag", 
+		description="Enables the jquery ajax tags by injecting required dependencies into page",
+		allowDynamicAttributes=true)
 public class Head extends org.apache.struts2.components.Head {
 	
     public static final String TEMPLATE = "head";

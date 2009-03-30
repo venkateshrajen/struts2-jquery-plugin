@@ -22,11 +22,11 @@
 -->
 
 <#if parameters.compressed?default(true)>
-  <#assign jqueryFile="jquery-1.3.1.js">
-  <#assign jqueryUIFile="jquery-ui-1.6rc6.js">
+  <#assign jqueryFile="jquery-1.3.2.js">
+  <#assign jqueryUIFile="jquery-ui-1.7.1.js">
 <#else>
-  <#assign jqueryFile="jquery-1.3.1.min.js">
-  <#assign jqueryUIFile="jquery-ui-1.6rc6.min.js">
+  <#assign jqueryFile="jquery-1.3.2.min.js">
+  <#assign jqueryUIFile="jquery-ui-1.7.1.min.js">
 </#if>
 
 <#if parameters.baseRelativePath?if_exists != "">

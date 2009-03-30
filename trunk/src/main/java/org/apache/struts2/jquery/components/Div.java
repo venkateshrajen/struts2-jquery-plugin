@@ -7,7 +7,9 @@ import org.apache.struts2.views.annotations.StrutsTag;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
-@StrutsTag(name="div", tldTagClass="org.apache.struts2.jquery.views.jsp.ui.DivTag", description="Render HTML div providing content from remote call via AJAX")
+@StrutsTag(name="div", tldTagClass="org.apache.struts2.jquery.views.jsp.ui.DivTag", 
+		description="Render HTML div providing content from remote call via AJAX",
+		allowDynamicAttributes=true)
 public class Div extends AbstractContainer {
 
     public static final String TEMPLATE = "div";

@@ -15,8 +15,8 @@ public class TabTag extends AbstractInputTag {
 
 	private static final long serialVersionUID = -3841835722558071249L;
 
-    private Boolean isSelected;					//set to true to make this the default selected tab (only one tab shoudl have this)
-    private Boolean isDisabled;					//set to true to make this tab disabled
+    private String isSelected;					//set to true to make this the default selected tab (only one tab shoudl have this)
+    private String isDisabled;					//set to true to make this tab disabled
     
 	public TabTag() {
 		super();
@@ -53,11 +53,11 @@ public class TabTag extends AbstractInputTag {
 		return super.doEndTag();
 	}
 
-	public void setIsSelected(Boolean isSelected) {
+	public void setIsSelected(String isSelected) {
 		this.isSelected = isSelected;
 	}
 
-	public void setIsDisabled(Boolean isDisabled) {
+	public void setIsDisabled(String isDisabled) {
 		this.isDisabled = isDisabled;
 	}
 }

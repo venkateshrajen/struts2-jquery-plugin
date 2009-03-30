@@ -17,8 +17,12 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
     protected String href;				//The url to execute
     protected String formIds;			//the forms
     protected String validate;			//text to be displayed on load error
+	protected String indicatorId;		//If loading content into a target, Id of element that will be displayed during loading and hidden afterwards
+	protected String loadingText;		//If loading content into a target, The text to be displayed during load
+	protected String onCompleteTopics;
+	protected String onSuccessTopics;
+	protected String onErrorTopics;
 		
-
 	public AbstractAction(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
 		
 		super(stack, request, response);
@@ -38,6 +42,16 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
             addParameter("formIds", findString(formIds));
         if (validate != null)
             addParameter("validate", findString(validate));
+        if (indicatorId != null)
+            addParameter("indicatorId", findString(indicatorId));
+        if (loadingText != null)
+            addParameter("loadingText", findString(loadingText));
+        if (onCompleteTopics != null)
+            addParameter("onCompleteTopics", findString(onCompleteTopics));
+        if (onSuccessTopics != null)
+            addParameter("onSuccessTopics", findString(onSuccessTopics));
+        if (onErrorTopics != null)
+            addParameter("onErrorTopics", findString(onErrorTopics));   
     }
 
     protected void setStack(ValueStack stack){
@@ -49,7 +63,7 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
     	this.parameters = parameters;
     }
 
-    @StrutsTagAttribute(name="href", description="The url to be use when this element is clicked", type="String", defaultValue="", required=true)
+    @StrutsTagAttribute(name="href", description="The url to be use when this element is clicked", type="String", defaultValue="")
 	public void setHref(String href) {
 		this.href = href;
 	}
@@ -64,7 +78,7 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
 		this.onClickTopics = onClickTopics;
 	}
 
-	@StrutsTagAttribute(name="targets", description="A comma separated list of ids of container elements to load with the contents from the result of this request", type="String", defaultValue="", required=true)
+	@StrutsTagAttribute(name="targets", description="A comma separated list of ids of container elements to load with the contents from the result of this request", type="String", defaultValue="")
 	public void setTargets(String targets) {
 		this.targets = targets;
 	}
@@ -72,5 +86,31 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
 	@StrutsTagAttribute(name="validate", description="Whether to execute validation on this elements of the form(s) provided in the formId attribute (valid values are 'true', 'false', and 'only'). Selecting 'only' will noly validate the form fiellds and not execute the result of this action implied by the href url", type="String", defaultValue="false")
 	public void setValidate(String validate) {
 		this.validate = validate;
+	}
+	
+	@StrutsTagAttribute(name="indicatorId", description="If loading content into a target, Id of element that will be displayed during loading and hidden afterwards (will override settings for the target container)", type="String", defaultValue="")
+    public void setIndicatorId(String indicatorId){
+		this.indicatorId = indicatorId;
+	}
+	
+	@StrutsTagAttribute(name="loadingText", description="If loading content into a target, The text to be displayed during load (will be shown if any provided, will override settings for the target container)", type="String", defaultValue="")
+    public void setLoadingText(String loadingText){
+		this.loadingText = loadingText;
+		
+	}
+
+	@StrutsTagAttribute(name="onCompleteTopics", description = "A comma delimited list of topics that published when the element ajax request is completed (will override settings for a target container if provided)", type="String", defaultValue="")
+	public void setOnCompleteTopics(String onCompleteTopics){
+		this.onCompleteTopics = onCompleteTopics;
+	}
+
+	@StrutsTagAttribute(name="onSuccessTopics", description = "A comma delimited list of topics that published when the element ajax request is completed successfully  (will override settings for a target container if provided)", type="String", defaultValue="")
+	public void setOnSuccessTopics(String onSuccessTopics){
+		this.onSuccessTopics = onSuccessTopics;
+	}
+
+	@StrutsTagAttribute(name="onErrorTopics", description = "A comma delimited list of topics that published when the element ajax request returns an error (will override settings for a target container if provided)", type="String", defaultValue="")
+	public void setOnErrorTopics(String onErrorTopics){
+		this.onErrorTopics = onErrorTopics;
 	}
 }

@@ -13,8 +13,8 @@ public class TabbedPaneTag extends AbstractBaseTag {
 
 	private static final long serialVersionUID = -3809304151441133723L;
 	
-	protected Boolean isCache;				//Whether or not to cache remote tabs content, e.g. load only once or with every click.
-	protected Integer selected;				//The zero-based index of the tab that is selected when the pane first loads.
+	protected String isCache;				//Whether or not to cache remote tabs content, e.g. load only once or with every click.
+	protected String selected;				//The zero-based index of the tab that is selected when the pane first loads.
     
 	public TabbedPaneTag() {
 		super();
@@ -43,7 +43,7 @@ public class TabbedPaneTag extends AbstractBaseTag {
         
     }
 
-	public void setIsCache(Boolean isCache) {
+	public void setIsCache(String isCache) {
 		this.isCache = isCache;
 	}
 
@@ -51,7 +51,7 @@ public class TabbedPaneTag extends AbstractBaseTag {
 		this.disabled = disabled;
 	}
 
-	public void setSelected(Integer selected) {
+	public void setSelected(String selected) {
 		this.selected = selected;
 	}
 }

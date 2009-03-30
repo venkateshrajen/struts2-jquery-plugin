@@ -14,7 +14,7 @@ import org.apache.struts2.views.java.TagSerializer;
 public class HeadTagSerializer implements TagGenerator, TagSerializer {
 
 	private final static String  JQUERY_FILE_PREFIX = "jquery-1.3.2";
-	private final static String  JQUERY_UI_FILE_PREFIX = "jquery-ui-1.6rc6";
+	private final static String  JQUERY_UI_FILE_PREFIX = "jquery-ui-1.7.1";
 	private final static String  JQUERY_SUBSCRIBE_FILE_PREFIX = "jquery.subscribe.0.1";
 	private final static String  JQUERY_STRUTS_FILE_PREFIX = "jquery-struts";
 
