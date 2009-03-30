@@ -182,6 +182,12 @@
 	 */
 	$.extend({
 		
+		subscribe :  function(topic, handler, data) {
+			
+			return $().subscribe(topic, handler, data);
+			
+		},
+		
 		subscribeHandler: function(name, handler) { 
 			
 			if(name && handler && typeof(handler) == "function") {

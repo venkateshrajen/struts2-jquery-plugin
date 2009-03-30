@@ -37,7 +37,7 @@ public abstract class AbstractBase extends ClosingUIBean implements Base {
          
             int nextInt = RANDOM.nextInt();
             nextInt = nextInt == Integer.MIN_VALUE ? Integer.MAX_VALUE : Math.abs(nextInt);  
-            id = "_strut2_jquery_" + Math.abs(nextInt);
+            id = "_struts2_jquery_" + Math.abs(nextInt);
             addParameter("id", this.id);
         }
     }

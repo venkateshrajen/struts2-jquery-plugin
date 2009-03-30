@@ -10,8 +10,8 @@ import com.opensymphony.xwork2.util.ValueStack;
 
 public class SubmitTag extends AbstractActionTag {
 	
-	private static final long serialVersionUID = -3598941881606117018L;
-			
+	private static final long serialVersionUID = -2130063104541861261L;
+				
 	public SubmitTag() {
 		super();
 	}
@@ -27,6 +27,9 @@ public class SubmitTag extends AbstractActionTag {
         
 		super.populateParams();
 
-       //Anchor anchor = (Anchor) component;
+       Submit submit = (Submit) component;
+       submit.setKey(key);
+       submit.setValue(value);
+
     }
 }

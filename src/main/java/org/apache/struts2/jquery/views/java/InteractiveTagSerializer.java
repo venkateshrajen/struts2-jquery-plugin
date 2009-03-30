@@ -17,20 +17,20 @@ public abstract class InteractiveTagSerializer extends BaseTagSerializer {
     	jqueryAttributes.addIfExists("disableTopics", params.get("disableTopics"));
     	String id = jqueryAttributes.get("id");
 	    
-	    if(id != null) {
+	    if(id != null && (jqueryAttributes.get("enableTopics") != null || jqueryAttributes.get("disableTopics") != null)) {
 			
 	    	writer.write("\n<script type='text/javascript'>");
 		    
 	    	//subscribe the hide handler to all hide topics 
         	for (Iterator<String> topics = getUniqueStrings(jqueryAttributes.get("enableTopics")).iterator(); topics.hasNext();) {
         		
-        		writer.write("\n\t$('#" + id + "').subscribe('" + topics.next() + "','_strut2_jquery_enable');");			
+        		writer.write("\n\t$('#" + id + "').subscribe('" + topics.next() + "','_struts2_jquery_enable');");			
 			}
 
         	//subscribe the show handler to all show topics 
         	for (Iterator<String> topics = getUniqueStrings(jqueryAttributes.get("disableTopics")).iterator(); topics.hasNext();) {
         		
-        		writer.write("\n\t$('#" + id + "').subscribe('" + topics.next() + "','_strut2_jquery_disable');");			
+        		writer.write("\n\t$('#" + id + "').subscribe('" + topics.next() + "','_struts2_jquery_disable');");			
 			}
         		       
 	        writer.write("\n</script>");
