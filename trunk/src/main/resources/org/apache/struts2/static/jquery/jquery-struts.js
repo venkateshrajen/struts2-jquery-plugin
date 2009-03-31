@@ -275,5 +275,19 @@
 			$.ajax(options);
 		}
 	});
+	
+	//$.subscribeHandler('_struts2_jquery_action_beforeClick', function(event, data) {}
+	/*
+	var _struts2_jquery_action_beforeClick = function(event,topics){
+		
+		var action = event.target;
+		for(i in topics){
+			var topic = topics[i];
+			
+			action.publish(topic, action);
+			
+		}
+	}
+	*/
 		
 })(jQuery);

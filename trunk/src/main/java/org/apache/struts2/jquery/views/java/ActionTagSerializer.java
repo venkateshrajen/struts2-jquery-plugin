@@ -40,7 +40,7 @@ public abstract class ActionTagSerializer extends InteractiveTagSerializer {
 	    	//register onClick topics to publish on click
 	    	for (Iterator<String> topics = getUniqueStrings(jqueryAttributes.get("onClickTopics")).iterator(); topics.hasNext();) {
 	    		
-	    		writer.write("\n\t action.publishOnEvent('click','" + topics.next() + "');");	
+	    		writer.write("\n\t action.publishOnEvent('click','" + topics.next() + "', action);");	
 			}
 
 	    	String actionTopic = "__topic_jquery_action_" + id;
@@ -62,9 +62,9 @@ public abstract class ActionTagSerializer extends InteractiveTagSerializer {
 			    		
 			    		//add integration with tabbedPane framework to execute action within tab
 			    		if(ActionTagSerializer.TAB_PANE_TARGET.equals(target)) {
-			    			writer.write("\n\t\t action.closest('.ui-tabs-panel').subscribe('" + actionTopic + "','_struts2_jquery_load');");
+			    			writer.write("\n\t\t action.closest('.ui-tabs-panel').subscribe('" + actionTopic + "','_struts2_jquery_load', action);");
 			    		} else {
-			    			writer.write("\n\t\t $('#" + target + "').subscribe('" + actionTopic + "','_struts2_jquery_load');");
+			    			writer.write("\n\t\t $('#" + target + "').subscribe('" + actionTopic + "','_struts2_jquery_load', action);");
 			    		}
 					}
 		    	
@@ -75,7 +75,7 @@ public abstract class ActionTagSerializer extends InteractiveTagSerializer {
 	    		//bind custom action topic to click event and process
 		    	if(href != null || jqueryAttributes.get("onCompleteTopics") != null || jqueryAttributes.get("onSuccessTopics") != null || jqueryAttributes.get("onErrorTopics") != null ) {
 
-		    		writer.write("\n\t\t action.subscribe('" + actionTopic + "','_struts2_jquery_action');");
+		    		writer.write("\n\t\t action.subscribe('" + actionTopic + "','_struts2_jquery_action', action);");
 		    	}
 	    	}
 	    	
@@ -94,7 +94,7 @@ public abstract class ActionTagSerializer extends InteractiveTagSerializer {
 	    	if(jqueryAttributes.get("onCompleteTopics") != null) { writer.write("\n\t $.extend(data,{onCompleteTopics:'" + jqueryAttributes.get("onCompleteTopics") + "'});"); }
 	    	if(jqueryAttributes.get("onSuccessTopics") != null) { writer.write("\n\t $.extend(data,{onSuccessTopics:'" + jqueryAttributes.get("onSuccessTopics") + "'});"); }
 	    	if(jqueryAttributes.get("onErrorTopics") != null) { writer.write("\n\t $.extend(data,{onErrorTopics:'" + jqueryAttributes.get("onErrorTopics") + "'});"); }
-	    	writer.write("\n\t action.publishOnEvent('click', '" + actionTopic + "',data);");
+	    	writer.write("\n\t action.publishOnEvent('click', '" + actionTopic + "', data);");
        
 	    	writer.write("\n </script>");
 	    }
