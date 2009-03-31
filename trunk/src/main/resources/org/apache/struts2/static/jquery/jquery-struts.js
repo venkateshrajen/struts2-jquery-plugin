@@ -151,7 +151,7 @@
 						
 				var forms = formIds.split(',');  
 				for ( var i = 0; i < forms.length; i++) {
-					formData = (formData ? "&" : "") + $("#" + forms[i]).serialize();
+					formData = (formData ? (formData + "&") : "") + $("#" + forms[i]).serialize();
 				}
 				
 				$.extend(options,{data: formData});
