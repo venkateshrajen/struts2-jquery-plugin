@@ -31,6 +31,9 @@ public interface Action extends Interactive {
 	@StrutsTagAttribute(name="formIds", description="Comma delimited list of form ids for which to serialize all fields during submission when this element is clicked (if multiple forms have overlapping element names, it is indeterminate which will be used)", type="String", defaultValue="")
     public void setFormIds(String formIds);
 
+	@StrutsTagAttribute(name="elementIds", description="A comma delimited list of form elements that should be individually serialized and sent with the input's load request", type="String", defaultValue="", required=false)
+	public void setElementIds(String elementIds);
+
 	@StrutsTagAttribute(name="validate", description="Whether to execute validation on this elements of the form(s) provided in the formId attribute (valid values are 'true', 'false', and 'only'). Selecting 'only' will noly validate the form fiellds and not execute the result of this action implied by the href url", type="String", defaultValue="false")
     public void setValidate(String validate);
 	

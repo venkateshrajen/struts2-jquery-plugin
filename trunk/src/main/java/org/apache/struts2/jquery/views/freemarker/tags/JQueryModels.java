@@ -1,5 +1,5 @@
 /*
- * $Id: DojoModels.java 651946 2008-04-27 13:41:38Z apetrelli $
+ * $Id: JQueryModels.java 651946 2009-04-03 13:41:38Z echijioke $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -27,6 +27,15 @@ import javax.servlet.http.HttpServletResponse;
 import com.opensymphony.xwork2.util.ValueStack;
 
 public class JQueryModels {
+	
+    protected AnchorModel a;
+    protected DivModel div;
+    protected FormModel form;
+    protected HeadModel head;
+    protected SelectModel select;
+    protected SubmitModel submit;
+    protected TabbedPaneModel tabbedpane;
+    protected TabModel tab;
    
     private ValueStack stack;
     private HttpServletRequest req;
@@ -37,5 +46,66 @@ public class JQueryModels {
         this.req = req;
         this.res = res;
     }
-   
+
+    public AnchorModel getAnchor() {
+        if (a == null) {
+        	a = new AnchorModel(stack, req, res);
+        }
+        return a;
+    }
+
+    public DivModel getDiv() {
+        if (div == null) {
+        	div = new DivModel(stack, req, res);
+        }
+        return div;
+    }
+
+    public FormModel getForm() {
+        if (form == null) {
+        	form = new FormModel(stack, req, res);
+        }
+        return form;
+    }
+
+    public HeadModel getHead() {
+        if (head == null) {
+            head = new HeadModel(stack, req, res);
+        }
+
+        return head;
+    }
+
+    public SelectModel getSelect() {
+        if (select == null) {
+            select = new SelectModel(stack, req, res);
+        }
+
+        return select;
+    }
+
+    public SubmitModel getSubmit() {
+        if (submit == null) {
+            submit = new SubmitModel(stack, req, res);
+        }
+
+        return submit;
+    }
+
+    public TabbedPaneModel getTabbedpane() {
+        if (tabbedpane == null) {
+        	tabbedpane = new TabbedPaneModel(stack, req, res);
+        }
+
+        return tabbedpane;
+    }
+
+    public TabModel getTab() {
+        if (tab == null) {
+        	tab = new TabModel(stack, req, res);
+        }
+
+        return tab;
+    }
+    
 }

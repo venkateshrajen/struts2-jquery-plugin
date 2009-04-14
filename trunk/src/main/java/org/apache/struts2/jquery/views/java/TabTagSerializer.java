@@ -21,35 +21,16 @@
 package org.apache.struts2.jquery.views.java;
 
 import java.io.IOException;
-import java.io.Writer;
 
-import org.apache.struts2.components.template.TemplateRenderingContext;
 import org.apache.struts2.views.java.Attributes;
-import org.apache.struts2.views.java.TagHandler;
-import org.apache.struts2.views.java.TagSerializer;
-
-import com.opensymphony.xwork2.util.TextUtils;
 
 /**
  * Write tags as XHTML
  */
-public class TabTagSerializer implements TagSerializer {
-
-    protected Writer writer;
-
-    public void characters(String text) throws IOException {
-        characters(text, true);
-    }
-
-    public void characters(String text, boolean encode) throws IOException {
-        writer.write(encode ? TextUtils.htmlEncode(text) : text);
-    }
+public class TabTagSerializer extends JQueryTagSerializer {
 
     public void end(String name) throws IOException {
         writer.write("</span></a></li>");
-    }
-
-    public void setNext(TagHandler next) {
     }
 
     public void start(String name, Attributes attrs) throws IOException {
@@ -65,9 +46,5 @@ public class TabTagSerializer implements TagSerializer {
         }
 
         writer.write("><span>");
-    }
-
-    public void setup(TemplateRenderingContext context) {
-        this.writer = context.getWriter();
     }
 }

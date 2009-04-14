@@ -19,7 +19,11 @@ public class TabHandler extends AbstractTagHandler implements TagGenerator {
                 .addIfExists("class", params.get("cssClass"))
                 .addIfExists("style", params.get("cssStyle"))
                 .addIfExists("href", params.get("src"), false)
-                .addIfExists("title", params.get("title"));
+                .addIfExists("title", params.get("title"))
+        		.addIfExists("isSelected", params.get("isSelected"))
+        		.addIfExists("isDisabled", params.get("isDisabled"));
+        
+        
         start("a", attrs);
     }
 

@@ -8,7 +8,7 @@ import org.apache.struts2.jquery.components.Action;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
-public class AbstractActionTag extends AbstractInteractiveTag implements Action {
+public abstract class AbstractActionTag extends AbstractInteractiveTag implements Action {
 
 	private static final long serialVersionUID = -8151222719613824475L;
 
@@ -23,6 +23,7 @@ public class AbstractActionTag extends AbstractInteractiveTag implements Action 
 	protected String onCompleteTopics;
 	protected String onSuccessTopics;
 	protected String onErrorTopics;
+    protected String elementIds;		//Form elements that should be individually serialized and sent with the input's load request
 
 	public AbstractActionTag() {
 		super();
@@ -44,6 +45,7 @@ public class AbstractActionTag extends AbstractInteractiveTag implements Action 
 		action.setOnCompleteTopics(onCompleteTopics);
 		action.setOnSuccessTopics(onSuccessTopics);
 		action.setOnErrorTopics(onErrorTopics);
+		action.setElementIds(elementIds);
     }
 	
 	@Override
@@ -89,5 +91,9 @@ public class AbstractActionTag extends AbstractInteractiveTag implements Action 
 
 	public void setOnErrorTopics(String onErrorTopics) {
 		this.onErrorTopics = onErrorTopics;
+	}
+
+	public void setElementIds(String elementIds){
+		this.elementIds = elementIds;
 	}
 }

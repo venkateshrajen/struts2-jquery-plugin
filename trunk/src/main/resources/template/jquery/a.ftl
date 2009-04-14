@@ -20,18 +20,31 @@
  * under the License.
  */
 -->
-<a dojoType="struts:BindAnchor"
-  <#if parameters.validate?exists>
-    validate="${parameters.validate?string?html}"<#rt/>
-  <#else>
-    validate="false"<#rt/>  
-  </#if>
-  <#if parameters.ajaxAfterValidation?exists>
-    ajaxAfterValidation="${parameters.ajaxAfterValidation?string?html}"<#rt/>
-  <#else>
-    ajaxAfterValidation="false"  
-  </#if>
-  <#include "/${parameters.templateDir}/ajax/ajax-common.ftl" />
+<a
+  <#if parameters.name?if_exists != "">
+	 name="${parameters.name}"<#rt/>
+	</#if>
+	<#if parameters.href?if_exists != "">
+	 href="${parameters.href}"<#rt/>
+	</#if>
+	<#if parameters.tabindex??>
+	 tabindex="${parameters.tabindex?html}"<#rt/>
+	</#if>
+	<#if parameters.cssClass??>
+	 class="${parameters.cssClass?html}"<#rt/>
+	</#if>
+	<#if parameters.cssStyle??>
+	 style="${parameters.cssStyle?html}"<#rt/>
+	</#if>
+	<#if parameters.title??>
+	 title="${parameters.title?html}"<#rt/>
+	</#if>
+	<#if parameters.tabindex??>
+	 tabindex="${parameters.tabindex?html}"<#rt/>
+	</#if>
+  <#include "/${parameters.templateDir}/jquery/base.ftl" />
+  <#include "/${parameters.templateDir}/jquery/interactive.ftl" />
+  <#include "/${parameters.templateDir}/jquery/action.ftl" />
   <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
-  <#include "/${parameters.templateDir}/simple/common-attributes.ftl" />
 >
+

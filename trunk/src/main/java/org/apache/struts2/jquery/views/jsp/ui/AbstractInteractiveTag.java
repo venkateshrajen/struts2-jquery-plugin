@@ -8,7 +8,7 @@ import org.apache.struts2.jquery.components.Interactive;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
-public class AbstractInteractiveTag extends AbstractBaseTag implements Interactive {
+public abstract class AbstractInteractiveTag extends AbstractBaseTag implements Interactive {
 
 	private static final long serialVersionUID = 6438949293925673945L;
 

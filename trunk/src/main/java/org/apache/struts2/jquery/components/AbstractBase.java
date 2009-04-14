@@ -13,7 +13,7 @@ import com.opensymphony.xwork2.util.ValueStack;
 
 public abstract class AbstractBase extends ClosingUIBean implements Base {
 
-    final private static transient Random RANDOM = new Random();    
+    final private static transient Random RANDOM = new Random(); 
     
 	public AbstractBase(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
 		super(stack, request, response);
@@ -23,6 +23,22 @@ public abstract class AbstractBase extends ClosingUIBean implements Base {
 	protected String showTopics;
 	protected String removeTopics;
 
+
+	@Override
+    public void evaluateParams() {
+        
+        if (id == null || id.toString().length() == 0) {
+         
+            int nextInt = RANDOM.nextInt();
+            nextInt = nextInt == Integer.MIN_VALUE ? Integer.MAX_VALUE : Math.abs(nextInt);  
+            id = "_struts2_jquery_" + Math.abs(nextInt);
+        }
+        
+        addParameter("id", id);
+        
+        super.evaluateParams();
+	}
+	
 	@Override
     public void evaluateExtraParams() {
     	
@@ -32,14 +48,6 @@ public abstract class AbstractBase extends ClosingUIBean implements Base {
             addParameter("showTopics", findString(showTopics));
         if (removeTopics != null)
             addParameter("removeTopics", findString(removeTopics));
-                
-        if (this.id == null || this.id.length() == 0) {
-         
-            int nextInt = RANDOM.nextInt();
-            nextInt = nextInt == Integer.MIN_VALUE ? Integer.MAX_VALUE : Math.abs(nextInt);  
-            id = "_struts2_jquery_" + Math.abs(nextInt);
-            addParameter("id", this.id);
-        }
     }
 	
     public String getTheme() {
