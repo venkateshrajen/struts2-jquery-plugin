@@ -30,6 +30,15 @@
 	<#if parameters.targetId??>
 	 targetId="${parameters.targetId?html}"<#rt/>
 	</#if>
+	<#if parameters.action??>
+	 action="${parameters.action?html}"<#rt/>
+	</#if>
+    <#if parameters.cssClass??>         
+    	class="${parameters.cssClass?html}"    
+    </#if>
+    <#if parameters.cssStyle??>         
+    	style="${parameters.cssStyle?html}"    
+    </#if>
   <#include "/${parameters.templateDir}/jquery/base.ftl" />
   <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
   <#include "/${parameters.templateDir}/simple/form-common.ftl" />
