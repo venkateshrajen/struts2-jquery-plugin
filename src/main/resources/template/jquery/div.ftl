@@ -20,35 +20,13 @@
  * under the License.
  */
 -->
-<div dojoType="struts:BindDiv"
-  <#if parameters.delay?exists>
-    delay="${parameters.delay?c}"<#rt/>
+<div 
+  <#if parameters.name??> name="${parameters.name?html}"</#if>
+  <#if parameters.cssClass??> class="${parameters.cssClass?html}"</#if>
+  <#if parameters.cssStyle??> style="${parameters.cssStyle?html}"</#if>
+  <#if parameters.title??> title="${parameters.title?html}"<#rt/>
   </#if>
-  <#if parameters.updateFreq?exists>
-    updateFreq="${parameters.updateFreq?c}"<#rt/>
-  </#if>
-  <#if parameters.autoStart?exists>
-    autoStart="${parameters.autoStart?string?html}"<#rt/>
-  </#if>
-  <#if parameters.closable?exists>
-    closable="${parameters.closable?string?html}"<#rt/>
-  </#if>
-  <#if parameters.startTimerListenTopics?if_exists != "">
-    startTimerListenTopics="${parameters.startTimerListenTopics?html}"<#rt/>
-  </#if>
-  <#if parameters.stopTimerListenTopics?if_exists != "">
-    stopTimerListenTopics="${parameters.stopTimerListenTopics?html}"<#rt/>
-  </#if>
-  <#if parameters.refreshOnShow?exists>
-    refreshOnShow="${parameters.refreshOnShow?string?html}"<#rt/>
-  </#if>
-  <#if parameters.preload?exists>
-    preload="${parameters.preload?string?html}"<#rt/>
-  </#if>
-  <#if parameters.disabled?default(false)>
-    disabled="disabled"<#rt/>
-  </#if>
-  <#include "/${parameters.templateDir}/ajax/ajax-common.ftl" />
+  <#include "/${parameters.templateDir}/jquery/base.ftl" />
+  <#include "/${parameters.templateDir}/jquery/container.ftl" />
   <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
-  <#include "/${parameters.templateDir}/simple/common-attributes.ftl" />
 >

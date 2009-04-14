@@ -1,7 +1,5 @@
 package org.apache.struts2.jquery.components;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -55,11 +53,6 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
 
     protected void setStack(ValueStack stack){
     	this.stack = stack;
-    }
-
-    @SuppressWarnings("unchecked")
-	protected void setParameters(Map parameters){
-    	this.parameters = parameters;
     }
 
     @StrutsTagAttribute(name="errorText", description="The text to be displayed on load error", type="String", defaultValue="false")

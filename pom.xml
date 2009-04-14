@@ -9,13 +9,11 @@
   	<name>Struts 2 jQuery Plugin</name>
   	<url>http://code.google.com/p/struts2-jquery-plugin</url>
   	<description>This project provides a simple struts2 ajax tag library for ajax-enable struts tags using simple jsp tags</description>
-  	<!-- 
     <parent>
         <artifactId>struts2-plugins</artifactId>
         <groupId>org.apache.struts</groupId>
         <version>2.1.7-SNAPSHOT</version>
     </parent>
-   	--> 	
    	<scm>
         <connection>scm:svn:http://struts2-jquery-plugin.googlecode.com/svn/trunk/</connection>
         <developerConnection>scm:svn:https://struts2-jquery-plugin.googlecode.com/svn/trunk/</developerConnection>

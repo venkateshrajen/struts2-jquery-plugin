@@ -21,22 +21,29 @@
  */
 -->
 
+
 <#if parameters.compressed?default(true)>
-  <#assign jqueryFile="jquery-1.3.2.js">
-  <#assign jqueryUIFile="jquery-ui-1.7.1.js">
-<#else>
   <#assign jqueryFile="jquery-1.3.2.min.js">
   <#assign jqueryUIFile="jquery-ui-1.7.1.min.js">
+  <#assign jquerySubscribeFile="jquery.subscribe.1.0.min.js">
+  <#assign jqueryStrutsFile="jquery.struts2.min.js">
+<#else>
+  <#assign jqueryFile="jquery-1.3.2.js">
+  <#assign jqueryUIFile="jquery-ui-1.7.1.js">
+  <#assign jquerySubscribeFile="jquery.subscribe.1.0.js">
+  <#assign jqueryStrutsFile="jquery.struts2.js">
 </#if>
 
 <#if parameters.baseRelativePath?if_exists != "">
   <script language="JavaScript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryFile}' includeParams='none' encode='false'/>"></script>
   <script language="JavaScript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryUIFile}' includeParams='none' encode='false'/>"></script>
+  <script language="JavaScript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jquerySubscribeFile}' includeParams='none' encode='false'/>"></script>
+  <script language="JavaScript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryStrutsFile}' includeParams='none' encode='false'/>"></script>
 <#else>
   <script language="JavaScript" type="text/javascript" src="${base}/struts/jquery/${jqueryFile}"></script>
   <script language="JavaScript" type="text/javascript" src="${base}/struts/jquery/${jqueryUIFile}"></script>
+  <script language="JavaScript" type="text/javascript" src="${base}/struts/jquery/${jquerySubscribeFile}"></script>
+  <script language="JavaScript" type="text/javascript" src="${base}/struts/jquery/${jqueryStrutsFile}"></script>
 </#if>  
 
-<script language="JavaScript" src="${base}/struts/utils.js" type="text/javascript"></script>
-    
 <link rel="stylesheet" href="${base}/struts/jquery/theme/ui.all.css" type="text/css"/>

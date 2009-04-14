@@ -8,7 +8,7 @@ import org.apache.struts2.jquery.components.Container;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
-public class AbstractContainerTag extends AbstractBaseTag implements Container {
+public abstract class AbstractContainerTag extends AbstractBaseTag implements Container {
 
 	private static final long serialVersionUID = -2470372343852770832L;
 

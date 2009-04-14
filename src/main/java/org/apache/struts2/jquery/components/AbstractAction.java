@@ -1,7 +1,5 @@
 package org.apache.struts2.jquery.components;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,6 +20,8 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
 	protected String onCompleteTopics;
 	protected String onSuccessTopics;
 	protected String onErrorTopics;
+	
+    protected String elementIds;		//Form elements that should be individually serialized and sent with the input's load request
 		
 	public AbstractAction(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
 		
@@ -52,15 +52,12 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
             addParameter("onSuccessTopics", findString(onSuccessTopics));
         if (onErrorTopics != null)
             addParameter("onErrorTopics", findString(onErrorTopics));   
+        if (elementIds != null)
+            addParameter("elementIds", findString(elementIds));
     }
 
     protected void setStack(ValueStack stack){
     	this.stack = stack;
-    }
-
-    @SuppressWarnings("unchecked")
-	protected void setParameters(Map parameters){
-    	this.parameters = parameters;
     }
 
     @StrutsTagAttribute(name="href", description="The url to be use when this element is clicked", type="String", defaultValue="")
@@ -112,5 +109,11 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
 	@StrutsTagAttribute(name="onErrorTopics", description = "A comma delimited list of topics that published when the element ajax request returns an error (will override settings for a target container if provided)", type="String", defaultValue="")
 	public void setOnErrorTopics(String onErrorTopics){
 		this.onErrorTopics = onErrorTopics;
+	}
+
+	@StrutsTagAttribute(name="elementIds", description="A comma delimited list of form elements that should be individually serialized and sent with the input load request. " +
+			"Input element must have a 'name' attribute and will be serialized as <name>=<value>", type="String", defaultValue="", required=false)
+	public void setElementIds(String elementIds){
+		this.elementIds = elementIds;
 	}
 }

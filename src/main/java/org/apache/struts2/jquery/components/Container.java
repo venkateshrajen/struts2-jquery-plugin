@@ -15,7 +15,7 @@ public interface Container extends Base {
 	@StrutsTagAttribute(name="onBeforeTopics", description = "Topics that are published before a load", type="String", defaultValue="")
 	public void setOnBeforeTopics(String onBeforeTopics);
 
-	@StrutsTagAttribute(name="onCompleteTopics", description = "Topics that are published before after load is completed", type="String", defaultValue="")
+	@StrutsTagAttribute(name="onCompleteTopics", description = "Topics that are published after load is completed", type="String", defaultValue="")
 	public void setOnCompleteTopics(String onCompleteTopics);
 
 	@StrutsTagAttribute(name="onErrorTopics", description = "Topics that are published on a load error", type="String", defaultValue="")

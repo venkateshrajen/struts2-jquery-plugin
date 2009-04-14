@@ -9,7 +9,7 @@ import org.apache.struts2.views.jsp.ui.AbstractClosingTag;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
-public class AbstractBaseTag extends AbstractClosingTag implements Base {
+public abstract class AbstractBaseTag extends AbstractClosingTag implements Base {
 
 	private static final long serialVersionUID = -2470372343852770832L;
 
@@ -30,6 +30,10 @@ public class AbstractBaseTag extends AbstractClosingTag implements Base {
 	@Override
 	public Component getBean(ValueStack stack, HttpServletRequest req, HttpServletResponse res) {
 		return component;
+	}
+	
+	protected void setComponent(Component component){
+		this.component = component;
 	}
 
 	public void setHideTopics(String hideTopics) {

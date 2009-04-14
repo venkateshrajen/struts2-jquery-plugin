@@ -1,7 +1,5 @@
 package org.apache.struts2.jquery.components;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -32,16 +30,6 @@ public abstract class AbstractInteractive extends AbstractBase implements Intera
     protected void setStack(ValueStack stack){
     	this.stack = stack;
     }
-
-    @SuppressWarnings("unchecked")
-	protected void setParameters(Map parameters){
-    	this.parameters = parameters;
-    }
-
-	@Override
-	protected String getDefaultTemplate() {
-		throw new UnsupportedOperationException("InteractiveDelegate does not implement getDefaultTemplate(). Must be implemented by first-class component");
-	}
 
 	@StrutsTagAttribute(name="enableTopics", description = "A comma delimited list of topics that will enable this element", type = "String", defaultValue = "")
     public void setEnableTopics(String enableTopics) {
