@@ -1,4 +1,6 @@
 /*
+ * jquery.subscribe.1.1
+ * 
  * Implementation of publish/subcription framework for jQuery
  * Requires use of jQuery. Tested with jQuery 1.3 and above
  *
@@ -10,6 +12,17 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  *
+ *  Release Notes:
+ *  
+ *  1.1:
+ *  
+ *  Fixed unexpected behavior which can occur when a script in a embedded page (page loaded in div,tab etc.) subscribes a handler for a topic using
+ *  the jQuery subscribe ($.subscribe) or a no-id element but this subscribe plugin is not reloaded within that embedded page (for example, when
+ *  script is included in containing page) . In this case, if the embedded page is reloaded without reloading the entire page (and plugin), the
+ *  subscription could be made multiple times for the topic, which will call the handler multiple times each time the topic is published. 
+ *  Code has been added to prevent this when the subscription is made using the non-element subscribe ($.subscribe()), which assures that only one
+ *  subscription is made for a topic for a given window/frame. To prevent this from happening for an element subscription ($elem.subscribe()), make
+ *  sure that the element has an id attribute.
  */
 
 
@@ -38,7 +51,7 @@ if(!Array.indexOf){
 		 */
 		createTopic :  function(topic) {	
 		
-			if(!_subscribe_topics[topic]) {
+			if(topic && !_subscribe_topics[topic]) {
 				
 				_subscribe_topics[topic] = {};
 				_subscribe_topics[topic].objects = {};
@@ -53,7 +66,7 @@ if(!Array.indexOf){
 		 */
 		destroyTopic  :	 function(topic) {	
 		
-			if(_subscribe_topics[topic]) {
+			if(topic && _subscribe_topics[topic]) {
 				
 				for(i in _subscribe_topics[topic].objects) {
 					
@@ -93,32 +106,56 @@ if(!Array.indexOf){
 		 *            this call.
 		 *  -data- (optional) is additional data that is passed to the event handler as event.data when the topic is published
 		 *
-		 * Note: Caution about subscribing same object (without id) to topic multiple time (maybe by loading subscribe script multiple times)
-		 *       - Need to test and see if  //if(_subscribe_topics[topic].objects['__noId__'].indexOf(this) < 0)// code works
+		 * Note: Unexpected behavior can occur when a script in a embedded page (page loaded in div,tab etc.) subscribes a handler for a topic using
+		 *  the jQuery subscribe ($.subscribe) or a no-id element but this subscribe plugin is not reloaded within that embedded page (for example, when
+		 *  script is included in containing page) . In this case, if the embedded page is reloaded without reloading the entire page (and plugin), the
+		 *  subscription could be made multiple times for the topic, which will call the handler multiple times each time the topic is published. 
+		 *  Code has been added to prevent this when the subscription is made using the non-element subscribe ($.subscribe()), which assures that only one
+		 *  subscription is made for a topic for a given window/frame. To prevent this from happening for an element subscription ($elem.subscribe()), make
+		 *  sure that the element has an id attribute. 
 		 */
 		subscribe :  function(topic, handler, data) {	
 				
-			this.createTopic(topic);
-			
-			if(this.attr('id')) {
+			if(topic && handler) {
 				
-				_subscribe_topics[topic].objects[this.attr('id')] = this;
+				this.createTopic(topic);
 				
-			} else {
-				
-				if(_subscribe_topics[topic].objects['__noId__'].indexOf(this) < 0) {
+				if(this.attr('id')) {
 					
-					_subscribe_topics[topic].objects['__noId__'].push(this);
+					_subscribe_topics[topic].objects[this.attr('id')] = this;
+					
+				} else {
+										
+					//do not subscribe the same window/frame document multiple times, this causes unexpected behavior of executing embedded scripts multiple times
+					var noIdObjects = _subscribe_topics[topic].objects['__noId__'];
+					
+					if(this[0].nodeType == 9) { //if document is being bound (the case for non-element jQuery subscribing ($.subscribe)
+					
+						for ( var index in noIdObjects) {
+							
+							var noIdObject = noIdObjects[index];
+							
+							if(noIdObject[0].nodeType == 9 && this[0].defaultView.frameElement == noIdObject[0].defaultView.frameElement ) {
+								
+								return this;	
+							}
+						}
+					}
+					
+					if(_subscribe_topics[topic].objects['__noId__'].indexOf(this) < 0) {
+						
+						_subscribe_topics[topic].objects['__noId__'].push(this);
+					}
 				}
-			}
-			
-			if(typeof(handler) == 'function') {
-			
-				this.bind(topic, data, handler);
-			
-			} else if(typeof(handler) == 'string' && typeof(_subscribe_handlers[handler]) == 'function') {
 				
-				this.bind(topic, data, _subscribe_handlers[handler]);
+				if(typeof(handler) == 'function') {
+				
+					this.bind(topic, data, handler);
+				
+				} else if(typeof(handler) == 'string' && typeof(_subscribe_handlers[handler]) == 'function') {
+					
+					this.bind(topic, data, _subscribe_handlers[handler]);
+				}
 			}
 			
 			return this;
@@ -179,50 +216,54 @@ if(!Array.indexOf){
 		 */
 		publish : function(topic, data, originalEvent) {	
 		
-			this.createTopic(topic);
-			
-			//if an orginal event exists, need to modify the event object to prevent execution of all
-			//other handlers if the result of the handler is false (which calls stopPropagation())
-							
-			var subscriberStopPropagation = function(){
+			if(topic) {
 				
-				this.isImmediatePropagationStopped = function(){
-					return true;
-				};
+				this.createTopic(topic);
 				
-				(new $.Event).stopPropagation();
-				
-				if(this.originalEvent) {
+				//if an orginal event exists, need to modify the event object to prevent execution of all
+				//other handlers if the result of the handler is false (which calls stopPropagation())
+								
+				var subscriberStopPropagation = function(){
 					
-					this.originalEvent.isImmediatePropagationStopped = function(){
+					this.isImmediatePropagationStopped = function(){
 						return true;
 					};
 					
-					this.originalEvent.stopPropagation = subscriberStopPropagation;
-				}
-			}
-			
-			var event = jQuery.Event(topic);
-			$.extend(event,{originalEvent: originalEvent, stopPropagation: subscriberStopPropagation});
-							
-			for(i in _subscribe_topics[topic].objects) {
-				
-				var object = _subscribe_topics[topic].objects[i];
-				
-				if($.isArray(object)) {		// handle '__noId__' elements (if any)
-
-					if(object.length > 0) {
+					(new $.Event).stopPropagation();
 					
-						for(j in object) {
-							
-							object[j].trigger( event,data);
-						}
+					if(this.originalEvent) {
+						
+						this.originalEvent.isImmediatePropagationStopped = function(){
+							return true;
+						};
+						
+						this.originalEvent.stopPropagation = subscriberStopPropagation;
 					}
-					
-				} else {
-					
-					object.trigger( event,data);
 				}
+				
+				var event = jQuery.Event(topic);
+				$.extend(event,{originalEvent: originalEvent, stopPropagation: subscriberStopPropagation});
+								
+				for(i in _subscribe_topics[topic].objects) {
+					
+					var object = _subscribe_topics[topic].objects[i];
+					
+					if($.isArray(object)) {		// handle '__noId__' elements (if any)
+	
+						if(object.length > 0) {
+						
+							for(j in object) {
+								
+								object[j].trigger( event,data);
+							}
+						}
+						
+					} else {
+						
+						object.trigger( event,data);
+					}
+				}
+			
 			}
 			
 			return this;
@@ -243,12 +284,15 @@ if(!Array.indexOf){
 		 */
 		publishOnEvent : function(event, topic, data) {	
 		
-			this.createTopic(topic);
-			
-			this.bind(event, data, function (e) {
+			if(event && topic) {
 				
-				$(this).publish(topic, e.data, e);
-			});
+				this.createTopic(topic);
+				
+				this.bind(event, data, function (e) {
+					
+					$(this).publish(topic, e.data, e);
+				});
+			}
 			
 			return this;
 		}
