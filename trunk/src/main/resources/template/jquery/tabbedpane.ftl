@@ -22,7 +22,7 @@
 -->
 <div class="_struts2_jquery_class_tabbedpane"
 <#if parameters.isCache??>
- isCache="${parameters.isCache?html}"<#rt/>
+ isCache="${parameters.isCache?string?html}"<#rt/>
 </#if>
 <#if parameters.selected??>
  selected="${parameters.selected?html}"<#rt/>

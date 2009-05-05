@@ -37,10 +37,10 @@
  title="${parameters.title?html}"<#rt/>
 </#if>
 <#if parameters.isSelected??>
- isSelected="${parameters.isSelected?html}"<#rt/>
+ isSelected="${parameters.isSelected?string?html}"<#rt/>
 </#if>
 <#if parameters.isDisabled??>
- isDisabled="${parameters.isDisabled?html}"<#rt/>
+ isDisabled="${parameters.isDisabled?string?html}"<#rt/>
 </#if>
 <#include "/${parameters.templateDir}/jquery/base.ftl" />
 <#include "/${parameters.templateDir}/jquery/input.ftl" />

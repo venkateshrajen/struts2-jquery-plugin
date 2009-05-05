@@ -36,6 +36,7 @@ public class JQueryModels {
     protected SubmitModel submit;
     protected TabbedPaneModel tabbedpane;
     protected TabModel tab;
+    protected DialogModel dialog;
    
     private ValueStack stack;
     private HttpServletRequest req;
@@ -106,6 +107,14 @@ public class JQueryModels {
         }
 
         return tab;
+    }
+
+    public DialogModel getDialog() {
+        if (dialog == null) {
+        	dialog = new DialogModel(stack, req, res);
+        }
+
+        return dialog;
     }
     
 }

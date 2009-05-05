@@ -75,13 +75,13 @@ public class SelectTag extends AbstractContainerTag implements Input {
         this.listValue = listValue;
     }
 	
-	//need to apply both to continer base calss and input delegate class
+	//need to apply both to container base class and input delegate class
 	public void setReloadTopics(String reloadTopics) {
 		super.setReloadTopics(reloadTopics);
 		inputDelegate.setReloadTopics(reloadTopics);
 	}
 
-	//need to apply both to continer base calss and input delegate class
+	//need to apply both to container base class and input delegate class
 	public void setSrc(String src) {
 		super.setSrc(src);
 		inputDelegate.setSrc(src);
