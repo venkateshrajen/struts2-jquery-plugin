@@ -22,35 +22,35 @@
 -->
 
   <#if parameters.targets?exists>
-    targets="${parameters.targets?string?html}"<#rt/>
+    targets="${parameters.targets?html}"<#rt/>
   </#if>
   <#if parameters.href?exists>
-    href="${parameters.href?string?html}"<#rt/>
+    href="${parameters.href?html}"<#rt/>
   </#if>
   <#if parameters.formIds?exists>
-    formIds="${parameters.formIds?string?html}"<#rt/>
+    formIds="${parameters.formIds?html}"<#rt/>
   </#if>
   <#if parameters.validate?exists>
     validate="${parameters.validate?string?html}"<#rt/>
   </#if>
   <#if parameters.onClickTopics?exists>
-    onClickTopics="${parameters.onClickTopics?string?html}"<#rt/>
+    onClickTopics="${parameters.onClickTopics?html}"<#rt/>
   </#if>
   <#if parameters.indicatorId?exists>
-    indicatorId="${parameters.indicatorId?string?html}"<#rt/>
+    indicatorId="${parameters.indicatorId?html}"<#rt/>
   </#if>
   <#if parameters.loadingText?exists>
-    loadingText="${parameters.loadingText?string?html}"<#rt/>
+    loadingText="${parameters.loadingText?html}"<#rt/>
   </#if>
   <#if parameters.onCompleteTopics?exists>
-    onCompleteTopics="${parameters.onCompleteTopics?string?html}"<#rt/>
+    onCompleteTopics="${parameters.onCompleteTopics?html}"<#rt/>
   </#if>
   <#if parameters.onSuccessTopics?exists>
-    onSuccessTopics="${parameters.onSuccessTopics?string?html}"<#rt/>
+    onSuccessTopics="${parameters.onSuccessTopics?html}"<#rt/>
   </#if>
   <#if parameters.onErrorTopics?exists>
-    onErrorTopics="${parameters.onErrorTopics?string?html}"<#rt/>
+    onErrorTopics="${parameters.onErrorTopics?html}"<#rt/>
   </#if>
   <#if parameters.elementIds?exists>
-    elementIds="${parameters.elementIds?string?html}"<#rt/>
+    elementIds="${parameters.elementIds?html}"<#rt/>
   </#if>

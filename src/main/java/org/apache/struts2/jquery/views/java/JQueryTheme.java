@@ -40,6 +40,9 @@ public class JQueryTheme extends DefaultTheme {
             put("form", new FactoryList(FormHandler.class, ScriptingEventsHandler.class, BaseHandler.class, XHTMLTagSerializer.class));
             put("form-close", new FactoryList(FormHandler.CloseHandler.class, JQueryTagSerializer.class));
             
+            put("dialog", new FactoryList(DialogHandler.class, ScriptingEventsHandler.class, ContainerHandler.class, InteractiveHandler.class, BaseHandler.class, XHTMLTagSerializer.class));
+            put("dialog-close", new FactoryList(DialogHandler.CloseHandler.class, JQueryTagSerializer.class));
+            
         }});
         
         setName("jquery");

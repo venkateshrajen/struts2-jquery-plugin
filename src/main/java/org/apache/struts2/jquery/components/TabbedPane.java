@@ -14,7 +14,7 @@ import com.opensymphony.xwork2.util.ValueStack;
 @StrutsTag(name="tabbedPane", tldTagClass="org.apache.struts2.jquery.views.jsp.ui.TabbedPaneTag", 
 		description="Renders a tabbed pane in which the tabs contents are loaded via remote AJAX",
 		allowDynamicAttributes=true)
-public class TabbedPane extends AbstractBase implements Base {
+public class TabbedPane extends AbstractBase {
 
     public static final String TEMPLATE = "tabbedpane";
     public static final String TEMPLATE_CLOSE = "tabbedpane-close";

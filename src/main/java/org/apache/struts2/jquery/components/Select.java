@@ -132,7 +132,7 @@ public class Select extends AbstractContainer implements Input {
     	this.headerKey = headerKey;
 	}
 
-    @StrutsTagAttribute(name="focusTopics", description="Value for list header option. Must not be empty", type="String", defaultValue="")
+    @StrutsTagAttribute(name="headerValue", description="Value for list header option. Must not be empty", type="String", defaultValue="")
 	public void setHeaderValue(String headerValue) {
 		this.headerValue = headerValue;
 	}
@@ -151,6 +151,22 @@ public class Select extends AbstractContainer implements Input {
 	public void setReloadTopics(String reloadTopics) {
 		this.reloadTopics = reloadTopics;
 	}
+
+    @StrutsTagAttribute(description="Iterable source to populate from. If the list is a Map (key, value), the Map key will become the option 'value'" +
+                " parameter and the Map value will become the option body. This should not be used together with the 'src' attribute", required=false)
+    public void setList(Object list) {
+        this.list = list;
+    }
+
+    @StrutsTagAttribute(description=" Property of list objects to get field value from", required=false)
+    public void setListKey(String listKey) {
+        this.listKey = listKey;
+    }
+
+    @StrutsTagAttribute(description="Property of list objects to get field content from", required=false)
+    public void setListValue(String listValue) {
+        this.listValue = listValue;
+    }
 
 	@StrutsTagAttribute(name="onBlurTopics", description = "A comma delimited list of topics that published when the element value is changed", type="String", defaultValue="")
 	public void setOnBlurTopics(String onBlurTopics) {
@@ -186,22 +202,5 @@ public class Select extends AbstractContainer implements Input {
 	@StrutsTagAttribute(name="disableTopics", description = "A comma delimited list of topics that will disable this element", type = "String", defaultValue = "")
     public void setDisableTopics(String disableTopics) {
 		inputDelegate.setDisableTopics(disableTopics);
-	}
-
-    @StrutsTagAttribute(description="Iterable source to populate from. If the list is a Map (key, value), the Map key will become the option 'value'" +
-                " parameter and the Map value will become the option body. This should not be used together with the 'src' attribute", required=false)
-    public void setList(Object list) {
-        this.list = list;
-    }
-
-    @StrutsTagAttribute(description=" Property of list objects to get field value from", required=false)
-    public void setListKey(String listKey) {
-        this.listKey = listKey;
-    }
-
-    @StrutsTagAttribute(description="Property of list objects to get field content from", required=false)
-    public void setListValue(String listValue) {
-        this.listValue = listValue;
-    }
-	
+	}	
 }

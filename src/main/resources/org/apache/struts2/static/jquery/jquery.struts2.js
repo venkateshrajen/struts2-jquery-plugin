@@ -294,6 +294,41 @@
 		}
 	});
 		
+
+	/**
+	 * Dialog Tag logic
+	 */
+	
+	//Register handler to open a dialog
+	$.subscribeHandler('_struts2_jquery_dialog_open', function(event, data) {
+		
+		$(this).dialog('open');
+	});
+
+	//Register handler to cloadse a dialog
+	$.subscribeHandler('_struts2_jquery_dialog_close', function(event, data) {
+		
+		$(this).dialog('close');
+	});
+
+	//Register handler to remove/destroy a dialog
+	$.subscribeHandler('_struts2_jquery_dialog_destroy', function(event, data) {
+		
+		$(this).dialog('destroy');
+	});
+
+	//Register handler to enable a dialog
+	$.subscribeHandler('_struts2_jquery_dialog_enable', function(event, data) {
+		
+		$(this).dialog('enable');
+	});
+
+	//Register handler to disable a dialog
+	$.subscribeHandler('_struts2_jquery_dialog_disable', function(event, data) {
+		
+		$(this).dialog('disable');
+	});
+		
 	
 	/**
 	 * Tabbed Pane Tag logic
@@ -542,9 +577,14 @@
 				
 				var tag = el.tagName.toLowerCase();
 				
-				if(tag == "div" && el.className.indexOf("_struts2_jquery_class_tabbedpane") >= 0) {
-					tag = "tabbedpane";
-				}
+				if(tag == "div") {
+			
+					if(el.className.indexOf("_struts2_jquery_class_tabbedpane") >= 0) {
+						tag = "tabbedpane";
+					} else if(el.className.indexOf("_struts2_jquery_class_dialog") >= 0) {
+						tag = "dialog";
+					}
+				} 
 				
 				this[tag]($el, options);
 			}
@@ -789,6 +829,106 @@
 
 			$elem.attr('type','button');  //remove - covered by SubmitHandler?
 			$elem.removeAttr('name');
+		},
+		
+		dialog: function($elem, options){
+			
+			if(options.hidetopics) {			  
+				var topics = options.hidetopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					$elem.subscribe(topics[i],'_struts2_jquery_dialog_close',options);
+				}
+			}
+
+			if(options.showtopics) {			  
+				var topics = options.showtopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					$elem.subscribe(topics[i],'_struts2_jquery_dialog_open',options);
+				}
+			}
+
+			if(options.removetopics) {			  
+				var topics = options.removetopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					$elem.subscribe(topics[i],'_struts2_jquery_dialog_destroy',options);
+				}
+			}
+			
+			if(options.enabletopics) {			  
+				var topics = options.enabletopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					$elem.subscribe(topics[i],'_struts2_jquery_dialog_enable',options);
+				}
+			}
+
+			if(options.disabletopics) {			  
+				var topics = options.disabletopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					$elem.subscribe(topics[i],'_struts2_jquery_dialog_disable',options);
+				}
+			}
+			
+			var parameters = {};
+			parameters.autoOpen = false;
+			parameters.modal = (options.modal ? options.modal : false);
+			parameters.resizable = (options.resizable ? options.resizable : true);
+			if(options.height) { parameters.height = options.height; }
+			if(options.width) { parameters.height = options.width; }
+			if(options.position) { parameters.position = options.position; }
+			
+			if(options.title) { $elem.attr("title", options.title); }
+			if(options.data) {  $elem.data = options.data; }	
+			
+			if(options.buttons) {
+				
+				parameters.buttons = {};
+				
+				var buttontopics;
+				if(options.buttontopics) {
+					buttontopics = options.buttontopics.split(',');
+				} else {
+					buttontopics = [];
+				}
+				
+				var $dialog = $elem;  //used for closure
+				$dialog.data('buttonTopics',{});  //used for closure
+								
+				var buttons = options.buttons.split(',');
+				for ( var i = 0; i < buttons.length; i++) {
+					var button = buttons[i];
+					var topic = buttontopics[i];
+					if(buttontopics.length >= i+1) {
+						$dialog.data('buttonTopics')[button] = topic;  
+						parameters.buttons[button] = function(event) { 
+							$elem.publish($dialog.data('buttonTopics')[event.target.innerHTML], $dialog) 
+						};
+					} else {
+						parameters.buttons[button] = function(event) {};
+					}
+				}
+			}
+
+			$elem.css("display", "none");
+			
+			if(options.src) {
+				
+				$elem.bind('dialogopen', function(event, ui) {
+
+					var loadHandlerName = '_struts2_jquery_container_load';
+					
+					var $dialogContent = $(".ui-dialog-content",$elem);
+					$dialogContent.bind('struts2_jquery_topic_load', null, _subscribe_handlers[loadHandlerName]);
+					$dialogContent.trigger('struts2_jquery_topic_load', options);
+					
+					//$(".ui-dialog-content",$elem).load(options.src);
+				});
+			}			
+				
+			$elem.dialog(parameters);
+			
+			//move id from dialog to dialog contents
+			$(".ui-dialog-content",$elem).attr("id",$elem.attr("id"));
+			$elem.removeAttr("id");
 		},
 		
 		tabbedpane: function($elem, options){
