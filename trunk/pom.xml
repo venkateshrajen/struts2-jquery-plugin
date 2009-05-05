@@ -35,8 +35,8 @@
 		        <version>1.0.15</version>
 		        <configuration>
 		            <A>
-		                uri=/struts-jquery-tags,tlibVersion=2.3,jspVersion=2.0,shortName=sj,displayName="Struts jQuery Tags",
-		                outFile=${basedir}/target/classes/META-INF/struts-jquery-tags.tld,
+		                uri=/struts2-jquery-tags,tlibVersion=2.3,jspVersion=2.0,shortName=sj,displayName="Struts jQuery Tags",
+		                outFile=${basedir}/target/classes/META-INF/struts2-jquery-tags.tld,
 		                description="Struts AJAX tags based on jQuery.",
 		                outTemplatesDir=${basedir}/src/site/resources/tags/jquery
 		            </A>
