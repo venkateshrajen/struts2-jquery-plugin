@@ -21,6 +21,9 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
     protected String loadingText;			//Text to be displayed during load (will be shown if any provided)
     protected String errorText;				//text to be displayed on load error
     protected String indicatorId;			//Id of element that will be displayed during execution of this element's action and hidden afterwards
+
+    protected String formIds;			//Ids of forms that should be serialized and submitted when this container is loaded
+    protected String elementIds;		//Ids of form elements that should be serialized and submitted when this div is loaded
 		
 	public AbstractContainer(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
 		
@@ -49,6 +52,10 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
             addParameter("errorText", findString(errorText));
         if (indicatorId != null)
             addParameter("indicatorId", findString(indicatorId));
+        if (formIds != null)
+            addParameter("formIds", findString(formIds));
+        if (elementIds != null)
+            addParameter("elementIds", findString(elementIds));
     }
 
     protected void setStack(ValueStack stack){
@@ -103,5 +110,16 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
 	@StrutsTagAttribute(name="indicatorId", description="Id of element that will be displayed during execution of this element's action and hidden afterwards", type="String", defaultValue="")
 	public void setIndicatorId(String indicatorId) {
 		this.indicatorId = indicatorId;
+	}
+
+    @StrutsTagAttribute(name="formIds", description="Comma delimited list of form ids for which to serialize all fields during contianer load (if multiple forms have overlapping element names, it is indeterminate which will be used)", type="String", defaultValue="")
+	public void setFormIds(String formIds) {
+		this.formIds = formIds;
+	}
+
+	@StrutsTagAttribute(name="elementIds", description="A comma delimited list of form elements that should be individually serialized and sent with the container's load request. " +
+			"Input element must have a 'name' attribute and will be serialized as <name>=<value>", type="String", defaultValue="", required=false)
+	public void setElementIds(String elementIds){
+		this.elementIds = elementIds;
 	}
 }

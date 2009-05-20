@@ -123,9 +123,12 @@
             <artifactId>struts-annotations</artifactId>
             <version>1.0.4</version>
             <optional>true</optional>
-        </dependency>
-        
+        </dependency>        
 	</dependencies>
+	<dependencyManagement>
+		<dependencies>
+		</dependencies>
+	</dependencyManagement>
 	
 	<!-- 
 	<reporting>

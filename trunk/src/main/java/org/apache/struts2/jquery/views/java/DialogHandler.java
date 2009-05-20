@@ -25,6 +25,7 @@ public class DialogHandler extends AbstractTagHandler implements TagGenerator {
         attrs.addIfExists("position", params.get("position"));
         attrs.addIfExists("data", params.get("data"));
         attrs.add("class", "_struts2_jquery_class_dialog");
+        attrs.add("style", "display: none");
 
         super.start("div", attrs);
     }

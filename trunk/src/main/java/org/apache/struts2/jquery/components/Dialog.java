@@ -71,7 +71,7 @@ public class Dialog extends AbstractContainer implements Interactive {
         if (position != null)
             addParameter("position", findString(position));
         if (data != null)
-            addParameter("position", findString(data));
+            addParameter("data", findString(data));
     }
         
 	@Override

@@ -28,6 +28,8 @@ public class ContainerHandler extends AbstractTagHandler {
         a.addIfExists("errorText", params.get("errorText"));
         a.addIfExists("src", params.get("src"));
         a.addIfExists("reloadTopics", params.get("reloadTopics"));
+        a.addIfExists("formIds", params.get("formIds"));
+        a.addIfExists("elementIds", params.get("elementIds"));
     	
         super.start(name, a);
     }

@@ -20,7 +20,7 @@
  * under the License.
  */
 -->
-<div class="_struts2_jquery_class_dialog"
+<div class="_struts2_jquery_class_dialog" style="display:none" 
 <#if parameters.src??>
  src="${parameters.src?html}"<#rt/>
 </#if>

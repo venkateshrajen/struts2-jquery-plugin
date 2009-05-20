@@ -42,15 +42,23 @@ public class TabTag extends AbstractInputTag {
 	public int doEndTag() throws JspException {
 		
 		Tag tabbedPaneTag = this.getParent();
-		
-		if(!(tabbedPaneTag instanceof TabbedPaneTag)) {
+
+		while(tabbedPaneTag != null) {
+
+			if((tabbedPaneTag instanceof TabbedPaneTag)) {
+				
+				((TabbedPaneTag)tabbedPaneTag).addTab((Tab)component);
 			
-			throw new JspTagException("Tab tag must be inside TabbedPane Tag");
+				return super.doEndTag();
+			
+			} else {
+				
+				tabbedPaneTag = tabbedPaneTag.getParent();
+			}
 		}
 		
-		((TabbedPaneTag)tabbedPaneTag).addTab((Tab)component);
-		
-		return super.doEndTag();
+		throw new JspTagException("Tab tag must be inside TabbedPane Tag");
+	
 	}
 
 	public void setIsSelected(String isSelected) {

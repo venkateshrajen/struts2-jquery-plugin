@@ -26,7 +26,7 @@ public class DialogTag extends AbstractContainerTag implements Interactive {
 	protected String width;					//The width of the dialog
 	protected String position;				//The starting position of the dialog. Possible values: 'center', 'left', 'right', 'top', 'bottom', or an array containing a coordinate pair (in pixel offset from top left of viewport) or the possible string values (e.g. ['right','top'] for top right corner)
 	protected String data;					//Additional data (in the form of "key1=value1,key2=value2,..." to be provided to the dialog for use in button click topic handlers
-	
+
 	public DialogTag() {
 		super();
 	}
@@ -55,8 +55,7 @@ public class DialogTag extends AbstractContainerTag implements Interactive {
         dialog.setHeight(height);
         dialog.setWidth(width);
         dialog.setPosition(position);
-        dialog.setData(data);
-        
+        dialog.setData(data);        
     }
 
 	public void setDisableTopics(String disableTopics) {

@@ -116,7 +116,7 @@ if(!Array.indexOf){
 		 */
 		subscribe :  function(topic, handler, data) {	
 				
-			if(topic && handler) {
+			if(this[0] && topic && handler) {
 				
 				this.createTopic(topic);
 				

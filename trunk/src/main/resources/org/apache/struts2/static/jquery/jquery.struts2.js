@@ -703,7 +703,7 @@
 				}
 			}	
 			
-	    	var actionTopic = '_struts2_jquery_topic_' + options.id;
+	    	var actionTopic = '_struts2_jquery_action_topic_' + options.id;
 	    	var href = options.href;
 
     		//subscribe all targets to this action's custom execute topic
@@ -870,11 +870,12 @@
 			
 			var parameters = {};
 			parameters.autoOpen = false;
-			parameters.modal = (options.modal ? options.modal : false);
-			parameters.resizable = (options.resizable ? options.resizable : true);
-			if(options.height) { parameters.height = options.height; }
-			if(options.width) { parameters.height = options.width; }
-			if(options.position) { parameters.position = options.position; }
+			parameters.modal = eval(options.modal ? options.modal : false);
+			parameters.resizable = eval(options.resizable ? options.resizable : true);
+			parameters.draggable = eval(options.draggable ? options.draggable : true);
+			if(options.height) { parameters.height = eval(options.height); }
+			if(options.width) { parameters.width = eval(options.width); }
+			if(options.position) { parameters.position = eval(options.position); }
 			
 			if(options.title) { $elem.attr("title", options.title); }
 			if(options.data) {  $elem.data = options.data; }	
@@ -923,12 +924,9 @@
 					//$(".ui-dialog-content",$elem).load(options.src);
 				});
 			}			
-				
+
+			//note id is set on dialog contents
 			$elem.dialog(parameters);
-			
-			//move id from dialog to dialog contents
-			$(".ui-dialog-content",$elem).attr("id",$elem.attr("id"));
-			$elem.removeAttr("id");
 		},
 		
 		tabbedpane: function($elem, options){
