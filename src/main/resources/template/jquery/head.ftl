@@ -25,12 +25,12 @@
 <#if parameters.compressed?default(true)>
   <#assign jqueryFile="jquery-1.3.2.min.js">
   <#assign jqueryUIFile="jquery-ui-1.7.1.min.js">
-  <#assign jquerySubscribeFile="jquery.subscribe.1.0.min.js">
+  <#assign jquerySubscribeFile="jquery.subscribe.1.1.min.js">
   <#assign jqueryStrutsFile="jquery.struts2.min.js">
 <#else>
   <#assign jqueryFile="jquery-1.3.2.js">
   <#assign jqueryUIFile="jquery-ui-1.7.1.js">
-  <#assign jquerySubscribeFile="jquery.subscribe.1.0.js">
+  <#assign jquerySubscribeFile="jquery.subscribe.1.1.js">
   <#assign jqueryStrutsFile="jquery.struts2.js">
 </#if>
 

@@ -50,3 +50,9 @@
   <#if parameters.reloadTopics?exists>
     reloadTopics="${parameters.reloadTopics?string?html}"<#rt/>
   </#if>
+  <#if parameters.formIds?exists>
+    formIds="${parameters.formIds?string?html}"<#rt/>
+  </#if>
+  <#if parameters.elementIds?exists>
+    elementIds="${parameters.elementIds?string?html}"<#rt/>
+  </#if>

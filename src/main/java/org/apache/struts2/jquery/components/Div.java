@@ -14,8 +14,7 @@ public class Div extends AbstractContainer {
 
     public static final String TEMPLATE = "div";
     public static final String TEMPLATE_CLOSE = "div-close";
-    
-	
+    	
     public Div(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
     }

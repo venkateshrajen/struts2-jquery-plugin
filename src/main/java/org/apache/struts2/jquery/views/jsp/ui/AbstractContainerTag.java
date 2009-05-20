@@ -24,6 +24,9 @@ public abstract class AbstractContainerTag extends AbstractBaseTag implements Co
     protected String loadingText;			//Text to be displayed during load (will be shown if any provided)
     protected String errorText;				//text to be displayed on load error
     protected String indicatorId;			//Id of element that will be displayed during execution of this element's action and hidden afterwards
+    protected String formIds;				//Ids of forms that should be serialized and submitted when this container is loaded
+    protected String elementIds;			//Ids of form elements that should be serialized and submitted when this div is loaded
+	
 	
 	public AbstractContainerTag() {
 		super();
@@ -45,7 +48,8 @@ public abstract class AbstractContainerTag extends AbstractBaseTag implements Co
         container.setLoadingText(loadingText);
         container.setErrorText(errorText);
         container.setIndicatorId(indicatorId);
-        
+        container.setElementIds(elementIds);
+        container.setFormIds(formIds);
     }
 	
 	@Override
@@ -89,6 +93,14 @@ public abstract class AbstractContainerTag extends AbstractBaseTag implements Co
 
 	public void setIndicatorId(String indicatorId) {
 		this.indicatorId = indicatorId;
+	}
+
+	public void setFormIds(String formIds) {
+		this.formIds = formIds;
+	}
+
+	public void setElementIds(String elementIds) {
+		this.elementIds = elementIds;
 	}
 	
 }

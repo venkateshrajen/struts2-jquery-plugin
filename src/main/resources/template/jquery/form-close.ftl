@@ -20,5 +20,5 @@
  * under the License.
  */
 -->
-</div>
+</form>
 <#include "/${parameters.templateDir}/jquery/jquery-bind.ftl" />

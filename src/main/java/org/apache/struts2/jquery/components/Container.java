@@ -37,4 +37,10 @@ public interface Container extends Base {
 	@StrutsTagAttribute(name="indicatorId", description="Id of element that will be displayed during loading and hidden afterwards", type="String", defaultValue="")
     public void setIndicatorId(String indicatorId);
 
+    @StrutsTagAttribute(name="formIds", description="Comma delimited list of form ids for which to serialize all fields during contianer load (if multiple forms have overlapping element names, it is indeterminate which will be used)", type="String", defaultValue="")
+	public void setFormIds(String formIds);
+
+	@StrutsTagAttribute(name="elementIds", description="A comma delimited list of form elements that should be individually serialized and sent with the container's load request. " +
+			"Input element must have a 'name' attribute and will be serialized as <name>=<value>", type="String", defaultValue="", required=false)
+	public void setElementIds(String elementIds);
 }
