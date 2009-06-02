@@ -270,18 +270,30 @@
 			
 		    //serialize forms
 			var formIds = options.formids;
+			var serializeData;
 			if(formIds) {
-				
-				var formData;
-						
+										
 				var forms = formIds.split(',');  
 				for ( var i = 0; i < forms.length; i++) {
-					formData = (formData ? "&" : "") + $("#" + forms[i]).serialize();
+					serializeData = (serializeData ? "&" : "") + $("#" + forms[i]).serialize();
 				}
-				
-				$.extend(options,{data: formData});
 			}    
-					
+				
+			var elementIds = options.elementids;
+			if(elementIds) {
+						
+				var elements = elementIds.split(',');
+				for ( var i = 0; i < elements.length; i++) {
+					var element = $('#' + elements[i])[0];
+					if(element && element.name){
+						serializeData = (serializeData ? (serializeData + "&") : "") + element.name + "=" + element.value;
+						//serializeData[element.name] = element.value;
+					}
+				}
+			}     	
+			$.extend(options,{data: serializeData});	
+
+			
 			//execute request using ajax
 			if(options.src) {
 				
@@ -711,9 +723,9 @@
 	    		
 	    		//target subscription needs to be done after document load in case element exists in the dom AFTER the current action object 
 	    		$(function() {
-					var topics = options.targets.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						var target = topics[i];
+					var targets = options.targets.split(',');
+					for ( var i = 0; i < targets.length; i++) {
+						var target = targets[i];
 						if('#tab' == target) {
 							$elem.closest('.ui-tabs-panel').subscribe(actionTopic, containerLoadHandlerName, options);
 			    		} else {
