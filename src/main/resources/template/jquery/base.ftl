@@ -32,8 +32,8 @@
   <#if parameters.removeTopics?exists>
     removeTopics="${parameters.removeTopics?string?html}"<#rt/>
   </#if>
-  <#if parameters.class?exists>
-    class="${parameters.class?string?html} _struts2_jquery_bound"<#rt/>
+  <#if parameters.cssClass?exists>
+    class="${parameters.cssClass?string?html} _struts2_jquery_bound"<#rt/>
   <#else>
-  	 class="_struts2_jquery_bound";
+  	 class="_struts2_jquery_bound"<#rt/>
   </#if>

@@ -788,6 +788,8 @@
 			
 			this.base($elem, options);
 
+	    	if(options.validate) { options.enableJSONValidation = 'true'; }
+	    	
 			//bind submit event to onSubmit topics
 			if(options.onsubmittopics) {  
 				var topics = options.onsubmittopics.split(',');
