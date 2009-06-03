@@ -7,10 +7,11 @@ The struts2-jquery-plugin is a plugin providing first-class support for AJAX to 
 
   * Struts2
     * tags
-    * templates
+    * templates (currently freemarker & java-templates)
 
   * jQuery
     * core 
+    * UI
     * publish/subscribe
     * widgets
 
