@@ -40,5 +40,5 @@ The following features, tags & widgets are currently under implementation:
 
 
 === Features ===
-  * *publish/subcribe* - The implementation provides, uses and makes available a publish/subscribe model that allows for very decoupled event triggering using topics.
+  * *publish/subcribe* - The implementation provides, uses and makes available a publish/subscribe framework (jquery-subscribe) that allows for completely decoupled event triggering/handling using topics.
   * *extensibility* - TDB (jQuery options, other extensibility points?)
