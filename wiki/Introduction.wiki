@@ -15,7 +15,7 @@ The framework will focus on providing the most useful ajax features for the most
 To use the struts2-jquery tags
 
   # Include the [http://code.google.com/p/struts2-jquery-plugin/source/browse/ struts2-jquery-plugin.jar] in your application classpath
-  # Include the struts jquery tag library on your jsp page (<font color='#6c6c6c'><%@ taglib prefix="sj" uri="/struts-jquery-tags" %></font>)
+  # Include the struts jquery tag library on your jsp page (<font color='#6c6c6c'><%@ taglib prefix="sj" uri="/struts2-jquery-tags" %></font>)
   # Include the <sj:head> tag in the head of your jsp page
   # Use the ajax enable struts2 tags <sj:xxxx> tags.
 
@@ -23,19 +23,20 @@ To use the struts2-jquery tags
 The following features, tags & widgets are currently under implementation:
 
 === Tags ===
-  * *[head]* - _Required_ tag included in document head that addds required framework dependencies
+  * *[head]* - _Required_ tag included in document head that adds required framework dependencies
   * *[div]* - Allowing dynamically loading content into any div
   * *[anchor]* - Provides links for form submission and remote content loading using ajax. Integrated with the *div* tag as remote content containers
   * *[submit]* - Provides buttons for form submission and remote content loading using ajax<br/> Integrated with the *div* tag as remote content containers
-  * *[bind]* - Generic binding tag to add standard ajax functionality to a variety of components
+  * *[form]* - A form tag that can submit/load/validate using AJAX
+  * *[select]* - A select tag which can load content dynamically using AJAX and integrates with other sj tags using subscribe/publish events
 
 === Widgets ===
-  * *[tabbedPane]* - A tabbed pane widget that allows for remote and dynamic loading, reloading, selecting etc. of tabs
-  * *[datepicker]* - TBD
-  * *[autocomplete]* - (awaiting inclusion in jquery-ui)
-  * *[dialog]* - TBD
+  * *[tabbedPane]/[tab]* - A tabbed pane widget that allows for remote and dynamic loading, reloading, selecting etc. of tabs
+  * *[dialog]* - An integrated dialog widget that can contain dynamically loaded content and interact with other (incl main page) components
   * *[progress bar]* - TBD
   * *[ajax upload]* - TBD
+  * *[autocomplete]* - TBD (awaiting inclusion in jquery-ui)
+  * *[datepicker]* - TBD (hoping to implement multi-calendar date-picker) 
 
 
 === Features ===
