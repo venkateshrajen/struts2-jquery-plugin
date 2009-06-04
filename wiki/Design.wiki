@@ -1,5 +1,5 @@
 #summary This is a page on the architecture of the struts2-jquery plugin
-#labels Phase-Design,Featured
+#labels Phase-Design
 
 = Overview =
 
