@@ -14,7 +14,7 @@
  *
  *  Release Notes:
  *  
- *  1.1:
+ *  version 1.1:
  *  
  *  Fixed unexpected behavior which can occur when a script in a embedded page (page loaded in div,tab etc.) subscribes a handler for a topic using
  *  the jQuery subscribe ($.subscribe) or a no-id element but this subscribe plugin is not reloaded within that embedded page (for example, when
@@ -39,10 +39,10 @@ if(!Array.indexOf){
 }
 
 (function($){
-	
+
 	_subscribe_topics = {};
 	_subscribe_handlers = {}; 
-		
+	
 	$.fn.extend({
 		
 		/**

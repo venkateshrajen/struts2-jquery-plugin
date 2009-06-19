@@ -20,7 +20,7 @@
  * under the License.
  */
 -->
-<button type="submit"
+<button type="button"
   <#if parameters.name??>
 	 name="${parameters.name?html}"<#rt/>
 	</#if>

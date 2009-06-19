@@ -72,8 +72,10 @@
 		}
 		
 		$.extend(options,event.data);
-		$.extend(options,data);
-
+		if(data && !data.id) { //we don;t want to merge 'options; when passed an element as the data (such as when published from an onsuccesstopic)
+			$.extend(options,data);
+		}
+		
 		//Show indicator element (if any)
 		if(options) {
 
@@ -91,7 +93,7 @@
 			}
 			
 			if(options.onbeforetopics) {  
-				var topics = onAlwaysTopics.split(',');
+				var topics = options.onbeforetopics.split(',');
 				for ( var i = 0; i < topics.length; i++) {
 					container.publish(topics[i], container);
 				}
@@ -348,37 +350,37 @@
 	
 	//Register handler to reload a tab
 	$.subscribeHandler('_struts2_jquery_reloadTab',  function(event, data) {
-		$(this).tabs('load', event.data);
+		$(this).closest("._struts2_jquery_class_tabbedpane").tabs('load', event.data);
 	});
 	
 	//Register handler to select a tab
 	$.subscribeHandler('_struts2_jquery_selectTab',  function(event, data) {
-		$(this).tabs('select', event.data);
+		$(this).closest("._struts2_jquery_class_tabbedpane").tabs('select', event.data);
 	});
 	
 	//Register handler to disable a tab
 	$.subscribeHandler('_struts2_jquery_disableTab',  function(event, data) {
-		$(this).tabs('disable', event.data);
+		$(this).closest("._struts2_jquery_class_tabbedpane").tabs('disable', event.data);
 	});
 	
 	//Register handler to enable a tab
 	$.subscribeHandler('_struts2_jquery_enableTab',  function(event, data) {
-		$(this).tabs('enable', event.data);
+		$(this).closest("._struts2_jquery_class_tabbedpane").tabs('enable', event.data);
 	});
 	
 	//Register handler to remove a tab
 	$.subscribeHandler('_struts2_jquery_removeTab',  function(event, data) {
-		$(this).tabs('remove', event.data);
+		$(this).closest("._struts2_jquery_class_tabbedpane").tabs('remove', event.data);
 	});
 	
 	//Register handler to show a tab
 	$.subscribeHandler('_struts2_jquery_showTab',  function(event, data) {
-		$(this).tabs('show', event.data);
+		$(this).closest("._struts2_jquery_class_tabbedpane").tabs('show', event.data);
 	});
 	
 	//Register handler to hide a tab
 	$.subscribeHandler('_struts2_jquery_hideTab', function(event, data) {
-		$(this).tabs('hide', event.data);
+		$(this).closest("._struts2_jquery_class_tabbedpane").tabs('hide', event.data);
 	});
 
 	/**
@@ -574,6 +576,13 @@
 	 */
 	_struts2_jquery = {
 			
+		//pre-binding function of the type function(element){}. called before binding the element
+		// returning false will prevent the binding of this element
+		preBind: null,
+		
+		//post-binding function of the type function(element){}. called before binding the element
+		postBind: null,
+			
 		bind: function(el) {
 			
 			if(el) {
@@ -589,6 +598,11 @@
 				
 				var tag = el.tagName.toLowerCase();
 				
+				//extension point to allow custom pre-binding processing
+				if(_struts2_jquery.preBind && (typeof(_struts2_jquery.preBind) == "function") && _struts2_jquery.preBind(el) == false) {
+					return;
+				}
+				
 				if(tag == "div") {
 			
 					if(el.className.indexOf("_struts2_jquery_class_tabbedpane") >= 0) {
@@ -599,6 +613,12 @@
 				} 
 				
 				this[tag]($el, options);
+			
+				//extension point to allow custom post-binding processing
+				if(_struts2_jquery.preBind && (typeof(_struts2_jquery.preBind) == "function")) {
+					return _struts2_jquery.postBind(el);
+				}
+				
 			}
 		},
 		
@@ -643,7 +663,7 @@
 			}
 		},
 		
-		container:  function($elem, loadHandlerName, options){
+		container:  function($elem, options, loadHandlerName){
 
 			if(options.reloadtopics) {			  
 				var topics = options.reloadtopics.split(',');
@@ -653,7 +673,9 @@
 			}
 		},
 	
-		input:  function($elem, loadHandlerName, options){
+		input:  function($elem, options, loadHandlerName){
+			
+			if(!options) { return; }
 			
 			if(options.reloadtopics) {			  
 				var topics = options.reloadtopics.split(',');
@@ -701,7 +723,7 @@
 			}
 		},
 			
-		action: function($elem, containerLoadHandlerName, linkLoadHandlerName, options){
+		action: function($elem, options, containerLoadHandlerName, linkLoadHandlerName){
 
 	    	if($elem.attr('href')) { $elem.attr('href','#'); }
 	    	
@@ -755,14 +777,16 @@
 			
 			this.base($elem, options);
 			this.interactive($elem, options);
-			//this.container($elem, options);  (reloadTopics already implemented by input)
-			this.input($elem, loadHandlerName, options);
+			//this.container($elem, options, loadHandlerName);  (reloadTopics already implemented by input)
+			this.input($elem, options, loadHandlerName);
 
 	    	//load select using ajax
 			if(options.src) {
-				$elem.bind('struts2_jquery_topic_load', null, _subscribe_handlers[loadHandlerName]);
-				$elem.trigger('struts2_jquery_topic_load', options);
-				//_subscribe_handlers[loadHandlerName]($.Event({type: 'struts2_jquery_topic_load', target: $elem[0]}),options);
+
+				//publishing not triggering to prevent event propagation issues
+		    	var selectTopic = '_struts2_jquery_topic_load_' + options.id;
+	    		$elem.subscribe(selectTopic, loadHandlerName);
+	    		$elem.publish(selectTopic,options);
 			}
 		},
 		
@@ -771,13 +795,15 @@
 			var loadHandlerName = '_struts2_jquery_container_load';
 			
 			this.base($elem, options);
-			this.container($elem, loadHandlerName, options);
+			this.container($elem, options, loadHandlerName);
 
 	    	//load div using ajax
 			if(options.src) {
-				$elem.bind('struts2_jquery_topic_load', null, _subscribe_handlers[loadHandlerName]);
-				$elem.trigger('struts2_jquery_topic_load', options);
-				//_subscribe_handlers[loadHandlerName]($.Event({type: 'struts2_jquery_topic_load', target: $elem[0]}),options);
+
+				//publishing not triggering to prevent event propagation issues
+		    	var divTopic = '_struts2_jquery_topic_load_' + options.id;
+	    		$elem.subscribe(divTopic, loadHandlerName);
+	    		$elem.publish(divTopic,options);				
 			}
 		},
 		
@@ -827,7 +853,7 @@
 			
 			this.base($elem, options);
 			this.interactive($elem, options);
-			this.action($elem, containerLoadHandlerName, linkLoadHandlerName, options);
+			this.action($elem, options, containerLoadHandlerName, linkLoadHandlerName);
 			
 		},
 		
@@ -837,11 +863,11 @@
 			var containerLoadHandlerName = '_struts2_jquery_container_load';
 			
 			this.base($elem, options);
-			//	this.container($elem, containerLoadHandlerName, options);
+			//	this.container($elem, options, containerLoadHandlerName);
 			this.interactive($elem, options);
-			this.action($elem, containerLoadHandlerName, linkLoadHandlerName, options);
+			this.action($elem, options, containerLoadHandlerName, linkLoadHandlerName);
 
-			$elem.attr('type','button');  //remove - covered by SubmitHandler?
+			//$elem.attr('type','button');  (not permitted by ie - covered by renderer)
 			$elem.removeAttr('name');
 		},
 		
@@ -932,6 +958,7 @@
 					var loadHandlerName = '_struts2_jquery_container_load';
 					
 					var $dialogContent = $(".ui-dialog-content",$elem);
+					$dialogContent.unbind('struts2_jquery_topic_load');
 					$dialogContent.bind('struts2_jquery_topic_load', null, _subscribe_handlers[loadHandlerName]);
 					$dialogContent.trigger('struts2_jquery_topic_load', options);
 					
@@ -939,7 +966,7 @@
 				});
 			}			
 
-			//note id is set on dialog contents
+			//note: id is set on dialog contents
 			$elem.dialog(parameters);
 		},
 		
@@ -948,11 +975,11 @@
 	    	//instantiate the tabbed pane
 	    	var $tabs = $elem.tabs({ cache: (options.iscache || false),  selected: options.selected});
 	    	
-	    	("a",$tabs).each( function(tabIndex, el){
+	    	$("a",$tabs).each( function(tabIndex, el){
 	    			
 	    		$tab = $(el);
 	    		
-	    		if($tab.attr("isdisabled")){
+	    		if($tab.attr("isdisabled") == 'true'){
 					$tabs.tabs('disable', tabIndex);
 	    		}
 	    		
@@ -964,7 +991,7 @@
 				if(hideTopics) {			  
 					var topics = hideTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.subscribe(topics[i],'_struts2_jquery_hideTab',tabIndex);
+						$tab.subscribe(topics[i],'_struts2_jquery_hideTab',tabIndex);
 					}
 				}
 
@@ -972,7 +999,7 @@
 				if(showTopics) {			  
 					var topics = showTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.subscribe(topics[i],'_struts2_jquery_showTab',tabIndex);
+						$tab.subscribe(topics[i],'_struts2_jquery_showTab',tabIndex);
 					}
 				}
 
@@ -980,7 +1007,7 @@
 				if(removeTopics) {			  
 					var topics = removeTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.subscribe(topics[i],'_struts2_jquery_removeTab',tabIndex);
+						$tab.subscribe(topics[i],'_struts2_jquery_removeTab',tabIndex);
 					}
 				}
 
@@ -988,7 +1015,7 @@
 				if(reloadTopics) {			  
 					var topics = reloadTopic.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.subscribe(topics[i],'_struts2_jquery_reloadTab',tabIndex);
+						$tab.subscribe(topics[i],'_struts2_jquery_reloadTab',tabIndex);
 					}
 				}
 
@@ -996,7 +1023,7 @@
 				if(focusTopics) {			  
 					var topics = focusTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.subscribe(topics[i],'_struts2_jquery_selectTab',tabIndex);
+						$tab.subscribe(topics[i],'_struts2_jquery_selectTab',tabIndex);
 					}
 				}	
 
@@ -1004,7 +1031,7 @@
 				if(options.blurtopics) {			  
 					var topics = blurTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.subscribe(topics[i],'_struts2_jquery_blur',tabIndex);
+						$tab.subscribe(topics[i],'_struts2_jquery_blur',tabIndex);
 					}
 				}	
 
@@ -1012,7 +1039,7 @@
 				if(enableTopics) {			  
 					var topics = enableTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.subscribe(topics[i],'_struts2_jquery_enableTab',tabIndex);
+						$tab.subscribe(topics[i],'_struts2_jquery_enableTab',tabIndex);
 					}
 				}
 
@@ -1020,7 +1047,7 @@
 				if(disableTopics) {			  
 					var topics = disableTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.subscribe(topics[i],'_struts2_jquery_disableTab',tabIndex);
+						$tab.subscribe(topics[i],'_struts2_jquery_disableTab',tabIndex);
 					}
 				}
 
@@ -1028,7 +1055,7 @@
 				if(onChangeTopics) {  
 					var topics = onChangeTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.publishOnEvent('change',topics[i]);
+						$tab.publishOnEvent('change',topics[i]);
 					}
 				}	
 
@@ -1036,7 +1063,7 @@
 				if(onFocusTopics) {  
 					var topics = onFocusTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.publishOnEvent('focus',topics[i]);
+						$tab.publishOnEvent('tabsshow',topics[i]);
 					}
 				}	
 
@@ -1044,7 +1071,7 @@
 				if(onBlurTopics) {  
 					var topics = onBlurTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						$tabs.publishOnEvent('blur',topics[i]);
+						$tab.publishOnEvent('blur',topics[i]);
 					}
 				}
 	    	});
