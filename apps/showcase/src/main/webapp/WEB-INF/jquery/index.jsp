@@ -6,6 +6,7 @@
 <h1>jQuery AJAX Examples</h1>
 
 <ul>
+    <li><a href="datepicker/index.jsp">Remote div tag</a></li>
     <li><a href="div/index.jsp">Remote div tag</a></li>
     <li><a href="tabbedpane/index.jsp">Remote tabbed pane tags</a></li>
     <li><a href="anchor/index.jsp">Remote anchor tag</a></li>
