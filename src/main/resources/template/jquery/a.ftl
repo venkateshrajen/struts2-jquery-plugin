@@ -21,7 +21,7 @@
  */
 -->
 <a
-  <#if parameters.name?if_exists != "">	 name="${parameters.name}"</#if>
+  <#if parameters.name?if_exists != "">	 name="${parameters.name?html}"</#if>
 	<#if parameters.href?if_exists != ""> href="${parameters.href}"</#if>
 	<#if parameters.tabindex??>	 tabindex="${parameters.tabindex?html}"</#if>
 	<#if parameters.cssClass??> class="${parameters.cssClass?html}"</#if>

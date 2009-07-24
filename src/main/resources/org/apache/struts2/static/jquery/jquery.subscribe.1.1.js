@@ -26,22 +26,15 @@
  */
 
 
-//IE array doesn't have indexOf method! - need to check and add here if missing
-if(!Array.indexOf){
-	Array.prototype.indexOf = function(obj){
-		for(var i=0; i<this.length; i++){
-			if(this[i]==obj){
-				return i;
-			}
-		}
-		return -1;
-	}
-}
-
 (function($){
 
 	_subscribe_topics = {};
 	_subscribe_handlers = {}; 
+	
+	_subscribe_getDocumentWindow = function(document){
+
+		return document.parentWindow || document.defaultView;
+	};
 	
 	$.fn.extend({
 		
@@ -134,15 +127,23 @@ if(!Array.indexOf){
 						for ( var index in noIdObjects) {
 							
 							var noIdObject = noIdObjects[index];
-							
-							if(noIdObject[0].nodeType == 9 && this[0].defaultView.frameElement == noIdObject[0].defaultView.frameElement ) {
+														
+							if(noIdObject[0].nodeType == 9 && _subscribe_getDocumentWindow(this[0]).frameElement == _subscribe_getDocumentWindow(noIdObject[0]).frameElement ) {
 								
 								return this;	
 							}
 						}
 					}
 					
-					if(_subscribe_topics[topic].objects['__noId__'].indexOf(this) < 0) {
+					var exists = false;
+					for(var i = 0; i < noIdObjects.length; i++){
+						if(noIdObjects[i] == this){
+							exists = true;
+							break;
+						}
+					}
+					
+					if(!exists) {
 						
 						_subscribe_topics[topic].objects['__noId__'].push(this);
 					}
@@ -169,23 +170,30 @@ if(!Array.indexOf){
 		unsubscribe :  function(topic) {	
 			
 			if(topic) {
-				
-				if(this.attr('id')) {
+
+				if(_subscribe_topics[topic]) {
 					
-					if(_subscribe_topics[topic]) {
-					
+					if(this.attr('id')) {
+						
 						var object = _subscribe_topics[topic].objects[this.attr('id')];
 						
 						if(object) {
+							
 							delete _subscribe_topics[topic].objects[this.attr('id')];
 						}
-					}
-					
-				} else {
-
-					var index = _subscribe_topics[topic].objects['__noId__'].indexOf(this);
-					if(index >= 0) {
-						subscribe_topics[topic].objects['__noId__'].splice(index,1);
+						
+					} else {
+	
+						var noIdObjects = _subscribe_topics[topic].objects['__noId__'];
+						
+						for(var i = 0; i < noIdObjects.length; i++){
+							
+							if(noIdObjects[i] == this){
+								
+								subscribe_topics[topic].objects['__noId__'].splice(index,1);
+								break;
+							}
+						}
 					}
 				}
 			
@@ -198,9 +206,10 @@ if(!Array.indexOf){
 		/**
 		 * Publishes a topic (triggers handlers on all topic subscribers)
 		 * This ends up calling any subscribed handlers which are functions of the form function (event, data)
-		 * where: event- is a standard jQuery event object
-		 *  	  event.data- is the data parameter passed to the subscribe() function when this published topic was subscribed to
-		 *  	  data- is the data parameter that was passed to this publish() method
+		 * where: event - is a standard jQuery event object
+		 *  	  data - is the data parameter that was passed to this publish() method
+		 *  	  event.data - is the data parameter passed to the subscribe() function when this published topic was subscribed to
+		 *  	  event.target  - is the dom element that subscribed to the event (or the document element if $.subscribe() was used)
 		 * 
 		 * Parameters:
 		 *  -topic- is the string name of the topic
@@ -309,11 +318,21 @@ if(!Array.indexOf){
 		 * Subscribe an event handler to a topic without an element context
 		 * 
 		 * Note: Caution about subscribing using same document to topic multiple time (maybe by loading subscribe script multiple times)
-		 *       (need to test further)
+		 * 
 		 */
 		subscribe :  function(topic, handler, data) {
 			
 			return $().subscribe(topic, handler, data);
+			
+		},
+		
+		/**
+		 * Unsubscribe an event handler for a topic without an element context
+		 *    
+		 */
+		unsubscribe :  function(topic, handler, data) {
+			
+			return $().unsubscribe(topic, handler, data);
 			
 		},
 		

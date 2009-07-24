@@ -46,6 +46,5 @@ public abstract class AbstractBaseTag extends AbstractClosingTag implements Base
 
 	public void setRemoveTopics(String removeTopics) {
 		this.removeTopics = removeTopics;
-	}
-	
+	}	
 }

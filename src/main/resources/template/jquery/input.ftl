@@ -21,7 +21,7 @@
  */
 -->
   <#if parameters.src?exists>
-    src="${parameters.src?string?html}"<#rt/>
+    src="${parameters.src}"<#rt/>
   </#if>
   <#if parameters.elementIds?exists>
     elementIds="${parameters.elementIds?string?html}"<#rt/>

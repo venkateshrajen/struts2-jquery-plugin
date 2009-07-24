@@ -31,7 +31,7 @@
  style="${parameters.cssStyle?html}"<#rt/>
 </#if>
 <#if parameters.src??>
- href="${parameters.src?html}"<#rt/>
+ href="${parameters.src}"<#rt/>
 </#if>
 <#if parameters.title??>
  title="${parameters.title?html}"<#rt/>

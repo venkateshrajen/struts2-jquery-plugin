@@ -4,8 +4,6 @@ import org.apache.struts2.views.annotations.StrutsTagAttribute;
 
 public interface Base {
 
-	public static final String JQUERY_THEME = "jquery";
-
 	/**  TOPIC LISTENERS **/
 	
 	@StrutsTagAttribute(name="hideTopics", description = "A comma delimited list of topics that will hide (display: none) this element", type = "String", defaultValue = "")
@@ -20,4 +18,7 @@ public interface Base {
 	/**  TOPIC PUBLISHERS **/
 	
 	/**  SPECIAL **/
+
+	@StrutsTagAttribute(name="disabled", description = "If this element is disabled", type = "Boolean", defaultValue = "false")
+	public void setDisabled(String disabled);
 }

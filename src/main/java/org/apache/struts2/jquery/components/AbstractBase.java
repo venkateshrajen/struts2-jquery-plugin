@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.components.ClosingUIBean;
+import org.apache.struts2.jquery.JQueryPluginConstants;
 import org.apache.struts2.views.annotations.StrutsTagAttribute;
 
+import com.opensymphony.xwork2.inject.Inject;
 import com.opensymphony.xwork2.util.ValueStack;
 
 public abstract class AbstractBase extends ClosingUIBean implements Base {
@@ -50,8 +52,16 @@ public abstract class AbstractBase extends ClosingUIBean implements Base {
             addParameter("removeTopics", findString(removeTopics));
     }
 	
+	@Override
+    @Inject(JQueryPluginConstants.DEFAULT_THEME)
+    public void setDefaultUITheme(String theme) {
+        this.defaultUITheme = theme;
+    }
+        
+	//FIXME: should be retrieving constant from above
+	@Override
     public String getTheme() {
-    	return Base.JQUERY_THEME;
+    	return "jquery";
     }
     
     protected void setStack(ValueStack stack){
@@ -61,6 +71,14 @@ public abstract class AbstractBase extends ClosingUIBean implements Base {
     @SuppressWarnings("unchecked")
 	protected void setParameters(Map parameters){
     	this.parameters = parameters;
+    }
+
+    protected String ensureAttributeSafelyNotEscaped(String val) {
+        if (val != null) {
+            return val.replaceAll("\"", "&#34;");
+        } else {
+            return "";
+        }
     }
 
     @StrutsTagAttribute(name="hideTopics", description = "A comma delimited list of topics that will hide (display: none) this element", type = "String", defaultValue = "")

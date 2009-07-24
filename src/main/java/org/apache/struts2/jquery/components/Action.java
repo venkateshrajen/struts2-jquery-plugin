@@ -43,4 +43,10 @@ public interface Action extends Interactive {
 	@StrutsTagAttribute(name="loadingText", description="If loading content into a target, The text to be displayed during load (will be shown if any provided, will override settings for the target container)", type="String", defaultValue="")
     public void setLoadingText(String loadingText);
 
+	@StrutsTagAttribute(name="errorText", description="use di nconjunction with 'errorElementId' to provide text to be displayed on ajax submit error", type="String", defaultValue="")
+    public void setErrorText(String errorText);
+
+	@StrutsTagAttribute(name="errorElementId", description="This should provide the id of the element into which the error text will be placed when an error ocurrs loading the container. If 'errorTest' is provided, that  wil be used, otherwise the ajax error message text wil be used.", type="String", defaultValue="false")
+    public void setErrorElementId(String errorElementId);
+
 }

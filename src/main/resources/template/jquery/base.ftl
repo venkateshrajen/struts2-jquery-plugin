@@ -21,7 +21,7 @@
  */
 -->
   <#if parameters.id?exists>
-    id="${parameters.id?string}"<#rt/>
+    id="${parameters.id?html}"<#rt/>
   </#if>
   <#if parameters.hideTopics?exists>
     hideTopics="${parameters.hideTopics?string?html}"<#rt/>
@@ -31,6 +31,9 @@
   </#if>
   <#if parameters.removeTopics?exists>
     removeTopics="${parameters.removeTopics?string?html}"<#rt/>
+  </#if>
+  <#if parameters.disabled?default(false)>
+	 disabled="true"<#rt/>
   </#if>
   <#if parameters.cssClass?exists>
     class="${parameters.cssClass?string?html} _struts2_jquery_bound"<#rt/>
