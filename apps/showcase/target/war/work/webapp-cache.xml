@@ -1,0 +1,20 @@
+<webapp-structure>
+  <registeredFiles>
+    <entry>
+      <string>currentBuild</string>
+      <path-set>
+        <pathsSet class="linked-hash-set">
+          <string>WEB-INF/applicationContext.xml</string>
+          <string>WEB-INF/index.jsp</string>
+          <string>WEB-INF/jquery/datepicker/index.jsp</string>
+          <string>WEB-INF/jquery/index.jsp</string>
+          <string>WEB-INF/web.xml</string>
+          <string>WEB-INF/classes/log4j.properties</string>
+          <string>WEB-INF/classes/struts.xml</string>
+          <string>WEB-INF/lib/log4j-1.2.9.jar</string>
+          <string>WEB-INF/lib/commons-logging-1.0.4.jar</string>
+        </pathsSet>
+      </path-set>
+    </entry>
+  </registeredFiles>
+</webapp-structure>
