@@ -25,7 +25,7 @@
     targets="${parameters.targets?html}"<#rt/>
   </#if>
   <#if parameters.href?exists>
-    href="${parameters.href?html}"<#rt/>
+    href="${parameters.href}"<#rt/>
   </#if>
   <#if parameters.formIds?exists>
     formIds="${parameters.formIds?html}"<#rt/>
@@ -41,6 +41,12 @@
   </#if>
   <#if parameters.loadingText?exists>
     loadingText="${parameters.loadingText?html}"<#rt/>
+  </#if>
+  <#if parameters.errorText?exists>
+    errorText="${parameters.errorText?string?html}"<#rt/>
+  </#if>
+  <#if parameters.errorElementId?exists>
+    errorElementId="${parameters.errorElementId?string?html}"<#rt/>
   </#if>
   <#if parameters.onCompleteTopics?exists>
     onCompleteTopics="${parameters.onCompleteTopics?html}"<#rt/>

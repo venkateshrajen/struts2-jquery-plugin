@@ -27,9 +27,6 @@
 	<#if parameters.nameValue??>
 	 value="<@s.property value="parameters.nameValue"/>"<#rt/>
 	</#if>
-	<#if parameters.disabled?default(false)>
-	 disabled="disabled"<#rt/>
-	</#if>
 	<#if parameters.cssClass??>
 	 class="${parameters.cssClass?html}"<#rt/>
 	</#if>

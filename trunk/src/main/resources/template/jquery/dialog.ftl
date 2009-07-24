@@ -21,9 +21,6 @@
  */
 -->
 <div class="_struts2_jquery_class_dialog" style="display:none" 
-<#if parameters.src??>
- src="${parameters.src?html}"<#rt/>
-</#if>
 <#if parameters.buttons??>
  buttons="${parameters.buttons?html}"<#rt/>
 </#if>
@@ -53,6 +50,9 @@
 </#if>
 <#if parameters.data??>
  data="${parameters.data?html}"<#rt/>
+</#if>
+<#if parameters.options??>
+ 	options="${parameters.options?string?html}"<#rt/>
 </#if>
 <#include "/${parameters.templateDir}/jquery/base.ftl" />
 <#include "/${parameters.templateDir}/jquery/interactive.ftl" />

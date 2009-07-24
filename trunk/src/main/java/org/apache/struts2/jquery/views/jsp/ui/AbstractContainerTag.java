@@ -27,7 +27,6 @@ public abstract class AbstractContainerTag extends AbstractBaseTag implements Co
     protected String formIds;				//Ids of forms that should be serialized and submitted when this container is loaded
     protected String elementIds;			//Ids of form elements that should be serialized and submitted when this div is loaded
 	
-	
 	public AbstractContainerTag() {
 		super();
 	}
@@ -90,7 +89,7 @@ public abstract class AbstractContainerTag extends AbstractBaseTag implements Co
 	public void setErrorText(String errorText) {
 		this.errorText = errorText;
 	}
-
+	
 	public void setIndicatorId(String indicatorId) {
 		this.indicatorId = indicatorId;
 	}

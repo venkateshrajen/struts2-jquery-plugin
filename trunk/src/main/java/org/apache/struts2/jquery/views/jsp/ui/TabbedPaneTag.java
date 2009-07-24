@@ -15,6 +15,7 @@ public class TabbedPaneTag extends AbstractBaseTag {
 	
 	protected String isCache;				//Whether or not to cache remote tabs content, e.g. load only once or with every click.
 	protected String selected;				//The zero-based index of the tab that is selected when the pane first loads.
+    private String options;					//Additional jquery widget options
     
 	public TabbedPaneTag() {
 		super();
@@ -40,6 +41,7 @@ public class TabbedPaneTag extends AbstractBaseTag {
         TabbedPane tabbedPane = (TabbedPane) component;
         tabbedPane.setIsCache(isCache);
         tabbedPane.setSelected(selected);
+        tabbedPane.setOptions(options);
         
     }
 
@@ -54,4 +56,8 @@ public class TabbedPaneTag extends AbstractBaseTag {
 	public void setSelected(String selected) {
 		this.selected = selected;
 	}
+
+    public void setOptions(String options) {
+        this.options = options;
+    }
 }

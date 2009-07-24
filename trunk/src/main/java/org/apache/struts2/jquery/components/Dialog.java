@@ -3,6 +3,8 @@ package org.apache.struts2.jquery.components;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.xwork.StringEscapeUtils;
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.views.annotations.StrutsTag;
 import org.apache.struts2.views.annotations.StrutsTagAttribute;
 
@@ -26,7 +28,8 @@ public class Dialog extends AbstractContainer implements Interactive {
 	protected String width;					//The width of the dialog
 	protected String position;				//The starting position of the dialog. Possible values: 'center', 'left', 'right', 'top', 'bottom', or an array containing a coordinate pair (in pixel offset from top left of viewport) or the possible string values (e.g. ['right','top'] for top right corner)
 	protected String data;					//Additional data (in the form of "key1=value1,key2=value2,..." to be provided to the dialog for use in button click topic handlers
-
+	protected String options;			//Additional widget options
+	 
     private AbstractInteractive interactiveDelegate = new AbstractInteractive(stack, request, response){
 
 		@Override
@@ -72,6 +75,11 @@ public class Dialog extends AbstractContainer implements Interactive {
             addParameter("position", findString(position));
         if (data != null)
             addParameter("data", findString(data));
+        if (options != null) {
+            String ops = findString(this.options);
+            if (StringUtils.isNotEmpty(ops))
+                addParameter("options", StringEscapeUtils.escapeJavaScript(ops));
+        }
     }
         
 	@Override
@@ -145,4 +153,9 @@ public class Dialog extends AbstractContainer implements Interactive {
 	public void setEnableTopics(String enableTopics) {
 		interactiveDelegate.setEnableTopics(enableTopics);
 	} 
+
+    @StrutsTagAttribute(description = "The name of a variable (or a javascript map) that contains additional options to be passed to the Dialog widget")
+    public void setOptions(String options) {
+        this.options = options;
+    }
 }

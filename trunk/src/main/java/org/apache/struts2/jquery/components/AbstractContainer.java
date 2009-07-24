@@ -9,7 +9,7 @@ import com.opensymphony.xwork2.util.ValueStack;
 
 public abstract class AbstractContainer extends AbstractBase implements Container {
 
-	protected String reloadTopics;			//topics that will cause div to reload
+	protected String reloadTopics;			//topics that will cause container to reload
 	
 	protected String onAlwaysTopics;		//topics that are published before load, after load and on error
     protected String onBeforeTopics;		//topics that are published before a load
@@ -45,7 +45,7 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
         if (onSuccessTopics != null)
             addParameter("onSuccessTopics", findString(onSuccessTopics));
         if (src != null)
-            addParameter("src", findString(src));
+            addParameter("src", ensureAttributeSafelyNotEscaped(findString(src)));
         if (loadingText != null)
             addParameter("loadingText", findString(loadingText));
         if (errorText != null)
@@ -62,10 +62,11 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
     	this.stack = stack;
     }
 
-    @StrutsTagAttribute(name="errorText", description="The text to be displayed on load error", type="String", defaultValue="false")
+    @StrutsTagAttribute(name="errorText", description="The text to be displayed on load error. If 'errorElement' is provided, " +
+			"this will display the error in the elemtn (if existing), if not, it will display the error as the contents of this container", type="String", defaultValue="false")
 	public void setErrorText(String errorText) {
 		this.errorText = errorText;
-	}
+	}	
 
     @StrutsTagAttribute(name="loadingText", description="The text to be displayed during load (will be shown if any provided)", type="String", defaultValue="")
 	public void setLoadingText(String loadingText) {

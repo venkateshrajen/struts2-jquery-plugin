@@ -24,6 +24,8 @@ public abstract class AbstractActionTag extends AbstractInteractiveTag implement
 	protected String onSuccessTopics;
 	protected String onErrorTopics;
     protected String elementIds;		//Form elements that should be individually serialized and sent with the input's load request
+    protected String errorText;				//text to be displayed on load error
+    protected String errorElementId;		//the element into which to place error messages
 
 	public AbstractActionTag() {
 		super();
@@ -46,6 +48,8 @@ public abstract class AbstractActionTag extends AbstractInteractiveTag implement
 		action.setOnSuccessTopics(onSuccessTopics);
 		action.setOnErrorTopics(onErrorTopics);
 		action.setElementIds(elementIds);
+		action.setErrorText(errorText);
+		action.setErrorElementId(errorElementId);
     }
 	
 	@Override
@@ -95,5 +99,13 @@ public abstract class AbstractActionTag extends AbstractInteractiveTag implement
 
 	public void setElementIds(String elementIds){
 		this.elementIds = elementIds;
+	}
+
+	public void setErrorText(String errorText) {
+		this.errorText = errorText;
+	}
+
+	public void setErrorElementId(String errorElementId) {
+		this.errorElementId = errorElementId;
 	}
 }

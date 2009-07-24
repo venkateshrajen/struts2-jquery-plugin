@@ -1,3 +1,6 @@
+
+
+
 (function($){
 	
 	/**
@@ -31,12 +34,14 @@
 	$.subscribeHandler('_struts2_jquery_enable', function(event, data) {
 		
 		$(this).attr("disabled","false");
+		$(this).removeClass("disabled");
 	});
 
 	//Register handler to show an element
 	$.subscribeHandler('_struts2_jquery_disable', function(event, data) {
 
-		$(this).attr("disabled","disabled");
+		$(this).attr("disabled","true");
+		$(this).addClass("disabled");
 	});
 	
 
@@ -64,7 +69,7 @@
 
 		var container = $(event.target);
 		
-		//need to also make use of original attributes registered with the container (suc as onCompleteTopics)
+		//need to also make use of original attributes registered with the container (such as onCompleteTopics)
 		var attributes = container[0].attributes;
 		var options = {};
 		for(var i = 0; i < attributes.length; i++) {
@@ -76,140 +81,151 @@
 			$.extend(options,data);
 		}
 		
-		//Show indicator element (if any)
-		if(options) {
-
-			var indicatorId = options.indicatorid;
-			if(indicatorId) { $('#' + indicatorId).show(); }
+		var isDisabled = false;
+		isDisabled = options.disabled == null ? isDisabled : options.disabled;
+		isDisabled = container.attr('disabled') == null ? isDisabled : container.attr('disabled');
+		if(event.originalEvent) {	//means that container load is being triggered by other action (link button/link click) need to see if that button/link is disabled
+			isDisabled = $(event.originalEvent.currentTarget).attr("disabled") == null ? isDisabled : $(event.originalEvent.currentTarget).attr("disabled");
+		}
+							
+		if(isDisabled != true && isDisabled != 'true') {
+			
+			//Show indicator element (if any)
+			if(options) {
 	
-			var onAlwaysTopics = options.onalwaystopics;
-			
-	    	//publish all 'before' and 'always' topics
-			if(onAlwaysTopics) {  
-				var topics = onAlwaysTopics.split(',');
-				for ( var i = 0; i < topics.length; i++) {
-					container.publish(topics[i], container);
-				}
-			}
-			
-			if(options.onbeforetopics) {  
-				var topics = options.onbeforetopics.split(',');
-				for ( var i = 0; i < topics.length; i++) {
-					container.publish(topics[i], container);
-				}
-			}
-	    	
-	    	//Set pre-loading text (if any)
-			if(options.loadingtext) { container.html(options.loadingtext); }
-			    				
-			var onSuccessTopics = options.onsuccesstopics;
-			
-			options.success = function (data, textStatus) {
-								
-				if(indicatorId) { $('#' + indicatorId).hide(); }
+				var indicatorId = options.indicatorid;
+				if(indicatorId) { $('#' + indicatorId).show(); }
+		
+				var onAlwaysTopics = options.onalwaystopics;
 				
-				container.html(data);
-						
-				if(onSuccessTopics) {			  
-					var topics = onSuccessTopics.split(',');
+		    	//publish all 'before' and 'always' topics
+				if(onAlwaysTopics) {  
+					var topics = onAlwaysTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
 						container.publish(topics[i], container);
 					}
 				}
-				if(onAlwaysTopics) {
-					var topics = onAlwaysTopics.split(',');  
+				
+				if(options.onbeforetopics) {  
+					var topics = options.onbeforetopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
 						container.publish(topics[i], container);
 					}
 				}
-			}
+		    	
+		    	//Set pre-loading text (if any)
+				if(options.loadingtext) { container.html(options.loadingtext); }
+				    				
+				var onSuccessTopics = options.onsuccesstopics;
 				
-			var onCompleteTopics = options.oncompletetopics;
-			options.complete = function (xhr, textStatus, errorThrown) {
-	
-				if(indicatorId) { $('#' + indicatorId).hide(); }
-				
-				if(xhr.status == 404) {
+				options.success = function (data, textStatus) {
+									
+					if(indicatorId) { $('#' + indicatorId).hide(); }
 					
-					container.html(xhr.responseText);
-				}
-				
-				if(onCompleteTopics) {			  
-					var topics = onCompleteTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						container.publish(topics[i], container);
+					container.html(data);
+							
+					if(onSuccessTopics) {			  
+						var topics = onSuccessTopics.split(',');
+						for ( var i = 0; i < topics.length; i++) {
+							container.publish(topics[i], container);
+						}
+					}
+					if(onAlwaysTopics) {
+						var topics = onAlwaysTopics.split(',');  
+						for ( var i = 0; i < topics.length; i++) {
+							container.publish(topics[i], container);
+						}
 					}
 				}
-				if(onAlwaysTopics) {  
-					var topics = onAlwaysTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						container.publish(topics[i], container);
-					}
-				}
-			}
-			
-			var onErrorTopics = options.onerrortopics;
-			options.error = function (XMLHttpRequest, textStatus, errorThrown) {
-
-				if(options.errortext) { container.html(options.errortext); }
-				
-				if(onErrorTopics) {			
-					var topics = onErrorTopics.split(',');  
-					for ( var i = 0; i < topics.length; i++) {
-						container.publish(topics[i], container);
-					}
-				}
-				if(onAlwaysTopics) {  
-					var topics = onAlwaysTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						container.publish(topics[i], container);
-					}
-				}
-			}
-			
-			//serialize forms & elements
-			var serializeData;
-			
-			var formIds = options.formids;
-			if(formIds) {
+					
+				var onCompleteTopics = options.oncompletetopics;
+				options.complete = function (xhr, textStatus, errorThrown) {
+		
+					if(indicatorId) { $('#' + indicatorId).hide(); }
+					
+					if(xhr.status == 404) {
 						
-				var forms = formIds.split(',');  
-				for ( var i = 0; i < forms.length; i++) {
-					serializeData = (serializeData ? (serializeData + "&") : "") + $("#" + forms[i]).serialize();
-				}
-			}    		
-
-			var elementIds = options.elementids;
-			if(elementIds) {
-						
-				var elements = elementIds.split(',');
-				for ( var i = 0; i < elements.length; i++) {
-					var element = $('#' + elements[i])[0];
-					if(element && element.name){
-						serializeData = (serializeData ? (serializeData + "&") : "") + element.name + "=" + element.value;
-						//serializeData[element.name] = element.value;
+						container.html(xhr.responseText);
+					}
+					
+					if(onCompleteTopics) {			  
+						var topics = onCompleteTopics.split(',');
+						for ( var i = 0; i < topics.length; i++) {
+							container.publish(topics[i], container);
+						}
+					}
+					if(onAlwaysTopics) {  
+						var topics = onAlwaysTopics.split(',');
+						for ( var i = 0; i < topics.length; i++) {
+							container.publish(topics[i], container);
+						}
 					}
 				}
-			}     	
-			$.extend(options,{data: serializeData});	
-			
-			//if reloadtopics exist, need to reset reload topics with new options
-			if(options.reloadtopics) {			  
-				var topics = options.reloadtopics.split(',');
-				for ( var i = 0; i < topics.length; i++) {
-					container.unsubscribe(topics[i]);
-					container.subscribe(topics[i], '_struts2_jquery_container_load', options);
-				}
-			}
-
-			//load container using ajax
-			if(options.src) {
 				
-				options.type = "POST";
-				options.url = options.src;
-			
-				$.ajax(options);
-			
+				var onErrorTopics = options.onerrortopics;
+				options.error = function (XMLHttpRequest, textStatus, errorThrown) {
+	
+					if(options.errortext) { container.html(options.errortext); }
+					
+					if(onErrorTopics) {			
+						var topics = onErrorTopics.split(',');  
+						for ( var i = 0; i < topics.length; i++) {
+							container.publish(topics[i], container);
+						}
+					}
+					if(onAlwaysTopics) {  
+						var topics = onAlwaysTopics.split(',');
+						for ( var i = 0; i < topics.length; i++) {
+							container.publish(topics[i], container);
+						}
+					}
+				}
+				
+				//serialize forms & elements
+				var serializeData;
+				
+				var formIds = options.formids;
+				if(formIds) {
+							
+					var forms = formIds.split(',');  
+					for ( var i = 0; i < forms.length; i++) {
+						serializeData = (serializeData ? (serializeData + "&") : "") + $("#" + forms[i]).serialize();
+					}
+				}    		
+	
+				var elementIds = options.elementids;
+				if(elementIds) {
+							
+					var elements = elementIds.split(',');
+					for ( var i = 0; i < elements.length; i++) {
+						var element = $('#' + elements[i])[0];
+						if(element && element.name){
+							serializeData = (serializeData ? (serializeData + "&") : "") + element.name + "=" + element.value;
+							//serializeData[element.name] = element.value;
+						}
+					}
+				}     	
+				$.extend(options,{data: serializeData});	
+				
+				//if reloadtopics exist, need to reset reload topics with new options
+				if(options.reloadtopics) {			  
+					var topics = options.reloadtopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						container.unsubscribe(topics[i]);
+						container.subscribe(topics[i], '_struts2_jquery_container_load', options);
+					}
+				}
+	
+				//load container using ajax
+				if(options.src) {
+					
+					options.type = "POST";
+					options.url = options.src;
+				
+					if(!options.data) { options.data = {}; }	//fix 'issue' wherein IIS will reject post without data
+					$.ajax(options);
+				
+				}
 			}
 		}
 	});
@@ -223,92 +239,127 @@
 	$.subscribeHandler('_struts2_jquery_action_request', function(event, data) {
 
 		var action = $(event.target);
+			
 		var options = event.data;
 		$.extend(options,data);
 
-		//Show indicator element (if any)
-		if(options) {
-				
-			if(options.indicatorid) { $('#' + options.indicatorid).show(); }
-				    				
-			var indicatorId = options.indicatorid;
-			var onSuccessTopics = options.onsuccesstopics;
+		var isDisabled = false;
+		isDisabled = options.disabled == null ? isDisabled : options.disabled;
+		isDisabled = action.attr('disabled') == null ? isDisabled : action.attr('disabled');
+		if(event.originalEvent) {	//means that action is being triggered by other action (link button/link click) need to see if that button/link is disabled
+			isDisabled = $(event.originalEvent.currentTarget).attr("disabled") == null ? isDisabled : $(event.originalEvent.currentTarget).attr("disabled");
+		}
+							
+		if(isDisabled != true && isDisabled != 'true') {
 			
-			options.success = function (data, textStatus) {
-								
-				if(indicatorId) { $('#' + indicatorId).hide(); }
-										
-				if(onSuccessTopics) {			  
-					var topics = onSuccessTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						action.publish(topics[i], action);
-					}
-				}
-			}
+			//Show indicator element (if any)
+			if(options) {
+					
+				if(options.indicatorid) { $('#' + options.indicatorid).show(); }
+					    				
+				var indicatorId = options.indicatorid;
+				var onSuccessTopics = options.onsuccesstopics;
 				
-			var onCompleteTopics = options.oncompletetopics;
-			options.complete = function (xhr, textStatus, errorThrown) {
+				options.success = function (data, textStatus) {
+									
+					if(indicatorId) { $('#' + indicatorId).hide(); }
 	
-				if(indicatorId) { $('#' + indicatorId).hide(); }
-								
-				if(onCompleteTopics) {			  
-					var topics = onCompleteTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						action.publish(topics[i], action);
+					if(options.errorelementid) { $("#" + options.errorelementid).hide(); }
+					
+					if(onSuccessTopics) {			  
+						var topics = onSuccessTopics.split(',');
+						for ( var i = 0; i < topics.length; i++) {
+							action.publish(topics[i], action);
+						}
 					}
 				}
-			}
-			
-			var onErrorTopics = options.onerrortopics;
-			options.error = function (XMLHttpRequest, textStatus, errorThrown) {
-				
-				if(onErrorTopics) {			
-					var topics = onErrorTopics.split(',');  
-					for ( var i = 0; i < topics.length; i++) {
-						action.publish(topics[i], action);
+					
+				var onCompleteTopics = options.oncompletetopics;
+				options.complete = function (xhr, textStatus, errorThrown) {
+		
+					if(indicatorId) { $('#' + indicatorId).hide(); }
+									
+					if(onCompleteTopics) {			  
+						var topics = onCompleteTopics.split(',');
+						for ( var i = 0; i < topics.length; i++) {
+							action.publish(topics[i], action);
+						}
 					}
 				}
-			}
-			
-		    //serialize forms
-			var formIds = options.formids;
-			var serializeData;
-			if(formIds) {
-										
-				var forms = formIds.split(',');  
-				for ( var i = 0; i < forms.length; i++) {
-					serializeData = (serializeData ? "&" : "") + $("#" + forms[i]).serialize();
-				}
-			}    
 				
-			var elementIds = options.elementids;
-			if(elementIds) {
+				var onErrorTopics = options.onerrortopics;
+				options.error = function (XMLHttpRequest, textStatus, errorThrown) {
+					
+					if(options.errorelementid) {
+					
+						var errorElement = $("#" + options.errorelementid);
 						
-				var elements = elementIds.split(',');
-				for ( var i = 0; i < elements.length; i++) {
-					var element = $('#' + elements[i])[0];
-					if(element && element.name){
-						serializeData = (serializeData ? (serializeData + "&") : "") + element.name + "=" + element.value;
-						//serializeData[element.name] = element.value;
+						if(errorElement) {
+							
+							var errors = options.errortext ? new Array(options.errortext) : new Array(xhr.statusText);
+						
+							if(errors[0]) {
+								
+								for(error in errors) {
+								
+									if(typeof errors[error] == "string") {
+									
+										errorElement.append($("<div/>").append(errors[error]));
+									}
+								}	
+							}
+							errorElement.show();
+						}
+					}
+					
+					if(onErrorTopics) {			
+						var topics = onErrorTopics.split(',');  
+						for ( var i = 0; i < topics.length; i++) {
+							action.publish(topics[i], action);
+						}
 					}
 				}
-			}     	
-			$.extend(options,{data: serializeData});	
-
-			
-			//execute request using ajax
-			if(options.src) {
 				
-				options.type = "POST";
-				options.url = options.src;
-			
-				$.ajax(options);
-			
+			    //serialize forms
+				var formIds = options.formids;
+				var serializeData;
+				if(formIds) {
+											
+					var forms = formIds.split(',');  
+					for ( var i = 0; i < forms.length; i++) {
+						serializeData = (serializeData ? "&" : "") + $("#" + forms[i]).serialize();
+					}
+				}    
+					
+				var elementIds = options.elementids;
+				if(elementIds) {
+							
+					var elements = elementIds.split(',');
+					for ( var i = 0; i < elements.length; i++) {
+						var element = $('#' + elements[i])[0];
+						if(element && element.name){
+							serializeData = (serializeData ? (serializeData + "&") : "") + element.name + "=" + element.value;
+							//serializeData[element.name] = element.value;
+						}
+					}
+				}     	
+				$.extend(options,{data: serializeData});	
+	
+				
+				//execute request using ajax
+				if(options.src) {
+					
+					options.type = "POST";
+					options.url = options.src;
+					if(!options.data) { options.data = {}; }	//fix 'issue' wherein IIS will reject post without data
+				
+					$.ajax(options);
+				
+				}
 			}
 		}
 	});
-		
-
+			
 	/**
 	 * Dialog Tag logic
 	 */
@@ -391,7 +442,7 @@
 	$.subscribeHandler('_struts2_jquery_select_load', function(event, data) {
 
 		var input = $(event.target);
-		
+					
 		//need to also make use of original attributes registered with the input (such as elementIds)
 		var attributes = input[0].attributes;
 		var options = {};
@@ -400,7 +451,7 @@
 		}
 		$.extend(options,data);
 
-		if(options) {
+		if(input.attr('disabled') != 'true' && options.disabled != 'true') {
 
 			//Show indicator element (if any)
 			var indicatorId = options.indicatorid;
@@ -558,7 +609,151 @@
 		}
 	});
 	
+
+	/**
+	 * TextField Tag logic
+	 */	
 	
+	//Register handler to load an input element
+	$.subscribeHandler('_struts2_jquery_textfield_load', function(event, data) {
+
+		var input = $(event.target);
+		
+		//need to also make use of original attributes registered with the input (such as elementIds)
+		var attributes = input[0].attributes;
+		var options = {};
+		for(var i = 0; i < attributes.length; i++) {
+			options[attributes[i].name.toLowerCase()] = attributes[i].value;
+		}
+		$.extend(options,data);
+
+		if(input.attr('disabled') != 'true' && options.disabled != 'true') {
+
+			//Show indicator element (if any)
+			var indicatorId = options.indicatorid;
+			if(indicatorId) { $('#' + indicatorId).show(); }
+
+	    	//Set pre-loading text (if any)
+			if(options.loadingtext) { input.txt(options.loadingtext); }
+				
+			var onAlwaysTopics = options.onalwaystopics;
+			
+	    	//publish all 'before' and 'always' topics
+			if(onAlwaysTopics) {  
+				var topics = onAlwaysTopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					input.publish(topics[i], input);
+				}
+			}
+			
+			if(options.onbeforetopics) {  
+				var topics = options.onbeforetopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					input.publish(topics[i], input);
+				}
+			}
+			    				
+			var onSuccessTopics = options.onsuccesstopics;
+			options.success = function (data, textStatus) {
+								
+				if(indicatorId) { $('#' + indicatorId).hide(); }
+								                 
+				if(data) {
+					
+					$(input).val(data);
+				}		        
+		        
+				if(onSuccessTopics) {			  
+					var topics = onSuccessTopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						input.publish(topics[i], input);
+					}
+				}
+				if(onAlwaysTopics) {
+					var topics = onAlwaysTopics.split(',');  
+					for ( var i = 0; i < topics.length; i++) {
+						input.publish(topics[i], input);
+					}
+				}
+			}
+				
+			var onCompleteTopics = options.oncompletetopics;
+			options.complete = function (xhr, textStatus, errorThrown) {
+	
+				if(indicatorId) { $('#' + indicatorId).hide(); }
+								
+				if(onCompleteTopics) {			  
+					var topics = onCompleteTopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						input.publish(topics[i], input);
+					}
+				}
+				if(onAlwaysTopics) {  
+					var topics = onAlwaysTopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						input.publish(topics[i], input);
+					}
+				}
+			}
+			
+			var onErrorTopics = options.onerrortopics;
+			options.error = function (XMLHttpRequest, textStatus, errorThrown) {
+
+				if(options.errortext) { container.html(options.errortext); }
+				
+				if(onErrorTopics) {			
+					var topics = onErrorTopics.split(',');  
+					for ( var i = 0; i < topics.length; i++) {
+						input.publish(topics[i], input);
+					}
+				}
+				if(onAlwaysTopics) {  
+					var topics = onAlwaysTopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						input.publish(topics[i], input);
+					}
+				}
+			}
+			
+		    //serialize forms & elements
+			var serializeData;
+			
+			var formIds = options.formids;
+			if(formIds) {
+						
+				var forms = formIds.split(',');  
+				for ( var i = 0; i < forms.length; i++) {
+					serializeData = (serializeData ? (serializeData + "&") : "") + $("#" + forms[i]).serialize();
+				}
+			}    		
+
+			var elementIds = options.elementids;
+			if(elementIds) {
+						
+				var elements = elementIds.split(',');
+				for ( var i = 0; i < elements.length; i++) {
+					var element = $('#' + elements[i])[0];
+					if(element && element.name){
+						serializeData = (serializeData ? (serializeData + "&") : "") + element.name + "=" + element.value;
+						//serializeData[element.name] = element.value;
+					}
+				}
+			}    
+			$.extend(options,{data: serializeData});			
+			
+	    	//load input using ajax
+			if(options.src) {
+				
+				options.type = "GET";
+				options.url = options.src;
+				options.dataType = "json";
+			
+				$.ajax(options);
+			
+			}
+		}
+	});
+		
 	/**
 	 * Form Tag logic
 	 */	
@@ -593,14 +788,17 @@
 				
 				//attributes names are sometimes returned all lower/upper case so we need to force to a case for uniformity
 				for(var i = 0; i < attributes.length; i++) {
-					options[attributes[i].name.toLowerCase()] = attributes[i].value;
+					//var realAttribute = this.readAttribute(el, attributes[i].name);
+					//if(realAttribute){
+						options[attributes[i].name.toLowerCase()] = attributes[i].value;
+					//}
 				}
 				
 				var tag = el.tagName.toLowerCase();
 				
 				//extension point to allow custom pre-binding processing
 				if(_struts2_jquery.preBind && (typeof(_struts2_jquery.preBind) == "function") && _struts2_jquery.preBind(el) == false) {
-					return;
+					return _struts2_jquery.preBind(el);
 				}
 				
 				if(tag == "div") {
@@ -610,12 +808,22 @@
 					} else if(el.className.indexOf("_struts2_jquery_class_dialog") >= 0) {
 						tag = "dialog";
 					}
-				} 
+					
+				}  else if(tag == "input") {
+					
+					if($el.attr("type") == "text") {
+						if(el.className.indexOf("_struts2_jquery_class_datepicker") >= 0) {
+							tag = "datepicker";
+						} else {
+							tag = "textfield";
+						}
+					}
+				}
 				
 				this[tag]($el, options);
 			
 				//extension point to allow custom post-binding processing
-				if(_struts2_jquery.preBind && (typeof(_struts2_jquery.preBind) == "function")) {
+				if(_struts2_jquery.postBind && (typeof(_struts2_jquery.postBind) == "function")) {
 					return _struts2_jquery.postBind(el);
 				}
 				
@@ -643,6 +851,12 @@
 				for ( var i = 0; i < topics.length; i++) {
 					$elem.subscribe(topics[i],'_struts2_jquery_remove',options);
 				}
+			}
+			
+			if(options.disabled == 'true') {
+
+				$elem.attr("disabled","disabled");
+				$elem.addClass("disabled");
 			}
 		},
 		
@@ -722,23 +936,44 @@
 				}
 			}
 		},
-			
+				
+		
 		action: function($elem, options, containerLoadHandlerName, linkLoadHandlerName){
-
+			
 	    	if($elem.attr('href')) { $elem.attr('href','#'); }
-	    	
-	    	//if($elem.attr('href')) { $elem.removeAttr('href'); $elem.css('cursor','pointer'); }
-	    		
-	    	//bind change event to onClick topics
+	    				
+	    	//bind event to onClick topics
 			if(options.onclicktopics) {  
 				var topics = options.onclicktopics.split(',');
 				for ( var i = 0; i < topics.length; i++) {
-					$elem.publishOnEvent('click',topics[i]);	
+				
+					//$elem.publishOnEvent('click',topics[i]);
+					
+					var topic = topics[i];			//modified to prevent exec for disabled action
+					$elem.createTopic(topic);
+					$elem.bind('click', function(event){
+						
+						$target = $(this);
+						
+						if(!$target.disabled || $target.disabled != true) {
+
+							var publishOptions = event.data || {};
+							publishOptions.disabled = false;
+							
+							$target.publish(topic, publishOptions, event);
+						}
+					});
 				}
-			}	
+			}
 			
 	    	var actionTopic = '_struts2_jquery_action_topic_' + options.id;
+	    	
 	    	var href = options.href;
+	    	
+	    	if(href == null || href == "") {
+	    		href = "#";
+	    		options.href = href;
+	    	}
 
     		//subscribe all targets to this action's custom execute topic
 	    	if(options.targets) {  
@@ -758,8 +993,8 @@
 	    		
 			} else {   // if no targets, then the action can still execute ajax request and will handle itself (no loading result into container
 					
-				//bind custom action topic to click event and process
-		    	if(href != null || options.oncompletetopics || options.onsuccesstopics || options.onerrortopics) {
+				//bind event topic listeners
+		    	if(options.oncompletetopics || options.onsuccesstopics || options.onerrortopics) {
 
 		    		$elem.subscribe(actionTopic, linkLoadHandlerName, options);
 		    	}
@@ -767,8 +1002,9 @@
 
 	    	options.src = href;
 	    	if(options.validate) { options.enableJSONValidation = 'true'; }
-	    	$elem.publishOnEvent('click', actionTopic);
-       
+
+			$elem.publishOnEvent('click', actionTopic);			//bind custom action topic to click event
+			
 		},
 			
 		select: function($elem, options){
@@ -957,15 +1193,22 @@
 
 					var loadHandlerName = '_struts2_jquery_container_load';
 					
-					var $dialogContent = $(".ui-dialog-content",$elem);
-					$dialogContent.unbind('struts2_jquery_topic_load');
-					$dialogContent.bind('struts2_jquery_topic_load', null, _subscribe_handlers[loadHandlerName]);
-					$dialogContent.trigger('struts2_jquery_topic_load', options);
+					//var $dialogContent = $(".ui-dialog-content",$elem)  //the dialog element has been moved within the dialog frame ($elem not points to contents)
+					$elem.unbind('struts2_jquery_topic_load');
+					$elem.bind('struts2_jquery_topic_load', null, _subscribe_handlers[loadHandlerName]);
+					$elem.trigger('struts2_jquery_topic_load', options);
 					
 					//$(".ui-dialog-content",$elem).load(options.src);
 				});
 			}			
 
+	        var userOptionsStr = options.options;
+	        var userOptions = window[userOptionsStr];
+	        if (!userOptions) {
+	        	userOptions = eval ("( " + userOptionsStr + " )" );
+	        }
+	        $.extend(options, userOptions);
+	        
 			//note: id is set on dialog contents
 			$elem.dialog(parameters);
 		},
@@ -973,7 +1216,20 @@
 		tabbedpane: function($elem, options){
 			
 	    	//instantiate the tabbed pane
-	    	var $tabs = $elem.tabs({ cache: (options.iscache || false),  selected: options.selected});
+			if(!options) { options = {}};
+			options.cache = options.iscache || false;
+			
+	        var userOptionsStr = options.options;
+	        var userOptions = window[userOptionsStr];
+	        if (!userOptions) {
+	        	userOptions = eval ("( " + userOptionsStr + " )" );
+	        }
+	        $.extend(options, userOptions);
+	        
+	        //fix for clash btwn ie & tabbedPane where ie automatically adds ALL possibel element properties as attributes
+	        options.disabled = [];
+	        
+	    	var $tabs = $elem.tabs(options);
 	    	
 	    	$("a",$tabs).each( function(tabIndex, el){
 	    			
@@ -1075,6 +1331,62 @@
 					}
 				}
 	    	});
+		},
+		
+		textfield: function($elem, options){
+			
+			var loadHandlerName = '_struts2_jquery_textfield_load';
+			
+			this.base($elem, options);
+			this.interactive($elem, options);
+			this.input($elem, options, loadHandlerName);
+
+	    	//load select using ajax
+			if(options.src) {
+
+				//publishing not triggering to prevent event propagation issues
+		    	var textfieldTopic = '_struts2_jquery_topic_load_' + options.id;
+	    		$elem.subscribe(textfieldTopic, loadHandlerName);
+	    		$elem.publish(textfieldTopic,options);
+			}				
+		},
+		
+		datepicker: function($elem, options) {
+			
+			var dpOptions = {};
+			dpOptions.altField = "#" + $elem.attr("id") + "_hidden";
+			dpOptions.altFormat = "yy-mm-dd'T'00:00:00";  			//set the alternate hidden submitted date format				
+			dpOptions.buttonImageOnly = true;						//show the button as an image
+			dpOptions.showOn = "focus";
+			
+			if(options) { 
+				
+				dpOptions.buttonImage = options.imageUrl;
+				
+				if(options.showbutton) {
+					dpOptions.showOn = "both";							//Have the datepicker appear automatically when the field receives focus and when the button is clicked		
+				} 
+				
+				dpOptions.buttonText = options.imageTooltip;
+				dpOptions.changeMonth = options.changemonth;
+				dpOptions.changeYear = options.changeyear;
+				dpOptions.dateFormat = options.displayformat;
+		        
+				if(options.options) {
+			        var userOptionsStr = options.options;
+			        var userOptions = window[userOptionsStr];
+			        if (!userOptions) {
+			        	userOptions = eval ("( " + userOptionsStr + " )" );
+			        }
+			        $.extend(dpOptions, userOptions);
+				}
+			}
+			
+			$elem.datepicker(dpOptions);
+			
+		    if(options.year && options.month && options.day) {
+		    	$elem.val($.datepicker.formatDate(options.displayformat, new Date(options.year, options.month, options.day)));
+		    }
 		}
 	};		
 	

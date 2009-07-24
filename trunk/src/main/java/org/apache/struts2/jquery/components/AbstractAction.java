@@ -20,6 +20,8 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
 	protected String onCompleteTopics;
 	protected String onSuccessTopics;
 	protected String onErrorTopics;
+    protected String errorText;				//text to be displayed on load error
+    protected String errorElementId;		//the id of the element in to which to put the error text
 	
     protected String elementIds;		//Form elements that should be individually serialized and sent with the input's load request
 		
@@ -37,7 +39,7 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
         if (targets != null)
             addParameter("targets", findString(targets));
         if (href != null)
-            addParameter("href", findString(href));
+            addParameter("href", ensureAttributeSafelyNotEscaped(findString(href)));
         if (formIds != null)
             addParameter("formIds", findString(formIds));
         if (validate != null)
@@ -54,6 +56,10 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
             addParameter("onErrorTopics", findString(onErrorTopics));   
         if (elementIds != null)
             addParameter("elementIds", findString(elementIds));
+        if (errorText != null)
+            addParameter("errorText", findString(errorText));
+        if (errorElementId != null)
+            addParameter("errorElementId", findString(errorElementId));
     }
 
     protected void setStack(ValueStack stack){
@@ -95,6 +101,18 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
 		this.loadingText = loadingText;
 		
 	}
+
+    @StrutsTagAttribute(name="errorText", description="The text to be displayed on load error. If 'errorElement' is provided, " +
+			"this will display the error in the elemtn (if existing), if not, it will display the error as the contents of this container", type="String", defaultValue="false")
+	public void setErrorText(String errorText) {
+		this.errorText = errorText;
+	}
+	
+	@StrutsTagAttribute(name="errorElementId", description="This should provide the id of the element into which the error text will be placed when an error ocurrs loading the container. If 'errorTest' is provided, that  wil be used, otherwise the ajax error message text wil be used.", type="String", defaultValue="false")
+    public void setErrorElementId(String errorElementId){
+		this.errorElementId = errorElementId;
+	}
+	
 
 	@StrutsTagAttribute(name="onCompleteTopics", description = "A comma delimited list of topics that published when the element ajax request is completed (will override settings for a target container if provided)", type="String", defaultValue="")
 	public void setOnCompleteTopics(String onCompleteTopics){
