@@ -1,0 +1,11 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.devMode" value="true" />
+    <package name="struts2-jquery-showcase" extends="struts-default" namespace="/">
+        <action name="jquery">
+            <result>/WEB-INF/jquery/index.jsp</result>
+        </action>
+    </package>
+</struts>
