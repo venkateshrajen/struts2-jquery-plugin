@@ -1,4 +1,4 @@
-#summary Provides information and usage instructions for the {{{<head>}}} tad
+#summary Provides information and usage instructions for the tag
 
 = Introduction =
 
