@@ -1,0 +1,19 @@
+#summary Provides information and usage instructions for the {{{<head>}}} tad
+
+= Introduction =
+
+This tag enables the use of the *struts2-jquery-plugin*. It includes the require javascript and css files and provides general document-wide plugin configurations.
+
+= Sample Code=
+{{{
+
+
+}}}
+
+
+= Main Attributes =
+  * *locale* (_String_) - Set a locale string for any localizable widgets/components
+  * *compressed* (_boolean_) - Determine whether to use compressed versions of included files (default = 'true')
+  * *theme* - (_String_) - The name of a provided jquery-ui theme or the path to a custom jquery them of your own.
+
+= Other Attributes =
