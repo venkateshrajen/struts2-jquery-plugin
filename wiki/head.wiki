@@ -73,3 +73,8 @@ This tag enables the use of the *struts2-jquery-plugin*. It includes the require
 ||tooltipDelay||false||Classic||false||String||Delay in milliseconds, before showing JavaScript tooltips ||
 ||tooltipIconPath||false|| ||false||String||Icon path used for image that will have the tooltip||
 ||value||false|| ||false||String||Preset the value of input element.||
+
+= Themes =
+To use a built-in theme, simply set the *uiTheme* attribute to the theme name. All the following standard jquery ui themes are available: base, black-tie, blitzer, cupertino, dark-hive, dot-luv, eggplant, excite-bike, flick, hot-sneaks, humanity, le-frog, mint-choc, overcast, pepper-grinder, redmond, smoothness, south-street, start, south, sunny, swanky-purse, trontastic, ui-darkness, ui-lightness, vader.
+
+You can also use your own custom themes. To use a custom theme, place the theme .css file (and accompanying images folder) within you webapp root and set the *uiTheme* attribute to the path to the custom theme .css file. The path provided must be relative to the webapp root and must include the .css file name. 
