@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-  	<groupId>org.apache.struts</groupId>
+  	<groupId>org.apache.struts2.jquery</groupId>
   	<artifactId>struts2-jquery-plugin</artifactId>
   	<packaging>jar</packaging>
-  	<version>0.3-SNAPSHOT</version>
+  	<version>0.4-SNAPSHOT</version>
   	<name>Struts 2 jQuery Plugin</name>
   	<url>http://code.google.com/p/struts2-jquery-plugin</url>
   	<description>This project provides a simple struts2 ajax tag library for ajax-enable struts tags using simple jsp tags</description>
@@ -57,8 +57,21 @@
 		            </execution>
 		        </executions>
 		    </plugin>
+		    <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-source</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+			</plugin>
 		</plugins>
 	</build>
+	<!--  -->
 	<repositories>
 		<repository>
 			<id>apache.snapshots</id>
@@ -66,35 +79,22 @@
 			<url>http://people.apache.org/repo/m2-snapshot-repository/</url>
 		</repository>
 	</repositories>
+	-->
 	<dependencies>
 	
         <!-- Core -->
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
-            <version>2.1.7-SNAPSHOT</version>
+            <version>2.1.8-SNAPSHOT</version>
         </dependency>
         
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-javatemplates-plugin</artifactId>
-            <version>2.1.7-SNAPSHOT</version>
+            <version>2.1.8-SNAPSHOT</version>
         </dependency>
-        
-        <!-- 
-        <dependency>
-            <groupId>com.opensymphony</groupId>
-            <artifactId>xwork</artifactId>
-            <version>2.1.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>freemarker</groupId>
-            <artifactId>freemarker</artifactId>
-            <version>2.3.13</version>
-        </dependency>
-		-->
-		
+        		
         <!-- JSP API -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -102,15 +102,7 @@
             <version>2.0</version>
             <scope>provided</scope>
         </dependency>
-		
-        <!-- TEST API -->
-  		<dependency>
-    		<groupId>junit</groupId>
-    		<artifactId>junit</artifactId>
-    		<version>4.5</version>
-    		<scope>test</scope>
-  		</dependency>
-		
+				
   		<!-- struts-annotations must be in compile scope for maven-apt-plugin to
         function correctly. Marking it optional to exclude it from transitive dependency resolution -->
         <dependency>
@@ -118,10 +110,18 @@
             <artifactId>struts-annotations</artifactId>
             <version>1.0.4</version>
             <optional>true</optional>
-        </dependency>        
+        </dependency> 
+               
 	</dependencies>
+	
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+		      <groupId>org.apache.struts2.jquery</groupId>
+		      <artifactId>struts2-jquery-plugin</artifactId>
+		      <version>${pom.version}</version>
+		      <scope>import</scope>
+		    </dependency>
 		</dependencies>
 	</dependencyManagement>
 	
