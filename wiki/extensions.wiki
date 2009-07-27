@@ -14,7 +14,7 @@ The framework provides four explicit extension points:
 = Details =
 
 ==Custom Subscribe/Publish Logic ==
-Using the publish/subscribe framework users can create new topics, subscribe custom topic handlers to topics,and publish topics arbitrarily in custom javascript code. This allows users to provide custom logic using topics which will intract with the components event handlers or triggers (ex. onClickTopics [handler], or enableTopics [trigger]). The subscribe/publish framework can also be used independently as a powerful de-coupled event framework.
+Using the publish/subscribe framework users can create new topics, subscribe custom topic handlers to topics,and publish topics arbitrarily in custom javascript code. This allows users to provide custom logic using topics which will intract with the components event handlers or triggers (ex. onClickTopics _handler_, or enableTopics _trigger_). The subscribe/publish framework can also be used independently as a powerful de-coupled event framework.
 
 The following example illustrates providing a custom topic handler for a component topic. This handler will exectue some custom business logic when the link is clicked.
 {{{
