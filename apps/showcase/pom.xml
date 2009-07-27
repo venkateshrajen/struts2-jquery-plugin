@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>org.apache.struts2.jquery</groupId>
+        <artifactId>struts2-jquery-plugin</artifactId>
+        <version>${pom.version}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>    
+    <groupId>org.apache.struts2.jquery</groupId>
+    <artifactId>struts2-jquery-showcase</artifactId>
+    <packaging>war</packaging>
+    <name>jQuery Showcase Webapp</name>
+    
+    <scm>
+        <connection>scm:svn:http://struts2-jquery-plugin.googlecode.com/svn/trunk/apps/showcase</connection>
+        <developerConnection>scm:svn:https://struts2-jquery-plugin.googlecode.com/svn/trunk/apps/showcase</developerConnection>
+        <url>http://code.google.com/p/struts2-jquery-plugin/source/browse/</url>
+    </scm>
+    
+    <dependencies>
+        <dependency>
+		      <groupId>org.apache.struts2.jquery</groupId>
+		      <artifactId>struts2-jquery-plugin</artifactId>
+		      <version>${pom.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium.client-drivers</groupId>
+            <artifactId>selenium-java-client-driver</artifactId>
+            <version>1.0.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+    <build>
+        <finalName>struts2-jquery-showcase</finalName>
+        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>tomcat-maven-plugin</artifactId>
+		        <configuration>
+		          <url>http://localhost:8080/manager</url>
+		          <server>localhost</server>
+		        </configuration>
+		      </plugin>
+		      <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>selenium-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start-server</goal>
+                        </goals>
+                        <configuration>
+                            <background>true</background>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <!-- Skip the normal tests, we'll run them in the integration-test phase -->
+                    <skip>true</skip>
+                </configuration>
+                
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <skip>false</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
+			      <groupId>org.codehaus.mojo</groupId>
+			        <artifactId>tomcat-maven-plugin</artifactId>
+			        <configuration>                
+			        	<server>myserver</server>
+			        	<!-- 
+			        		   Add a corresponding server block to your settings.xml:
+
+							      <server>
+							              <id>myserver</id>
+							              <username>myusername</username>
+							              <password>mypassword</password>
+							      </server>
+							
+							The default authentication details are username admin and no password.
+			        	
+			        	 -->
+			        </configuration>
+			</plugin>
+			            
+        </plugins>
+        
+        <finalName>jquery-plugin-showcase</finalName>
+     
+    </build>
+</project>
