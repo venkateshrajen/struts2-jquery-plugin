@@ -31,17 +31,16 @@
 				var tag = el.tagName.toLowerCase();
 				
 				//extension point to allow custom pre-binding processing
-				if(_struts2_jquery.preBind && (typeof(_struts2_jquery.preBind) == "function") && _struts2_jquery.preBind(el) == false) {
-					return _struts2_jquery.preBind(el);
-				}
+				if(_struts2_jquery.preBind && (typeof(_struts2_jquery.preBind) == "function") && _struts2_jquery.preBind($el) == false) {
+					
+					var widget = $el.attr("widget") || tag;
+									
+					this[widget]($el, options);
 				
-				var widget = $el.attr("widget") || tag;
-								
-				this[widget]($el, options);
-			
-				//extension point to allow custom post-binding processing
-				if(_struts2_jquery.postBind && (typeof(_struts2_jquery.postBind) == "function")) {
-					return _struts2_jquery.postBind(el);
+					//extension point to allow custom post-binding processing
+					if(_struts2_jquery.postBind && (typeof(_struts2_jquery.postBind) == "function")) {
+						return _struts2_jquery.postBind(el);
+					}
 				}
 				
 			}
