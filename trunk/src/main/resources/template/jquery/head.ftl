@@ -24,12 +24,12 @@
 
 <#if parameters.compressed?default(true)>
   <#assign jqueryFile="jquery-1.3.2.min.js">
-  <#assign jqueryUIFile="jquery-ui-1.7.1.min.js">
+  <#assign jqueryUIFile="jquery-ui-1.7.2.min.js">
   <#assign jquerySubscribeFile="jquery.subscribe.1.1.min.js">
   <#assign jqueryStrutsFile="jquery.struts2.min.js">
 <#else>
   <#assign jqueryFile="jquery-1.3.2.js">
-  <#assign jqueryUIFile="jquery-ui-1.7.1.js">
+  <#assign jqueryUIFile="jquery-ui-1.7.2.js">
   <#assign jquerySubscribeFile="jquery.subscribe.1.1.js">
   <#assign jqueryStrutsFile="jquery.struts2.js">
 </#if>
@@ -46,4 +46,17 @@
   <script language="JavaScript" type="text/javascript" src="${base}/struts/jquery/${jqueryStrutsFile}"></script>
 </#if>  
 
-<link rel="stylesheet" href="${base}/struts/jquery/theme/ui.all.css" type="text/css"/>
+<#if parameters.locale!"en" != "en">
+	<script type="text/javascript" src="${base}/struts/i18n/i18n/ui.datepicker-${parameters.locale?string}.js"></script>
+</#if>
+
+<#if parameters.uiTheme??>
+	<#if parameters.uiTheme?contains("/") || parameters.uiTheme?contains("\\")>
+		<link rel="stylesheet" href="${base}/${parameters.uiTheme?string}" type="text/css"/>
+    <#else>
+		<link rel="stylesheet" href="${base}/struts/jquery/theme/${parameters.uiTheme?string}/jquery-ui.css" type="text/css"/>
+    </#if>
+<#else>
+	<link rel="stylesheet" href="${base}/struts/jquery/theme/base/jquery-ui.css" type="text/css"/>
+</#if>
+   
