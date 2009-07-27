@@ -20,7 +20,7 @@
  * under the License.
  */
 -->
-<div class="_struts2_jquery_class_tabbedpane"
+<div class="_struts2_jquery_class_tabbedpane" widget="tabbedpane"<#rt/>
 <#if parameters.isCache??>
  isCache="${parameters.isCache?string?html}"<#rt/>
 </#if>

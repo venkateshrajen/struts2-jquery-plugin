@@ -20,7 +20,7 @@
  * under the License.
  */
 -->
-<div class="_struts2_jquery_class_dialog" style="display:none" 
+<div class="_struts2_jquery_class_dialog" style="display:none" widget="dialog"<#rt/> 
 <#if parameters.buttons??>
  buttons="${parameters.buttons?html}"<#rt/>
 </#if>

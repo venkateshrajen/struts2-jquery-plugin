@@ -20,7 +20,7 @@
  * under the License.
  */
 -->
-<input type="text"<#rt/>
+<input type="text" widget="datepicker"<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>
 <#if parameters.cssClass??>
  class="<@s.property value="parameters.cssClass"/> _struts2_jquery_class_datepicker"<#rt/>

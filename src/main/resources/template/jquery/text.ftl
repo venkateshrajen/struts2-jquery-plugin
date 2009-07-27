@@ -20,7 +20,7 @@
  * under the License.
  */
 -->
-<input type="text"<#rt/>
+<input type="text" widget="textfield"<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>
 <#if parameters.get("size")??>
  size="${parameters.get("size")?html}"<#rt/>
