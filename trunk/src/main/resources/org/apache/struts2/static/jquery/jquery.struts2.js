@@ -617,6 +617,9 @@
 		    }
 		}
 	};		
+		
+	Struts2jQuery = _struts2_jquery;
+	
 	
 	/**
 	 * STRUTS2 JQUERY BUILT-IN ELEMENT HANDLERS 
@@ -1340,5 +1343,5 @@
 		var form = $(event.target);
 		form.submit();
 	});
-		
+	
 })(jQuery);
