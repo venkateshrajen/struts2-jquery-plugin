@@ -1,0 +1,9 @@
+#summary This page contains instructions on how to customize and extend this plugin
+
+= Introduction =
+
+The Struts2 jQuery Plugin has several extension points designed to allow users to extend the built-in logic with custom widget, custom publish/subscribe topics & handlers, customizations to existing widget/component behaviour.
+
+
+= Details =
+
