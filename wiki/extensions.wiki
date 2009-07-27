@@ -4,6 +4,75 @@
 
 The Struts2 jQuery Plugin has several extension points designed to allow users to extend the built-in logic with custom widget, custom publish/subscribe topics & handlers, customizations to existing widget/component behaviour.
 
+The framework provides four explicit extension points:
+
+ # Implementing custom subscribe/publish topics and handlers - Using the publish/subscribe framework users can create new topics, subscribe custom topic handlers to topics,and publish topics arbitrarily in custom javascript code
+ # Implementing and binding custom widgets 
+ # Implementing custom pre-binding function for existing components
+ # Implementing custom post-binding function for existing components
 
 = Details =
 
+==Custom Subscribe/Publish Logic ==
+Using the publish/subscribe framework users can create new topics, subscribe custom topic handlers to topics,and publish topics arbitrarily in custom javascript code. This allows users to provide custom logic using topics which will intract with the components event handlers or triggers (ex. onClickTopics [handler], or enableTopics [trigger]). The subscribe/publish framework can also be used independently as a powerful de-coupled event framework.
+
+The following example illustrates providing a custom topic handler for a component topic. This handler will exectue some custom business logic when the link is clicked.
+{{{
+   <%@taglib prefix="s" uri="/struts-tags"%>
+   <%@ taglib prefix="sj" uri="/struts2-jquery-tags" %>
+   <html>
+      <head>
+         <sj:head compressed="false"/>
+         <title><s:text name="application.title"/></title>
+         <script type="text/javascript" >
+
+            $.subscribe('linkClicked', function(event,element) {
+               
+                //insert custom logic here...
+            });
+
+         </script>
+      </head>
+      <body>  
+         <sj:a id="logicLink" onClickTopics="linkClicked"/>
+      </body>
+   </html>
+}}}
+
+The following example illustrates using custom code to publish a topic that is bound to an component's event trigger once the page is loaded. Int this case we will display a dialog when the page is loaded with a couple topic handlers to handle the button clicks on the dialog.
+{{{
+   <%@taglib prefix="s" uri="/struts-tags"%>
+   <%@ taglib prefix="sj" uri="/struts2-jquery-tags" %>
+   <html>
+      <head>
+         <sj:head compressed="false"/>
+         <title><s:text name="application.title"/></title>
+         <script type="text/javascript" >
+ 
+            $(document).ready(function () {
+
+               $.publish('showDialog');
+            };
+
+            $.subscribe('yesClicked', function(event,element) {
+               
+                //insert custom logic here...
+            });
+
+            $.subscribe('noClicked', function(event,element) {
+               
+                //insert custom logic here...
+            });
+
+         </script>
+      </head>
+      <body>  
+         <sj:dialog src="dialog.action" buttons="'Yes','No'" buttonTopics="yesClicked,noClicked" showTopics="showDialog" draggable="true" modal="true" resizable="true" title="'JQuery Dialog'"/>
+      </body>
+   </html>
+}}}
+
+For additional information on using the integrates publish/subscribe framework, see the jquery.subscribe.js source document included with the plugin or visit the jquery subscribe/publish plugin site at [http://plugins.jquery.com/project/jQuerySubscribe].
+
+
+==Implementing and Binding Custom Widgets==
