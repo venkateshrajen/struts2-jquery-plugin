@@ -1,4 +1,5 @@
 #summary This page contains instructions on how to customize and extend this plugin
+#labels Featured
 
 = Introduction =
 
