@@ -19,6 +19,7 @@ public class HeadTag extends AbstractUITag {
     private String compressed;
     private String baseRelativePath;
     private String locale;
+    private String uiTheme;
     
     public Component getBean(ValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Head(stack, req, res);
@@ -31,6 +32,7 @@ public class HeadTag extends AbstractUITag {
         head.setCompressed(compressed);
         head.setBaseRelativePath(baseRelativePath);
         head.setLocale(locale);
+        head.setUiTheme(uiTheme);
     }
 
     public void setBaseRelativePath(String baseRelativePath) {
@@ -44,4 +46,8 @@ public class HeadTag extends AbstractUITag {
     public void setLocale(String locale) {
         this.locale = locale;
     }
+
+	public void setUiTheme(String uiTheme) {
+		this.uiTheme = uiTheme;
+	}
 }
