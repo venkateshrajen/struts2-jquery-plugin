@@ -26,7 +26,7 @@ This tag enables the use of the *struts2-jquery-plugin*. It includes the require
   * *compressed* (_boolean_) - Determine whether to use compressed versions of included files (default = 'true')
   * *locale* (_String_) - Set a locale string for any localizable widgets/components
   * *uiTheme* - (_String_) - The name of a provided jquery-ui theme or the path to a custom jquery them of your own (if just name provided, must match included theme, else if path provided will look for theme at path relative to webapp root).
-  * baseRelativePath* - Context relative path of jquery distribution folder (if not using the default provided by plugin)
+  * *baseRelativePath* - Context relative path of jquery distribution folder (if not using the default provided by plugin)
 
 
 = Theming =
