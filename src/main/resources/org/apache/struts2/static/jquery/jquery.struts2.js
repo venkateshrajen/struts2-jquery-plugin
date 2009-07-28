@@ -31,7 +31,7 @@
 				var tag = el.tagName.toLowerCase();
 				
 				//extension point to allow custom pre-binding processing
-				if(_struts2_jquery.preBind && (typeof(_struts2_jquery.preBind) == "function") && _struts2_jquery.preBind($el) == false) {
+				if(typeof(_struts2_jquery.preBind) != "function" || _struts2_jquery.preBind($el)) {
 					
 					var widget = $el.attr("widget") || tag;
 									
@@ -173,10 +173,8 @@
 			if(options.onclicktopics) {  
 				var topics = options.onclicktopics.split(',');
 				for ( var i = 0; i < topics.length; i++) {
-				
-					//$elem.publishOnEvent('click',topics[i]);
-					
-					var topic = topics[i];			//modified to prevent exec for disabled action
+									
+					var topic = topics[i];
 					$elem.createTopic(topic);
 					$elem.bind('click', function(event){
 						
@@ -228,7 +226,6 @@
 			}
 
 	    	options.src = href;
-	    	if(options.validate) { options.enableJSONValidation = 'true'; }
 
 			$elem.publishOnEvent('click', actionTopic);			//bind custom action topic to click event
 			
@@ -276,8 +273,6 @@
 			var containerLoadHandlerName = '_struts2_jquery_container_load';
 			
 			this.base($elem, options);
-
-	    	if(options.validate) { options.enableJSONValidation = 'true'; }
 	    	
 			//bind submit event to onSubmit topics
 			if(options.onsubmittopics) {  
@@ -810,7 +805,11 @@
 							//serializeData[element.name] = element.value;
 						}
 					}
-				}     	
+				}    
+				if(serializeData && options.validate) {
+					serializeData['struts.enableJSONValidation'] = true;
+				}
+				
 				$.extend(options,{data: serializeData});	
 				
 				//if reloadtopics exist, need to reset reload topics with new options
@@ -945,7 +944,11 @@
 							//serializeData[element.name] = element.value;
 						}
 					}
-				}     	
+				}     	    
+				if(serializeData && options.validate) {
+					serializeData['struts.enableJSONValidation'] = true;
+				}
+				
 				$.extend(options,{data: serializeData});	
 	
 				
@@ -1177,7 +1180,11 @@
 						//serializeData[element.name] = element.value;
 					}
 				}
-			}    
+			}        
+			if(serializeData && options.validate) {
+				serializeData['struts.enableJSONValidation'] = true;
+			}
+			
 			$.extend(options,{data: serializeData});			
 			
 	    	//load input using ajax
@@ -1319,7 +1326,11 @@
 						//serializeData[element.name] = element.value;
 					}
 				}
-			}    
+			}        
+			if(serializeData && options.validate) {
+				serializeData['struts.enableJSONValidation'] = true;
+			}
+			
 			$.extend(options,{data: serializeData});			
 			
 	    	//load input using ajax
