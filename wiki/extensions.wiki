@@ -80,11 +80,7 @@ For additional information on using the integrates publish/subscribe framework, 
 The framework provides an extension point to integrate custom widgets. 
 To use a custom widget with the framework, the following must be done:
   # The element must have an *_widget_* attribute whose value is the widget name (ex: widget="dialog")
-  # The widget binding javascript  function must be registered with the struts jquery framework by calling Struts2jQuery.widget(_name_, _binder_) where *_name_* is the unique widget name and *_binder_* is a widget binding function (containing the implementation code for the custom widget) of the form:
-{{{
-     function(_$elem_, _options_)
-}}}
-where *_$elem_* is the jquery object containing the widget element ($elem[0] is the DOM element) and *_options_* is a name/value hash of the element attributes. Typically, this would be done by including a javascript file with this code (or {{{<script></script>}}} fragment _after_ the <sj:head/> tag. 
+  # The widget binding javascript  function must be registered with the struts jquery framework by calling Struts2jQuery.widget(_name_, _binder_) where *_name_* is the unique widget name and *_binder_* is a widget binding function (containing the implementation code for the custom widget) of the form:{{{ function($elem, options){} }}} where *_$elem_* is the jquery object containing the widget element ($elem`[0]` is the DOM element) and *_options_* is a name/value hash of the element attributes. Typically, this would be done by including a javascript file with this code (or {{{<script></script>}}} fragment _after_ the <sj:head/> tag). 
   # For each instance of the widget (rendered in html) you must call Struts2jQuery.bind(_id_) _after_ the element in the page. _id_ is the unique id of the element (which must be provided). Note: If the element is rendered using freemarker templates (a common scenario), then this can be accomplished simply by adding the line 
 {{{
 <#include "/${parameters.templateDir}/jquery/jquery-bind.ftl" />
@@ -93,13 +89,13 @@ to the end of the freemarker .ftl template.
 
 
 ==Pre and Post binding Hooks==
-As noted above, to render components, a component binding function of the form {{{function(<i>$elem</i>, _options_)}}} is called for each element. Prior to each binding call, the framework calls a preBind(_$elem_) function (if provided) and after each binding call the framework calls a postBind(_$elem_) function (if provided). In order to customize the binding process, the user can provide implementations of these methods as:
+As noted above, to render components, a component binding function of the form {{{function($elem, options)}}} is called for each element. Prior to each binding call, the framework calls a preBind(_$elem_) function (if provided) and after each binding call the framework calls a postBind(_$elem_) function (if provided). In order to customize the binding process, the user can provide implementations of these methods as:
 {{{
-Struts2jQuery.preBind = function(_$elem_){
+Struts2jQuery.preBind = function($elem){
 //...
 };
 
-Struts2jQuery.postBind = function(_$elem_){
+Struts2jQuery.postBind = function($elem){
 //...
 };
 }}}
