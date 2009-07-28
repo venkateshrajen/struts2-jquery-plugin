@@ -1,4 +1,5 @@
 #summary The head tag loads the required plugin javascript and css files and supports localization and theming
+#labels Featured
 
 = Introduction =
 
