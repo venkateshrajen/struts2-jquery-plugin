@@ -1,4 +1,4 @@
-#summary Provides information and usage instructions for the tag
+#summary The head tag loads the required plugin javascript and css files and supports localization and theming
 
 = Introduction =
 
