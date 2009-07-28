@@ -93,7 +93,7 @@ to the end of the freemarker .ftl template.
 
 
 ==Pre and Post binding Hooks==
-As noted above, to render components, a component binding function of the form {{{function(_$elem_, _options_)}}} is called for each element. Prior to each binding call, the framework calls a preBind(_$elem_) function (if provided) and after each binding call the framework calls a postBind(_$elem_) function (if provided). In order to customize the binding process, the user can provide implementations of these methods as:
+As noted above, to render components, a component binding function of the form {{{function(<i>$elem</i>, _options_)}}} is called for each element. Prior to each binding call, the framework calls a preBind(_$elem_) function (if provided) and after each binding call the framework calls a postBind(_$elem_) function (if provided). In order to customize the binding process, the user can provide implementations of these methods as:
 {{{
 Struts2jQuery.preBind = function(_$elem_){
 //...
