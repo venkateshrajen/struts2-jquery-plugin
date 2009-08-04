@@ -36,9 +36,6 @@
 <#if parameters.displayValue??>
  value="<@s.property value="parameters.displayValue"/>"<#rt/>
 </#if>
-<#if parameters.disabled?default(false)>
- disabled="disabled"<#rt/>
-</#if>
 <#if parameters.readonly?default(false)>
  readonly="readonly"<#rt/>
 </#if>
