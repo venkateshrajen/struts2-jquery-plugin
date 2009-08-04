@@ -2,6 +2,7 @@ package org.apache.struts2.jquery.views.jsp.ui;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.jsp.JspException;
 
 import org.apache.struts2.components.Component;
 import org.apache.struts2.jquery.components.Base;
@@ -25,6 +26,15 @@ public abstract class AbstractBaseTag extends AbstractClosingTag implements Base
     	jQuery.setHideTopics(hideTopics);
         jQuery.setShowTopics(showTopics);
         jQuery.setRemoveTopics(removeTopics);
+    }
+    
+    @Override
+    public int doEndTag() throws JspException {
+    	int result = super.doEndTag();
+    	
+    	setDisabled(null); //Seems necessary to prevent caching of attribute state by pooled/cached tags. weird? 
+    	
+    	return result;
     }
     
 	@Override
