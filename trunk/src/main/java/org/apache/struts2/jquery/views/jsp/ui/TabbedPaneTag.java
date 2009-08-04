@@ -49,10 +49,6 @@ public class TabbedPaneTag extends AbstractBaseTag {
 		this.isCache = isCache;
 	}
 
-	public void setDisabled(String disabled) {
-		this.disabled = disabled;
-	}
-
 	public void setSelected(String selected) {
 		this.selected = selected;
 	}
