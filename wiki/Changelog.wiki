@@ -3,4 +3,4 @@
 ==== Version 1.0.4====
   * Added textarea tag - loads content remotely using ajax and has all usual subscribe/publish topics & handlers
   * Added URLBuilder to generate root-based URLs for rendering all tag URLs.
-  * Fixed bug with extra </input> close tag in text tag freemarker template 
+  * Fixed bug with extra `</input>` close tag in text tag freemarker template 
