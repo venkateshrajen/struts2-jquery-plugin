@@ -42,7 +42,7 @@ public abstract class AbstractInput extends AbstractInteractive implements Input
         if (onFocusTopics != null)
             addParameter("onFocusTopics", findString(onFocusTopics));
         if (src != null)
-            addParameter("src", ensureAttributeSafelyNotEscaped(findString(src)));
+            addParameter("src", ensureAttributeSafelyNotEscaped(URLBuilder.buildRootURL(findString(src), request)));
         if (formIds != null)
             addParameter("formIds", findString(formIds));
         if (elementIds != null)

@@ -5,22 +5,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.components.Component;
 import org.apache.struts2.jquery.components.Input;
-import org.apache.struts2.jquery.components.TextField;
+import org.apache.struts2.jquery.components.TextArea;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
 @SuppressWarnings("serial")
-public class TextFieldTag extends AbstractContainerTag implements Input {
+public class TextAreaTag extends AbstractContainerTag implements Input {
 		
 	private AbstractInputTag inputDelegate = new AbstractInputTag(){};
     
-	public TextFieldTag() {
+	public TextAreaTag() {
 		super();
 	}
 
 	@Override
 	public Component getBean(ValueStack stack, HttpServletRequest req, HttpServletResponse res) {
-		Component bean = new TextField(stack, req, res);
+		Component bean = new TextArea(stack, req, res);
 		return bean;
 	}
 
