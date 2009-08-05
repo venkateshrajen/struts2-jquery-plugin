@@ -45,7 +45,7 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
         if (onSuccessTopics != null)
             addParameter("onSuccessTopics", findString(onSuccessTopics));
         if (src != null)
-            addParameter("src", ensureAttributeSafelyNotEscaped(findString(src)));
+        	addParameter("src", ensureAttributeSafelyNotEscaped(URLBuilder.buildRootURL(findString(src), request)));
         if (loadingText != null)
             addParameter("loadingText", findString(loadingText));
         if (errorText != null)

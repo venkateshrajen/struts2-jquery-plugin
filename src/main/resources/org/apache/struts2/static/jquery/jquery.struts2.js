@@ -557,7 +557,7 @@
 		
 		textfield: function($elem, options){
 			
-			var loadHandlerName = '_struts2_jquery_textfield_load';
+			var loadHandlerName = '_struts2_jquery_textinput_load';
 			
 			this.base($elem, options);
 			this.interactive($elem, options);
@@ -570,6 +570,24 @@
 		    	var textfieldTopic = '_struts2_jquery_topic_load_' + options.id;
 	    		$elem.subscribe(textfieldTopic, loadHandlerName);
 	    		$elem.publish(textfieldTopic,options);
+			}				
+		},
+		
+		textarea: function($elem, options){
+			
+			var loadHandlerName = '_struts2_jquery_textinput_load';
+			
+			this.base($elem, options);
+			this.interactive($elem, options);
+			this.input($elem, options, loadHandlerName);
+
+	    	//load select using ajax
+			if(options.src) {
+
+				//publishing not triggering to prevent event propagation issues
+		    	var textareaTopic = '_struts2_jquery_topic_load_' + options.id;
+	    		$elem.subscribe(textareaTopic, loadHandlerName);
+	    		$elem.publish(textareaTopic,options);
 			}				
 		},
 		
@@ -1203,7 +1221,7 @@
 
 	/** TextField logic */	
 	//Register handler to load an input element
-	$.subscribeHandler('_struts2_jquery_textfield_load', function(event, data) {
+	$.subscribeHandler('_struts2_jquery_textinput_load', function(event, data) {
 
 		var input = $(event.target);
 		

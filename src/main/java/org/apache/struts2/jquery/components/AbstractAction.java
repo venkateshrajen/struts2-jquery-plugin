@@ -39,7 +39,7 @@ public abstract class AbstractAction extends AbstractInteractive implements Acti
         if (targets != null)
             addParameter("targets", findString(targets));
         if (href != null)
-            addParameter("href", ensureAttributeSafelyNotEscaped(findString(href)));
+        	addParameter("href", ensureAttributeSafelyNotEscaped(URLBuilder.buildRootURL(findString(href), request)));
         if (formIds != null)
             addParameter("formIds", findString(formIds));
         if (validate != null)

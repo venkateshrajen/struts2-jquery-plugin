@@ -1,6 +1,6 @@
 <#--
 /*
- * $Id: text.ftl,v 1.1 2009/02/09 08:34:16 echijioke Exp $
+ * $Id: textarea.ftl,v 1.1 2009/02/09 08:34:16 echijioke Exp $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,16 +20,15 @@
  * under the License.
  */
 -->
-<input type="text" widget="textfield"<#rt/>
+<textarea widget="textarea"<#rt/>
  name="${parameters.name?default("")?html}"<#rt/>
-<#if parameters.get("size")??>
- size="${parameters.get("size")?html}"<#rt/>
+ cols="${parameters.cols?default("")?html}"<#rt/>
+ rows="${parameters.rows?default("")?html}"<#rt/>
+<#if parameters.wrap??>
+ wrap="${parameters.wrap?html}"<#rt/>
 </#if>
-<#if parameters.maxlength??>
- maxlength="${parameters.maxlength?html}"<#rt/>
-</#if>
-<#if parameters.nameValue??>
- value="<@s.property value="parameters.nameValue"/>"<#rt/>
+<#if parameters.disabled?default(false)>
+ disabled="disabled"<#rt/>
 </#if>
 <#if parameters.readonly?default(false)>
  readonly="readonly"<#rt/>
@@ -50,3 +49,6 @@
 <#include "/${parameters.templateDir}/jquery/container.ftl" />
 <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />
 ><#rt/>
+<#if parameters.nameValue??>
+<@s.property value="parameters.nameValue"/><#t/>
+</#if>

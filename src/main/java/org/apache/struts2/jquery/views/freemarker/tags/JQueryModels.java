@@ -37,6 +37,8 @@ public class JQueryModels {
     protected TabbedPaneModel tabbedpane;
     protected TabModel tab;
     protected DialogModel dialog;
+    protected TextFieldModel textField;
+    protected TextAreaModel textArea;
    
     private ValueStack stack;
     private HttpServletRequest req;
@@ -115,6 +117,22 @@ public class JQueryModels {
         }
 
         return dialog;
+    }
+
+    public TextFieldModel getTextField() {
+        if (textField == null) {
+        	textField = new TextFieldModel(stack, req, res);
+        }
+
+        return textField;
+    }
+
+    public TextAreaModel getTextArea() {
+        if (textArea == null) {
+        	textArea = new TextAreaModel(stack, req, res);
+        }
+
+        return textArea;
     }
     
 }
