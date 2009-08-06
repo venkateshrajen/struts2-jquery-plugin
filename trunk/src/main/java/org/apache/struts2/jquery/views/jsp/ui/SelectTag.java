@@ -117,12 +117,10 @@ public class SelectTag extends AbstractContainerTag implements Input {
 
 	public void setFormIds(String formIds) {
 		super.setFormIds(formIds);
-		//inputDelegate.setFormIds(formIds);
 	}
 
 	public void setElementIds(String elementIds) {
 		super.setElementIds(elementIds);
-		//inputDelegate.setElementIds(elementIds);
 	}
 }
 

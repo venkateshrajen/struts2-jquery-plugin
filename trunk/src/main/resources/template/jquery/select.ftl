@@ -39,6 +39,13 @@
 <#if parameters.multiple?default(false)>
  multiple="multiple"<#rt/>
 </#if>
+<#if parameters.emptyOption?default(false)>
+ emptyOption="true"<#rt/>
+</#if>
+<#if parameters.headerKey?? && parameters.headerValue??>
+ headerKey="${parameters.headerKey?html}"<#rt/>
+ headerKey="${parameters.headerValue?html}"<#rt/>
+</#if>
 <#include "/${parameters.templateDir}/jquery/base.ftl" />
 <#include "/${parameters.templateDir}/jquery/interactive.ftl" />
 <#include "/${parameters.templateDir}/jquery/input.ftl" />

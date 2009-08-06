@@ -182,17 +182,6 @@ public class Select extends AbstractContainer implements Input {
 	public void setOnFocusTopics(String onFocusTopics) {
 		inputDelegate.setOnFocusTopics(onFocusTopics);
 	}
-
-	@StrutsTagAttribute(name="elementIds", description="A comma delimited list of form elements that should be individually serialized and sent with the input load request. " +
-			"Input element must have a 'name' attribute and will be serialized as <name>=<value>", type="String", defaultValue="", required=false)
-	public void setElementIds(String elementIds){
-		inputDelegate.setElementIds(elementIds);
-	}
-
-	@StrutsTagAttribute(name="formIds", description="A comma delimited list of forms that should be serialized and sent with the input load request", type="String", defaultValue="", required=false)
-	public void setFormIds(String formIds){
-		inputDelegate.setFormIds(formIds);
-	}
 	
 	@StrutsTagAttribute(name="enableTopics", description = "A comma delimited list of topics that will enable this element", type = "String", defaultValue = "")
     public void setEnableTopics(String enableTopics) {
@@ -203,4 +192,10 @@ public class Select extends AbstractContainer implements Input {
     public void setDisableTopics(String disableTopics) {
 		inputDelegate.setDisableTopics(disableTopics);
 	}	
+
+	// Handled by AbstracContainer 
+	//public void setElementIds(String elementIds)
+
+	// Handled by AbstracContainer 
+	//public void setFormIds(String formIds)
 }

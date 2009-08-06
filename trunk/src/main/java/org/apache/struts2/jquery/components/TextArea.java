@@ -65,12 +65,7 @@ public class TextArea extends AbstractContainer implements Input {
 	public void setBlurTopics(String blurTopics) {
 		inputDelegate.setBlurTopics(blurTopics);
 	}
-
-	@StrutsTagAttribute(name="reloadTopics", description="A comma delimited list of topics that will cause this element to reload its contents", type="String", defaultValue="")
-	public void setReloadTopics(String reloadTopics) {
-		this.reloadTopics = reloadTopics;
-	}
-
+    
 	@StrutsTagAttribute(name="onBlurTopics", description = "A comma delimited list of topics that published when the element value is changed", type="String", defaultValue="")
 	public void setOnBlurTopics(String onBlurTopics) {
 		inputDelegate.setOnBlurTopics(onBlurTopics);
@@ -85,17 +80,6 @@ public class TextArea extends AbstractContainer implements Input {
 	public void setOnFocusTopics(String onFocusTopics) {
 		inputDelegate.setOnFocusTopics(onFocusTopics);
 	}
-
-	@StrutsTagAttribute(name="elementIds", description="A comma delimited list of form elements that should be individually serialized and sent with the input load request. " +
-			"Input element must have a 'name' attribute and will be serialized as <name>=<value>", type="String", defaultValue="", required=false)
-	public void setElementIds(String elementIds){
-		inputDelegate.setElementIds(elementIds);
-	}
-
-	@StrutsTagAttribute(name="formIds", description="A comma delimited list of forms that should be serialized and sent with the input load request", type="String", defaultValue="", required=false)
-	public void setFormIds(String formIds){
-		inputDelegate.setFormIds(formIds);
-	}
 	
 	@StrutsTagAttribute(name="enableTopics", description = "A comma delimited list of topics that will enable this element", type = "String", defaultValue = "")
     public void setEnableTopics(String enableTopics) {
@@ -106,4 +90,10 @@ public class TextArea extends AbstractContainer implements Input {
     public void setDisableTopics(String disableTopics) {
 		inputDelegate.setDisableTopics(disableTopics);
 	}	
+
+	// Handled by AbstracContainer 
+	//public void setElementIds(String elementIds)
+
+	// Handled by AbstracContainer 
+	//public void setFormIds(String formIds)
 }

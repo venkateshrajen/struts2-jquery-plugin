@@ -73,12 +73,12 @@ public class TextFieldTag extends AbstractContainerTag implements Input {
 	public void setEnableTopics(String enableTopics) {
 		inputDelegate.setEnableTopics(enableTopics);
 	}
-
+	
 	public void setFormIds(String formIds) {
-		inputDelegate.setFormIds(formIds);
+		super.setFormIds(formIds);
 	}
 
 	public void setElementIds(String elementIds) {
-		inputDelegate.setElementIds(elementIds);
+		super.setElementIds(elementIds);
 	}
 }
