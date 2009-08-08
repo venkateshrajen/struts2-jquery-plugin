@@ -1,14 +1,48 @@
-#summary Renders a jquery datepicker widget that can...
+#summary Renders a jquery datepicker widget.
 
 = Introduction =
-TODO:
+Renders a jquery datepicker widget that can be paramterized with several options and participates in topic events/handlers.
+
 
 = Sample Code=
-TODO:
+The following is a simple example of loading a datepicker in a page and integrating other widget events and custom code to its event.
+{{{
+   <%@taglib prefix="s" uri="/struts-tags"%>
+   <%@ taglib prefix="sj" uri="/struts2-jquery-tags" %>
+   <html>
+      <head>
+         <sj:head compressed="false"/>
+         <title><s:text name="application.title"/></title>
+         <script type='text/javascript'>
+		$.subscribe('datepickerClosed',function(event,data) {
+			//Custom code here...
+		});
+          </script> 
+      </head>
+      <body>
+	Date: <sj:datepicker onAlwaysTopics="datepickerAlways"
+          onBeforeTopics="datepickerLoaded" onChangeTopics="datepickerSelectedDate" 
+          onCompleteTopics="datepickerClosed" id="datepicker1" displayFormat="MM/dd/yyyy" 
+          imageTooltip="Seeclt Your Birthdate" showButton="true" changeYear="tru" 
+          changeMonth="true"/>
+        <sj:div src="dateEvents.action" reloadTopics="datepickerSelectedDate"/>
+      </body>
+   </html>
+}}}
 
 
 = Significant Attributes =
-TODO:
+  * *displayFormat* - The format for parsed and displayed dates. See [http://docs.jquery.com/UI/Datepicker/formatDate]
+  * *imageUrl* - The URL for the popup button image. If set, button text becomes the alt value and is not directly displayed.
+  * *imageTooltip* - The text to display for the alt tip on the popup button image.
+  * *options* - Additional widget options as provided by the jquery datepicker widget
+  * *changeYear* - Allows changing the year by selecting from a drop-down list.
+  * *changeMonth; - Allows changing the month by selecting from a drop-down list.
+  * *showButton* - Set to 'true' in order to show a button next to the field to display the date picker (defaults to false).
+  * *onChangeTopics* - A comma delimited list of topics to be published when a new dat eis selected
+  * *onBeforeTopics* - A comma delimited list of topics to be published when the datepicker is loaded
+  * *onCompleteTopics*  - A comma delimited list of topics to be published when the datepicker is closed
+  * *onAlwaysTopics*  - A comma delimited list of topics to be published on all the datepicker events
 
 
 = All Attributes =
