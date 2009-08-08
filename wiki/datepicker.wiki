@@ -86,7 +86,7 @@ The following is a simple example of loading a datepicker in a page and integrat
 ||onchange||false|| ||false||String||Set the html onchange attribute on rendered html element||
 ||onclick||false|| ||false||String||Set the html onclick attribute on rendered html element||
 ||ondblclick||false|| ||false||String||Set the html ondblclick attribute on rendered html element||
-||onfocus||false|| || ||false||String||Set the html onfocus attribute on rendered html element||
+||onfocus||false|| ||false||String||Set the html onfocus attribute on rendered html element||
 ||onkeydown||false|| ||false||String||Set the html onkeydown attribute on rendered html element||
 ||onkeypress||false|| ||false||String||Set the html onkeypress attribute on rendered html element||
 ||onkeyup||false|| ||false||String||Set the html onkeyup attribute on rendered html element||
