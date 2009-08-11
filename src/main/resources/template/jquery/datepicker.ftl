@@ -69,8 +69,8 @@
 <#if parameters.imageTooltip??>
  	changeMonth="${parameters.changeMonth?string?html}"<#rt/>
 </#if>
-<#if parameters.showButton??>
- 	changeMonth="${parameters.showButton?string?html}"<#rt/>
+<#if parameters.showButton?default(false)>
+    showButton="true"<#rt/>
 </#if>
 <#if parameters.year??>
  	year="${parameters.year?c}"<#rt/>

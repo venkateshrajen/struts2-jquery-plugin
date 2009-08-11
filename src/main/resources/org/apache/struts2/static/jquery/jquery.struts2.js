@@ -257,6 +257,36 @@
 			this.base($elem, options);
 			this.container($elem, options, loadHandlerName);
 
+			if(options.draggable == 'true') {
+				
+		        var draggableOptionsStr = options.draggableoptions;
+		        var draggableOptions = window[draggableOptionsStr];
+		        if (!draggableOptions) {
+		        	draggableOptions = eval ("( " + draggableOptionsStr + " )" );
+		        }
+				$elem.draggable(draggableOptions);
+			}
+			
+			if(options.droppable == 'true') {
+
+		        var droppableOptionsStr = options.droppableoptions;
+		        var droppableOptions = window[droppableOptionsStr];
+		        if (!droppableOptions) {
+		        	droppableOptions = eval ("( " + droppableOptionsStr + " )" );
+		        }
+				$elem.droppable(droppableOptions);
+			}
+			
+			if(options.resizable == 'true') {
+
+		        var resizableOptionsStr = options.resizableoptions;
+		        var resizableOptions = window[resizableOptionsStr];
+		        if (!resizableOptions) {
+		        	resizableOptions = eval ("( " + resizableOptionsStr + " )" );
+		        }
+				$elem.resizable(resizableOptions);
+			}
+			
 	    	//load div using ajax
 			if(options.src) {
 
@@ -599,15 +629,103 @@
 			dpOptions.buttonImageOnly = true;						//show the button as an image
 			dpOptions.showOn = "focus";
 			
-			if(options) { 
+			if(options) {
 				
-				dpOptions.buttonImage = options.imageUrl;
+				if(options.hidetopics) {			  
+					var topics = options.hidetopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						$elem.subscribe(topics[i],'_struts2_jquery_datepicker_hide',options);
+					}
+				}
+
+				if(options.showtopics) {			  
+					var topics = options.showtopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						$elem.subscribe(topics[i],'_struts2_jquery_datepicker_show',options);
+					}
+				}
+
+				if(options.removetopics) {			  
+					var topics = options.removetopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						$elem.subscribe(topics[i],'_struts2_jquery_datepicker_destroy',options);
+					}
+				}
+				
+				if(options.enabletopics) {			  
+					var topics = options.enabletopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						$elem.subscribe(topics[i],'_struts2_jquery_datepicker_enable',options);
+					}
+				}
+
+				if(options.disabletopics) {			  
+					var topics = options.disabletopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						$elem.subscribe(topics[i],'_struts2_jquery_datepicker_disable',options);
+					}
+				}
+				
+				var onAlwaysTopics = options.onalwaystopics;
+				
+				if(options.onbeforetopics) {  
+					var onBeforeTopics = options.onbeforetopics.split(',');
+					dpOptions.beforeShow = function(input){
+						var $input = $(input);
+						for ( var i = 0; i < onBeforeTopics.length; i++) {
+							$input.publish(onBeforeTopics[i], $input);
+						}
+
+						if(onAlwaysTopics) {  
+							var topics = onAlwaysTopics.split(',');
+							for ( var i = 0; i < onBeforeTopics.length; i++) {
+								$input.publish(onBeforeTopics[i], $input);
+							}
+						}
+					};
+				}
+				
+				if(options.onchangetopics) {  
+					var onChangeTopics = options.onchangetopics.split(',');
+					dpOptions.onSelect = function(input){
+						var $input = $(input);
+						for ( var i = 0; i < onChangeTopics.length; i++) {
+							$input.publish(onChangeTopics[i], $input);
+						}
+
+						if(onAlwaysTopics) {  
+							var topics = onAlwaysTopics.split(',');
+							for ( var i = 0; i < onChangeTopics.length; i++) {
+								$input.publish(onChangeTopics[i], $input);
+							}
+						}
+					};
+				}
+				
+				if(options.oncompletetopics) {  
+					var onCompleteTopics = options.oncompletetopics.split(',');
+					dpOptions.onClose = function(input){
+						var $input = $(input);
+						for ( var i = 0; i < onCompleteTopics.length; i++) {
+							$input.publish(onCompleteTopics[i], $input);
+						}
+
+						if(onAlwaysTopics) {  
+							var topics = onAlwaysTopics.split(',');
+							for ( var i = 0; i < onCompleteTopics.length; i++) {
+								$input.publish(onCompleteTopics[i], $input);
+							}
+						}
+					};
+				}
+				
+				dpOptions.buttonImage = options.imageurl;
 				
 				if(options.showbutton) {
 					dpOptions.showOn = "both";							//Have the datepicker appear automatically when the field receives focus and when the button is clicked		
 				} 
 				
-				dpOptions.buttonText = options.imageTooltip;
+				dpOptions.buttonText = options.imagetooltip;
 				dpOptions.changeMonth = options.changemonth;
 				dpOptions.changeYear = options.changeyear;
 				dpOptions.dateFormat = options.displayformat;
@@ -627,6 +745,12 @@
 		    if(options.year && options.month && options.day) {
 		    	$elem.val($.datepicker.formatDate(options.displayformat, new Date(options.year, options.month, options.day)));
 		    }
+		    
+			if(options.disabled == 'true') {
+
+				$elem.attr("disabled","disabled");
+				$elem.addClass("disabled");
+			}
 		}
 	};		
 		
@@ -984,12 +1108,41 @@
 		}
 	});
 			
+	/** Datepicker logic*/
+	//Register handler to open a datepicker
+	$.subscribeHandler('_struts2_jquery_datepicker_show', function(event, data) {
+		
+		$(this).datepicker('show');
+	});
+	//Register handler to close a datepicker
+	$.subscribeHandler('_struts2_jquery_datpicker_hide', function(event, data) {
+		
+		$(this).datepicker('hide');
+	});
+	//Register handler to remove/destroy a datepicker
+	$.subscribeHandler('_struts2_jquery_datepicker_destroy', function(event, data) {
+		
+		$(this).datepicker('destroy');
+	});
+	//Register handler to enable a datepicker
+	$.subscribeHandler('_struts2_jquery_datepicker_enable', function(event, data) {
+		
+		$(this).datepicker('enable');
+	});
+	//Register handler to disable a datepicker
+	$.subscribeHandler('_struts2_jquery_datepicker_disable', function(event, data) {
+		
+		$(this).datepicker('disable');
+	});
+	
+	
 	/** Dialog logic*/
 	//Register handler to open a dialog
 	$.subscribeHandler('_struts2_jquery_dialog_open', function(event, data) {
-		
+		//TODO: handle disabled (don;t open dialod if disabled == true)s
 		$(this).dialog('open');
 	});
+	
 	//Register handler to close a dialog
 	$.subscribeHandler('_struts2_jquery_dialog_close', function(event, data) {
 		
