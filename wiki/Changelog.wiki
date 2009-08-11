@@ -1,9 +1,15 @@
 #summary This tracks a list of changes for each version release
 #labels Featured
  
+==== Version 1.0.5====
+  * Fixed Datepicker showButton attribute
+  * Added missing topic handlers to Datepicker
+  * Added missing disabled attribute to Datepicker js
+  * Added drag/drop and resizable functionality to div
+
 ==== Version 1.0.4.1====
-- Fixed Select Tag bug with emptyOption, headerKey & headerValue attributes
-- Fixed TextArea and TextField bugs with elementIds and FormIds attributes 
+  * Fixed Select Tag bug with emptyOption, headerKey & headerValue attributes
+  * Fixed TextArea and TextField bugs with elementIds and FormIds attributes 
 
 ==== Version 1.0.4====
   * Added textarea tag - loads content remotely using ajax and has all usual subscribe/publish topics & handlers
