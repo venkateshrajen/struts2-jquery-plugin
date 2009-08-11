@@ -63,7 +63,7 @@ The following is a simple example of loading a datepicker in a page and integrat
 ||focusTopics||false|| ||false||String||A comma delimited list of topics that will cause this element to focus||
 ||formIds||false|| ||false||String||Comma delimited list of form ids for which to serialize all fields during contianer load (if multiple forms have overlapping element names, it is indeterminate which will be used)||
 ||hideTopics||false|| ||false||String||A comma delimited list of topics that will hide (display: none) this element||
-||id||false|| || ||false||String||HTML id attribute||
+||id||false|| ||false||String||HTML id attribute||
 ||imageTooltip||false||Pick a date||false||String||Tooltip for the calendar image||
 ||imageUrl||false|| ||false||String||Image used for the calendar button||
 ||indicatorId||false|| ||false||String||Id of element that will be displayed during execution of this element's action and hidden afterwards||
