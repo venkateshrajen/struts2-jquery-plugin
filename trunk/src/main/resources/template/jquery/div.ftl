@@ -24,7 +24,18 @@
   <#if parameters.name??> name="${parameters.name?html}"</#if>
   <#if parameters.cssClass??> class="${parameters.cssClass?html}"</#if>
   <#if parameters.cssStyle??> style="${parameters.cssStyle?html}"</#if>
-  <#if parameters.title??> title="${parameters.title?html}"<#rt/>
+  <#if parameters.title??> title="${parameters.title?html}"<#rt/></#if>
+  <#if parameters.draggable?default(false)>
+	 draggable="true"<#rt/>
+	 <#if parameters.draggableOptions??> draggableOptions="${parameters.draggableOptions?html}"</#if>
+  </#if>
+  <#if parameters.droppable?default(false)>
+	 droppable="true"<#rt/>
+	 <#if parameters.droppableOptions??> droppableOptions="${parameters.droppableOptions?html}"</#if>
+  </#if>
+  <#if parameters.resizable?default(false)>
+	 resizable="true"<#rt/>
+	 <#if parameters.resizableOptions??> resizableOptions="${parameters.resizableOptions?html}"</#if>
   </#if>
   <#include "/${parameters.templateDir}/jquery/base.ftl" />
   <#include "/${parameters.templateDir}/jquery/container.ftl" />

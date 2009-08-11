@@ -81,9 +81,9 @@ public class Datepicker extends TextField {
             addParameter("changeYear", "true");
 
         if (this.showButton != null)
-            addParameter("showButton", findString(this.showButton));
+            addParameter("showButton", findValue(this.showButton, Boolean.class));
         else
-            addParameter("showButton", "false");
+            addParameter("showButton", false);
 
         if (this.options != null) {
             String ops = findString(this.options);
@@ -219,7 +219,7 @@ public class Datepicker extends TextField {
     }
 
     @StrutsTagAttribute(description = "Set to 'true' in order to show a button next to the field to display the date picker.", type = "Boolean", defaultValue = "false")
-    public void SetShowButton(String showButton) {
+    public void setShowButton(String showButton) {
         this.showButton = showButton;
     }
 

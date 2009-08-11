@@ -41,7 +41,7 @@ public class DatepickerTag extends TextFieldTag {
         picker.setOptions(options);
         picker.setChangeMonth(changeMonth);
         picker.setChangeYear(changeYear);  
-        picker.SetShowButton(showButton);  
+        picker.setShowButton(showButton);  
     }
 
     public void setDisplayFormat(String displayFormat) {
