@@ -1,4 +1,5 @@
 #summary Renders a textarea element that can load its contents remotely via ajax
+#labels Featured
 
 = Introduction =
 This renders an `<textarea/>` element which can load its text remotely by ajax. The request used to load the text is highly configurable and can even submit form(s) and element(s) values without requiring additional user interaction.
