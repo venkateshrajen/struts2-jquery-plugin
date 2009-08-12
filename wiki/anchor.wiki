@@ -50,8 +50,6 @@ The following is an example of using the anchor tag to submit a form and a loose
  * *removeTopics* (_String_) -  A comma delimited list of topics which will cause the element to be removed from the DOM
 
 = All Attributes =
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
-
 || *Name* || *Required* || *Default* || *Evaluated* || *Type* || *Description* ||
 ||accesskey||false|| ||false||String||Set the html accesskey attribute on rendered html element||
 ||cssClass||false|| ||false||String||The css class to use for element||
