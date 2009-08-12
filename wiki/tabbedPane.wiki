@@ -156,8 +156,8 @@ This example loads a tabbed pane with three tabs and automatically selects the f
 ||theme||false|| ||false||String||The theme (other than default) to use for rendering the element||
 ||title||false|| ||false||String||Set the html title attribute on rendered html element||
 ||tooltip||false|| ||false||String||Set the tooltip of this particular component||
-||tooltipConfig||false||false||String||Deprecated. Use individual tooltip configuration attributes instead.||
+||tooltipConfig||false|| ||false||String||Deprecated. Use individual tooltip configuration attributes instead.||
 ||tooltipCssClass||false||StrutsTTClassic||false||String||CSS class applied to JavaScrip tooltips||
-||tooltipDelay||false|| ||Classic||false||String||Delay in milliseconds, before showing JavaScript tooltips ||
+||tooltipDelay||false||Classic||false||String||Delay in milliseconds, before showing JavaScript tooltips ||
 ||tooltipIconPath||false|| ||false||String||Icon path used for image that will have the tooltip||
 ||value||false|| ||false||String||Preset the value of input element.||
