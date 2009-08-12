@@ -147,7 +147,7 @@ This example loads a tabbed pane with three tabs and automatically selects the f
 ||reloadTopics||false|| ||false||String||A comma delimited list of topics that will cause this element to reload its contents||
 ||removeTopics||false|| ||false||String||A comma delimited list of topics that will remove this element from the dom||
 ||required||false||false||false||Boolean||If set to true, the rendered element will indicate that input is required||
-||requiredposition||false| |||false||String||Define required position of required form element (left|right)||
+||requiredposition||false|| ||false||String||Define required position of required form element (left|right)||
 ||showTopics||false|| ||false||String||A comma delimited list of topics that will show (display: block) this element||
 ||src||*true*|| ||false||String||The url to be use to retrieve this element's contents||
 ||tabindex||false|| ||false||String||Set the html tabindex attribute on rendered html element||
