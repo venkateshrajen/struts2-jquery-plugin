@@ -1,4 +1,4 @@
-#summary Renders an <div/> tag that can be filled by contents loaded remotely by an ajax request and can interact with the other tags.
+#summary Renders a <div/> tag that can be filled by contents loaded remotely by an ajax request and can interact with the other tags.
 
 = Introduction =
 This renders an `<div></div>` element which can can be filled with contents loaded remotely by ajax. The request used to populate the `<div/>` is highly configurable and can even submit form(s) and element(s) values without requiring additional user interaction.
