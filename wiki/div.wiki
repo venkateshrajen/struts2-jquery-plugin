@@ -58,7 +58,7 @@ The following is a an example loading a remote page into a div and reloading it 
  * *droppable* (_Boolean_) - If the dialog should be a valid droppable container or not (true/false)
  * *droppableOptions* (_String_) - Additional jQuery droppableoptions (javascript object string) to pass to the droppable() function. Only used with droppable=true
  * *resizable* (_Boolean_) - If the dialog should be resizable or not (true/false)
- * *draggableOptions* (_String_) - Additional jQuery resizable options (javascript object string) to pass to the resizable container. Only used with resizable =tru
+ * *draggableOptions* (_String_) - Additional jQuery resizable options (javascript object string) to pass to the resizable container. Only used with resizable =true
  * *onCompleteTopics* (_String_) -  A comma delimited list of topics to be published when the ajax request completes (on success or error)
  * *onErrorTopics* (_String_) -  A comma delimited list of topics to be published when the ajax request returns an error code
  * *onSuccessTopics* (_String_) -  A comma delimited list of topics to be published when the ajax request copletes successfully
