@@ -1,4 +1,5 @@
 #summary Renders a jquery datepicker widget.
+#labels Featured
 
 = Introduction =
 Renders a jquery datepicker widget that can be paramterized with several options and participates in topic events/handlers.
