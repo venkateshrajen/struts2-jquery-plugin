@@ -100,7 +100,8 @@ This example loads a tabbed pane with three tabs and automatically selects the f
 ||tooltipDelay||false||Classic||false||String||Delay in milliseconds, before showing JavaScript tooltips ||
 ||tooltipIconPath||false|| ||false||String||Icon path used for image that will have the tooltip||
 ||value||false|| ||false||String||Preset the value of input element.||
-<br/>
+
+
 ===tab===
 || *Name* || *Required* || *Default* || *Evaluated* || *Type* || *Description* ||
 ||accesskey||false|| ||false||String||Set the html accesskey attribute on rendered html element||
