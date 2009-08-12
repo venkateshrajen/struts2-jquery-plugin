@@ -112,7 +112,7 @@ This example loads a tabbed pane with three tabs and automatically selects the f
 ||cssStyle||false|| ||false||String||The css style definitions for element to use||
 ||disableTopics||false|| ||false||String||A comma delimited list of topics that will disable this element||
 ||disabled||false|| ||false||String||Set the html disabled attribute on rendered html element||
-||elementIds||false|| ||false||String||A comma delimited list of form elements that should be individually serialized and sent with the input load request. Input element must have a 'name' attribute and will be serialized as =||
+||elementIds||false|| ||false||String||A comma delimited list of form elements that should be individually serialized and sent with the input load request. Input element must have a 'name' attribute and will be serialized as name=value||
 ||enableTopics||false|| ||false||String||A comma delimited list of topics that will enable this element||
 ||focusTopics||false|| ||false||String||A comma delimited list of topics that will cause this element to focus||
 ||formIds||false|| ||false||String||A comma delimited list of forms that should be serialized and sent with the input load request||
