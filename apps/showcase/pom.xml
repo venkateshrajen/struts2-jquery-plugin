@@ -107,8 +107,6 @@
 			</plugin>
 			            
         </plugins>
-        
-        <finalName>jquery-plugin-showcase</finalName>
      
     </build>
 </project>

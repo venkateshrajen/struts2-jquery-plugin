@@ -6,8 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.xwork.StringEscapeUtils;
-import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.views.annotations.StrutsTag;
 import org.apache.struts2.views.annotations.StrutsTagAttribute;
 
@@ -43,10 +41,13 @@ public class TabbedPane extends AbstractBase {
             addParameter("isCache", findValue(isCache, Boolean.class));
         if (selected != null)
             addParameter("selected", findValue(selected, Integer.class));
-        if (options != null) {
+        if (this.options != null) {
+            addParameter("options", findString(this.options));
+        	/*  Not necessary- we need to proper json object string and we do a check in js
             String ops = findString(this.options);
             if (StringUtils.isNotEmpty(ops))
                 addParameter("options", StringEscapeUtils.escapeJavaScript(ops));
+             */
         }
     }
     
