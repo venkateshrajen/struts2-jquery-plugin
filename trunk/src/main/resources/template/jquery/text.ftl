@@ -37,9 +37,6 @@
 <#if parameters.tabindex??>
  tabindex="${parameters.tabindex?html}"<#rt/>
 </#if>
-<#if parameters.id??>
- id="${parameters.id?html}"<#rt/>
-</#if>
 <#include "/${parameters.templateDir}/simple/css.ftl" />
 <#if parameters.title??>
  title="${parameters.title?html}"<#rt/>

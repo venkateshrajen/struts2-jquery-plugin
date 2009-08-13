@@ -3,8 +3,6 @@ package org.apache.struts2.jquery.components;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.xwork.StringEscapeUtils;
-import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.views.annotations.StrutsTag;
 import org.apache.struts2.views.annotations.StrutsTagAttribute;
 
@@ -75,10 +73,13 @@ public class Dialog extends AbstractContainer implements Interactive {
             addParameter("position", findString(position));
         if (data != null)
             addParameter("data", findString(data));
-        if (options != null) {
+        if (this.options != null) {
+            addParameter("options", findString(this.options));
+        	/*  Not necessary- we need to proper json object string and we do a check in js
             String ops = findString(this.options);
             if (StringUtils.isNotEmpty(ops))
                 addParameter("options", StringEscapeUtils.escapeJavaScript(ops));
+             */
         }
     }
         

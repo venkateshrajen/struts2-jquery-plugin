@@ -459,7 +459,7 @@
 	        if (!userOptions) {
 	        	userOptions = eval ("( " + userOptionsStr + " )" );
 	        }
-	        $.extend(options, userOptions);
+	        $.extend(parameters, userOptions);
 	        
 			//note: id is set on dialog contents
 			$elem.dialog(parameters);
@@ -535,6 +535,7 @@
 					}
 				}	
 
+				//TODO: This isn't done properly (no 'blurring') - probably remove
 	    		var blurTopics = $tab.attr("blurtopics");
 				if(options.blurtopics) {			  
 					var topics = blurTopics.split(',');
@@ -559,6 +560,7 @@
 					}
 				}
 
+				//TODO: This isn't done properly (no 'change' event) - probably remove
 	    		var onChangeTopics = $tab.attr("onchangetopics");
 				if(onChangeTopics) {  
 					var topics = onChangeTopics.split(',');
@@ -575,6 +577,7 @@
 					}
 				}	
 
+				//TODO: This isn't done properly (no 'blur' event)
 	    		var onBlurTopics = $tab.attr("onblurtopics");
 				if(onBlurTopics) {  
 					var topics = onBlurTopics.split(',');
@@ -1192,7 +1195,7 @@
 	});
 	//Register handler to hide a tab
 	$.subscribeHandler('_struts2_jquery_hideTab', function(event, data) {
-		$(this).closest("._struts2_jquery_class_tabbedpane").tabs('hide', event.data);
+		$(this).closest("._struts2_jquery_class_tabbedpane").tabs('remove', event.data);
 	});
 
 	/** Select logic */	
