@@ -53,7 +53,7 @@ public class Form extends AbstractBase {
         if (method != null)
             addParameter("method", findString(method));
         if (validate != null)
-            addParameter("validate", findString(validate));
+            addParameter("validate", findValue(validate, Boolean.class));
         if (focusElement != null)
             addParameter("focusElement", findString(focusElement));
     }
