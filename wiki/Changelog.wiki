@@ -1,6 +1,12 @@
 #summary This tracks a list of changes for each version release
 #labels Featured
  
+==== Version 1.0.7====
+  * Fixed issue with event propagation on subscribe handlers
+  * Fixed handling of disabled attribute on all tags
+  * Fixed blurTopics attribute on input tags
+  * Fixed validate attribute on input tags
+
 ==== Version 1.0.6====
   * Fixed javascript escaping of additional jquery options
   * Fixed using additional jquery options on div
