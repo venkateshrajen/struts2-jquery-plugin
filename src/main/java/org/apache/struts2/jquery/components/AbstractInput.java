@@ -60,7 +60,7 @@ public abstract class AbstractInput extends AbstractInteractive implements Input
 
 	@StrutsTagAttribute(name="blurTopics", description="A comma delimited list of topics that will cause this element to blur", type="String", defaultValue="")
 	public void setBlurTopics(String blurTopics) {
-		this.focusTopics = blurTopics;
+		this.blurTopics = blurTopics;
 	}
 
 	@StrutsTagAttribute(name="reloadTopics", description="A comma delimited list of topics that will cause this element to reload its contents", type="String", defaultValue="")

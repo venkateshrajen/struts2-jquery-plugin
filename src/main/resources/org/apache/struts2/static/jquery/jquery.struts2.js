@@ -1,5 +1,20 @@
-
-
+/*
+ * jquery.struts2.js
+ *
+ * Integration of jquery with struts 2 for first class suppor tof Ajax in struts 2
+ *
+ * Requires use of jQuery. Tested with jQuery 1.3 and above
+ *
+ * Copyright (c) 2008 Eric Chijioke (obinna a-t g mail dot c o m)
+ *
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ *
+ *  Release Notes:
+ *  
+ */
 
 (function($){
 	
@@ -82,7 +97,7 @@
 			
 			if(options.disabled == 'true') {
 
-				$elem.attr("disabled","disabled");
+				$elem.attr("disabled",true);
 				$elem.addClass("disabled");
 			}
 		},
@@ -182,7 +197,9 @@
 						
 						if(!$target.disabled || $target.disabled != true) {
 
-							var publishOptions = event.data || {};
+							
+							var publishOptions = options || {};
+							$.extend(publishOptions,event.data);
 							publishOptions.disabled = false;
 							
 							$target.publish(topic, publishOptions, event);
@@ -429,7 +446,7 @@
 					if(buttontopics.length >= i+1) {
 						$dialog.data('buttonTopics')[button] = topic;  
 						parameters.buttons[button] = function(event) { 
-							$elem.publish($dialog.data('buttonTopics')[event.target.innerHTML], $dialog) 
+							$elem.publish($dialog.data('buttonTopics')[event.target.innerHTML], $dialog, event);
 						};
 					} else {
 						parameters.buttons[button] = function(event) {};
@@ -751,7 +768,7 @@
 		    
 			if(options.disabled == 'true') {
 
-				$elem.attr("disabled","disabled");
+				$elem.attr("disabled", true);
 				$elem.addClass("disabled");
 			}
 		}
@@ -787,13 +804,13 @@
 	//Register handler to hide an element
 	$.subscribeHandler('_struts2_jquery_enable', function(event, data) {
 		
-		$(this).attr("disabled","false");
+		$(this).attr("disabled",false);
 		$(this).removeClass("disabled");
 	});
 	//Register handler to show an element
 	$.subscribeHandler('_struts2_jquery_disable', function(event, data) {
 
-		$(this).attr("disabled","true");
+		$(this).attr("disabled",true);
 		$(this).addClass("disabled");
 	});
 	
@@ -868,7 +885,15 @@
 									
 					if(indicatorId) { $('#' + indicatorId).hide(); }
 					
-					container.html(data);
+					var tagName = container[0].tagName.toLowerCase();
+					if(tagName == 'input' || tagName == 'textarea') {
+						
+						container.val(data);
+						
+					} else {
+					
+						container.html(data);
+					}
 							
 					if(onSuccessTopics) {			  
 						var topics = onSuccessTopics.split(',');
