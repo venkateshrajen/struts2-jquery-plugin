@@ -2,7 +2,7 @@ package org.apache.struts2.jquery.components;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.xwork.StringUtils;
 
 public class URLBuilder {
 	
