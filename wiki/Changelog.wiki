@@ -6,6 +6,8 @@
   * Fixed handling of disabled attribute on all tags
   * Fixed blurTopics attribute on input tags
   * Fixed validate attribute on input tags
+  * Fixed bug in 'locale ' attribute of head tag freemarker template
+  * Fixed bad URLBuilder import
 
 ==== Version 1.0.6====
   * Fixed javascript escaping of additional jquery options
