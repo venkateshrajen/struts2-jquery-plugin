@@ -46,11 +46,13 @@
   <script language="JavaScript" type="text/javascript" src="${base}/struts/jquery/${jqueryStrutsFile}"></script>
 </#if>  
 
-<#if parameters.locale!"en" != "en">
+<#if parameters.locale?if_exists != "">
+  <#if parameters.locale?if_exists != "en">
 	<script type="text/javascript" src="${base}/struts/i18n/i18n/ui.datepicker-${parameters.locale?string}.js"></script>
+  </#if>
 </#if>
 
-<#if parameters.uiTheme??>
+<#if parameters.uiTheme?? && parameters.uiTheme != "">
 	<#if parameters.uiTheme?contains("/") || parameters.uiTheme?contains("\\")>
 		<link rel="stylesheet" href="${base}/${parameters.uiTheme?string}" type="text/css"/>
     <#else>
