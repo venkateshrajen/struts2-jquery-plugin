@@ -1,6 +1,11 @@
 #summary This tracks a list of changes for each version release
 #labels Featured
- 
+  
+==== Version 1.0.8====
+  * Fixed issue URLBuilder not resolving proper url context
+  * Updated dialog to recognize cssClass attribute and pass on to jquery dialogClass attribute
+  * Consolidated loading topic handlers for containers and input elements
+
 ==== Version 1.0.7====
   * Fixed issue with event propagation on subscribe handlers
   * Fixed handling of disabled attribute on all tags
