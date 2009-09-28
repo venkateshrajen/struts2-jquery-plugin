@@ -1,4 +1,5 @@
 #summary Renders a jquery dialog widget that can display static or remote content including remote pages and can interact with the other tags.
+#labels Featured
 
 = Introduction =
 This renders a jQuery dialog widget that can display as a modal or modeless dialog and can be populated with text or remote content including remote pages loaded via ajax. The dialog can be resizable, movable, and all the other options provided by the dialog jQuery-ui widget.
