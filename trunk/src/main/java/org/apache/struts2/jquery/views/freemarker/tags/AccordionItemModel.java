@@ -1,5 +1,5 @@
 /*
- * $Id: TabbedPaneModel.java 651946 2008-04-27 13:41:38Z echijioke $
+ * $Id: AccordionItemModel.java 651946 2008-04-27 13:41:38Z echijioke $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -25,20 +25,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.components.Component;
-import org.apache.struts2.jquery.components.Tab;
+import org.apache.struts2.jquery.components.AccordionItem;
 import org.apache.struts2.views.freemarker.tags.TagModel;
 
 import com.opensymphony.xwork2.util.ValueStack;
 
 /**
- * @see Tab
+ * @see AccordionItem
  */
-public class TabModel extends TagModel {
-    public TabModel(ValueStack stack, HttpServletRequest req, HttpServletResponse res) {
+public class AccordionItemModel extends TagModel {
+    public AccordionItemModel(ValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         super(stack, req, res);
     }
 
     protected Component getBean() {
-        return new Tab(stack, req, res);
+        return new AccordionItem(stack, req, res);
     }
 }

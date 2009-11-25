@@ -21,17 +21,22 @@
  */
 -->
 
+<#if parameters.version?if_exists != "">
+   <#assign version="${parameters.version?string}">
+<#else>
+   <#assign version="">
+</#if>
 
 <#if parameters.compressed?default(true)>
-  <#assign jqueryFile="jquery-1.3.2.min.js">
-  <#assign jqueryUIFile="jquery-ui-1.7.2.min.js">
-  <#assign jquerySubscribeFile="jquery.subscribe.1.1.min.js">
-  <#assign jqueryStrutsFile="jquery.struts2.min.js">
+  <#assign jqueryFile="jquery-1.3.2.min.js?${version}">
+  <#assign jqueryUIFile="jquery-ui-1.7.2.min.js?${version}">
+  <#assign jquerySubscribeFile="jquery.subscribe.1.1.min.js?${version}">
+  <#assign jqueryStrutsFile="jquery.struts2.min.js?${version}">
 <#else>
-  <#assign jqueryFile="jquery-1.3.2.js">
-  <#assign jqueryUIFile="jquery-ui-1.7.2.js">
-  <#assign jquerySubscribeFile="jquery.subscribe.1.1.js">
-  <#assign jqueryStrutsFile="jquery.struts2.js">
+  <#assign jqueryFile="jquery-1.3.2.js?${version}">
+  <#assign jqueryUIFile="jquery-ui-1.7.2.js?${version}">
+  <#assign jquerySubscribeFile="jquery.subscribe.1.1.js?${version}">
+  <#assign jqueryStrutsFile="jquery.struts2.js?${version}">
 </#if>
 
 <#if parameters.baseRelativePath?if_exists != "">
@@ -48,17 +53,17 @@
 
 <#if parameters.locale?if_exists != "">
   <#if parameters.locale?if_exists != "en">
-	<script type="text/javascript" src="${base}/struts/i18n/i18n/ui.datepicker-${parameters.locale?string}.js"></script>
+	<script type="text/javascript" src="${base}/struts/i18n/i18n/ui.datepicker-${parameters.locale?string}.js?${version}"></script>
   </#if>
 </#if>
 
 <#if parameters.uiTheme?? && parameters.uiTheme != "">
 	<#if parameters.uiTheme?contains("/") || parameters.uiTheme?contains("\\")>
-		<link rel="stylesheet" href="${base}/${parameters.uiTheme?string}" type="text/css"/>
+		<link rel="stylesheet" href="${base}/${parameters.uiTheme?string}?${version}" type="text/css"/>
     <#else>
-		<link rel="stylesheet" href="${base}/struts/jquery/theme/${parameters.uiTheme?string}/jquery-ui.css" type="text/css"/>
+		<link rel="stylesheet" href="${base}/struts/jquery/theme/${parameters.uiTheme?string}/jquery-ui.css?${version}" type="text/css"/>
     </#if>
 <#else>
-	<link rel="stylesheet" href="${base}/struts/jquery/theme/base/jquery-ui.css" type="text/css"/>
+	<link rel="stylesheet" href="${base}/struts/jquery/theme/base/jquery-ui.css?${version}" type="text/css"/>
 </#if>
    

@@ -1,0 +1,54 @@
+Version 1.1.2
+    * Updated tabbed pane control to allow mixing of remote and static tab content (per jQuery-ui tabs markup) 
+
+Version 1.1.1
+    * Fixed bug that required the use of version attribute in 'head' tag 
+    
+Version 1.1.0
+   * Added sortable option to div tag and added integrated with publish/subscribe to publish topics on various sortable events 
+   * Added accordion menu widget
+  
+Version 1.0.9
+   * Add version attribute to head tag to allow setting version to prevent browser cache of css and .js files
+   * Fixed URLBuilder to get simple request URI
+   * Added class attribute to dialog
+
+
+Version 1.0.8
+
+    * Fixed issue URLBuilder not resolving proper url context
+    * Updated dialog to recognize cssClass attribute and pass on to jquery dialogClass attribute
+    * Consolidated loading topic handlers for containers and input elements 
+
+Version 1.0.7
+
+    * Fixed issue with event propagation on subscribe handlers
+    * Fixed handling of disabled attribute on all tags
+    * Fixed blurTopics attribute on input tags
+    * Fixed validate attribute on input tags
+    * Fixed bug in 'locale ' attribute of head tag freemarker template
+    * Fixed bad URLBuilder import 
+
+Version 1.0.6
+
+    * Fixed javascript escaping of additional jquery options
+    * Fixed using additional jquery options on div
+    * Removed spurious id attribute rendering on text and textarea templates 
+
+Version 1.0.5
+
+    * Fixed Datepicker showButton attribute
+    * Added missing topic handlers to Datepicker
+    * Added missing disabled attribute to Datepicker js
+    * Added drag/drop and resizable functionality to div 
+
+Version 1.0.4.1
+
+    * Fixed Select Tag bug with emptyOption, headerKey & headerValue attributes
+    * Fixed TextArea? and TextField? bugs with elementIds and FormIds? attributes 
+
+Version 1.0.4
+
+    * Added textarea tag - loads content remotely using ajax and has all usual subscribe/publish topics & handlers
+    * Added URLBuilder to generate root-based URLs for rendering all tag URLs.
+    * Fixed bug with extra </input> close tag in text tag freemarker template 

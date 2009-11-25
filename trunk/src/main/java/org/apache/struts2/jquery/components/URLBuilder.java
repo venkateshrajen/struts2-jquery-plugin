@@ -12,7 +12,7 @@ public class URLBuilder {
 		
 		if(url == null) { return null; }
 
-		if(URL_HASH.equals(url) || url.length() == 0) { return url; }
+		if(url.startsWith(URL_HASH) || url.length() == 0) { return url; }
 		
 		String contextPath = request.getContextPath();
 		
@@ -25,6 +25,11 @@ public class URLBuilder {
 	        if (requestURI == null) {
 	            
 	        	requestURI = (String) request.getAttribute("javax.servlet.forward.request_uri");
+	        }
+	        
+	        if(requestURI == null) {
+	        	
+	        	requestURI = request.getRequestURI();
 	        }
 
 	        if (requestURI != null) {

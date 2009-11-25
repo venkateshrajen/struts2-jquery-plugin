@@ -18,6 +18,15 @@ public class DivTag extends AbstractContainerTag {
 	protected String droppableOptions;		//jQuery draggable options
 	protected String resizable;				//If the dialog should be resizable or not (true/false)
 	protected String resizableOptions;		//jQuery resizable options
+	protected String sortable;				//If the div represents a container of sortable items 
+	protected String sortableOptions;		//jQuery sortable options
+	protected String onSortableUpdateTopics;	//topics that are published when a user stops sorting and a contained item in a sortable div has changed position 
+	protected String onSortableStartTopics;		//topics that are published when a user starts sorting in a sortable div
+	protected String onSortableSortTopics;		//topics that are published when during sorting in a sortable div
+	protected String onSortableStopTopics;		//topics that are published when a user stops sorting in a sortable div
+	protected String onSortableReceiveTopics;	//topics that are published when a connected sortable list has received an item from another list.
+	protected String onSortableRemoveTopics;	//topics that are published when a sortable item has been dragged out from the list and into another.
+	
 	
 	public DivTag() {
 		super();
@@ -42,6 +51,15 @@ public class DivTag extends AbstractContainerTag {
 		div.setDroppableOptions(droppableOptions);
         div.setResizable(resizable);
 		div.setResizableOptions(resizableOptions);
+        div.setSortable(sortable);
+		div.setSortableOptions(sortableOptions);
+		div.setOnSortableReceiveTopics(onSortableReceiveTopics);
+		div.setOnSortableRemoveTopics(onSortableRemoveTopics);
+		div.setOnSortableSortTopics(onSortableSortTopics);
+		div.setOnSortableStartTopics(onSortableStartTopics);
+		div.setOnSortableStopTopics(onSortableStopTopics);
+		div.setOnSortableUpdateTopics(onSortableUpdateTopics);
+		
     }
 
 
@@ -67,6 +85,38 @@ public class DivTag extends AbstractContainerTag {
 
 	public void setResizableOptions(String resizableOptions) {
 		this.resizableOptions = resizableOptions;
+	}
+	
+	public void setSortable(String sortable) {
+		this.sortable = sortable;
+	}
+	
+	public void setSortableOptions(String sortableOptions) {
+		this.sortableOptions = sortableOptions;
+	}
+    
+    public void setOnSortableReceiveTopics(String onSortableReceiveTopics) {
+		this.onSortableReceiveTopics = onSortableReceiveTopics;
+	}
+
+    public void setOnSortableRemoveTopics(String onSortableRemoveTopics) {
+		this.onSortableRemoveTopics = onSortableRemoveTopics;
+	}
+
+    public void setOnSortableSortTopics(String onSortableSortTopics) {
+		this.onSortableSortTopics = onSortableSortTopics;
+	}
+
+    public void setOnSortableStartTopics(String onSortableStartTopics) {
+		this.onSortableStartTopics = onSortableStartTopics;
+	}
+
+    public void setOnSortableStopTopics(String onSortableStopTopics) {
+		this.onSortableStopTopics = onSortableStopTopics;
+	}
+
+     public void setOnSortableUpdateTopics(String onSortableUpdateTopics) {
+		this.onSortableUpdateTopics = onSortableUpdateTopics;
 	}
 }
 

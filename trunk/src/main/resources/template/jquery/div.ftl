@@ -37,6 +37,28 @@
 	 resizable="true"<#rt/>
 	 <#if parameters.resizableOptions??> resizableOptions="${parameters.resizableOptions?html}"</#if>
   </#if>
+  <#if parameters.sortable?default(false)>
+	 sortable="true"<#rt/>
+	 <#if parameters.sortableOptions??> sortableOptions="${parameters.sortableOptions?html}"</#if>
+  </#if>
+  <#if parameters.onSortableUpdateTopics?exists>
+    onSortableUpdateTopics="${parameters.onSortableUpdateTopics?html}"<#rt/>
+  </#if>  
+  <#if parameters.onSortableStartTopics?exists>
+    onSortableStartTopics="${parameters.onSortableStartTopics?html}"<#rt/>
+  </#if>  
+  <#if parameters.onSortableSortTopics?exists>
+    onSortableSortTopics="${parameters.onSortableSortTopics?html}"<#rt/>
+  </#if>
+  <#if parameters.onSortableStopTopics?exists>
+    onSortableStopTopics="${parameters.onSortableStopTopics?html}"<#rt/>
+  </#if>
+  <#if parameters.onSortableReceiveTopics?exists>
+    onSortableReceiveTopics="${parameters.onSortableReceiveTopics?html}"<#rt/>
+  </#if>
+  <#if parameters.onSortableRemoveTopics?exists>
+    onSortableRemoveTopics="${parameters.onSortableRemoveTopics?html}"<#rt/>
+  </#if>	
   <#include "/${parameters.templateDir}/jquery/base.ftl" />
   <#include "/${parameters.templateDir}/jquery/container.ftl" />
   <#include "/${parameters.templateDir}/simple/scripting-events.ftl" />

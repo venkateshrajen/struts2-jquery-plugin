@@ -94,7 +94,7 @@ Please do not edit it directly.
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
 					<td align="left" valign="top">false</td>
-					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">Additional jQuery draggable options to pass to the draggable container</td>
 				</tr>
 				<tr>
@@ -110,7 +110,7 @@ Please do not edit it directly.
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
 					<td align="left" valign="top">false</td>
-					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">Additional jQuery droppable options to pass to the droppable container</td>
 				</tr>
 				<tr>
@@ -248,6 +248,54 @@ Please do not edit it directly.
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">Topics that are published on a load error</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">onSortableReceiveTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">Topics that are published when a connected sortable list has received an item from another list.</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">onSortableRemoveTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">Topics that are published when a sortable item has been dragged out from the list and into another.</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">onSortableSortTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">Topics that are published when during sorting in a sortable div</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">onSortableStartTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">Topics that are published when a user starts sorting in a sortable div</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">onSortableStopTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">Topics that are published when a user stops sorting in a sortable div</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">onSortableUpdateTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">Topics that are published when a user stops sorting and a contained item in a sortable div has changed position</td>
 				</tr>
 				<tr>
 					<td align="left" valign="top">onSuccessTopics</td>
@@ -422,7 +470,7 @@ Please do not edit it directly.
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
 					<td align="left" valign="top">false</td>
-					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">Additional jQuery resizable options to pass to the droppable container</td>
 				</tr>
 				<tr>
@@ -432,6 +480,22 @@ Please do not edit it directly.
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">A comma delimited list of topics that will show (display: block) this element</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">sortable</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">If the div represents a container of sortable items or not (true/false)</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">sortableOptions</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">Additional jQuery sortable options to pass to the sortable container</td>
 				</tr>
 				<tr>
 					<td align="left" valign="top">src</td>

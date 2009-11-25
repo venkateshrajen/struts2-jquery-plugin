@@ -20,6 +20,7 @@ public class HeadTag extends AbstractUITag {
     private String baseRelativePath;
     private String locale;
     private String uiTheme;
+    private String version;
     
     public Component getBean(ValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Head(stack, req, res);
@@ -33,6 +34,7 @@ public class HeadTag extends AbstractUITag {
         head.setBaseRelativePath(baseRelativePath);
         head.setLocale(locale);
         head.setUiTheme(uiTheme);
+        head.setVersion(version);
     }
 
     public void setBaseRelativePath(String baseRelativePath) {
@@ -49,5 +51,9 @@ public class HeadTag extends AbstractUITag {
 
 	public void setUiTheme(String uiTheme) {
 		this.uiTheme = uiTheme;
+	}
+	
+	public void setVersion(String version) {
+		this.version = version;
 	}
 }

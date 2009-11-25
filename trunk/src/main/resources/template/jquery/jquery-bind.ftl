@@ -22,4 +22,5 @@
 -->
 <script type='text/javascript'>
 	_struts2_jquery.bind($('#${parameters.id?html}'));
+	<#--$(function() {_struts2_jquery.bind($('#${parameters.id?html}'));});-->
 </script>

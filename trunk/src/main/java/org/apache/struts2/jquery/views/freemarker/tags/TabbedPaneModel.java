@@ -31,7 +31,7 @@ import org.apache.struts2.views.freemarker.tags.TagModel;
 import com.opensymphony.xwork2.util.ValueStack;
 
 /**
- * @see TabbedPanel
+ * @see TabbedPane
  */
 public class TabbedPaneModel extends TagModel {
     public TabbedPaneModel(ValueStack stack, HttpServletRequest req, HttpServletResponse res) {
