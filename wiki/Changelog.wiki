@@ -1,6 +1,9 @@
 #summary This tracks a list of changes for each version release
 #labels Featured
 
+==== Version 1.1.2====
+   * Updated tabbed pane to allow mixing of remote and static tab content (per jQuery-ui tabs markup) 
+
 ==== Version 1.1.1====
    * Fixed bug that required the use of _version_ attribute in 'head' tag
 
