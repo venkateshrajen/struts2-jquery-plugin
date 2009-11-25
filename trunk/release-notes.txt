@@ -1,5 +1,5 @@
 Version 1.1.2
-    * Updated tabbed pane control to allow mixing of remote and static tab content (per jQuery-ui tabs markup) 
+    * Updated tabbed pane to allow mixing of remote and static tab content (per jQuery-ui tabs markup) 
 
 Version 1.1.1
     * Fixed bug that required the use of version attribute in 'head' tag 
