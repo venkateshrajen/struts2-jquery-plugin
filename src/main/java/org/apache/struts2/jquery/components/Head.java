@@ -22,6 +22,7 @@ public class Head extends org.apache.struts2.components.Head {
     private String baseRelativePath;	//Context relative path of jquery distribution folder
     private String locale;				//Default locale to be used by jQuery, locale name must be specified as in RFC3066
     private String uiTheme;				//The jquery ui theme to use or root-relative path to custom theme css
+    private String version;				//A version suffix to append at the end of the included scrtip and css files to ensure refreshed browser caches
     
     private static final List<String> uiThemes;
     
@@ -81,6 +82,8 @@ public class Head extends org.apache.struts2.components.Head {
             addParameter("baseRelativePath", findString(this.baseRelativePath));
         if (this.locale != null)
             addParameter("locale", findString(this.locale));
+        if (this.version != null)
+            addParameter("version", findString(this.version));
     }
 
     @Override
@@ -112,4 +115,9 @@ public class Head extends org.apache.struts2.components.Head {
     public void setBaseRelativePath(String baseRelativePath) {
         this.baseRelativePath = baseRelativePath;
     }
+
+    @StrutsTagAttribute(name="version", description="A version suffix to append at the end of the included scrtip and css files to ensure refreshed browser caches")
+    public void setVersion(String version) {
+		this.version = version;
+	}
 }

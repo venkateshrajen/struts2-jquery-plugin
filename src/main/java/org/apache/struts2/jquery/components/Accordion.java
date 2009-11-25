@@ -1,5 +1,8 @@
 package org.apache.struts2.jquery.components;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,9 +12,9 @@ import org.apache.struts2.views.annotations.StrutsTagAttribute;
 import com.opensymphony.xwork2.util.ValueStack;
 
 @StrutsTag(name="accordion", tldTagClass="org.apache.struts2.jquery.views.jsp.ui.AccordionTag", 
-		description="Renders an accordion menu",
+		description="Renders an accordion menu with accordion items",
 		allowDynamicAttributes=true)
-public class Accordion extends AbstractAction  {
+public class Accordion extends AbstractInteractive  {
 
     public static final String TEMPLATE = "accordion";
     public static final String TEMPLATE_CLOSE = "accordion-close";
@@ -21,36 +24,53 @@ public class Accordion extends AbstractAction  {
 	protected String clearStyle;			//If set, clears height and overflow styles after finishing animations. This enables accordions to work with dynamic content. Won't work together with autoHeight.
 	protected String collapsible;			//Whether all the sections can be closed at once. Allows collapsing the active section by the triggering event (click is the default).
 	protected String fillSpace;				//If set, the accordion completely fills the height of the parent element. Overrides autoheight.
-	protected String header;				//Selector for the header element.
+	protected String headerClass;			//The class to assign to the header element div
 	protected String options;				//Additional widget options
-	
+
+    protected List<AccordionItem> items;
+    
     public Accordion(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         
     	super(stack, request, response);
+
+    	items = new ArrayList<AccordionItem>();
     }
 
+    public void addItem(AccordionItem item){
+    	
+    	if(item != null) {
+    		item.setHeaderClass(headerClass);
+    	}
+    	
+    	items.add(item);
+    }
+    
     @Override
     public void evaluateExtraParams() {
         
         super.evaluateExtraParams();
-
+        
         if (active != null)
             addParameter("active", findString(active));
         if (autoHeight != null)
-            addParameter("autoHeight", findString(autoHeight));
+            addParameter("autoHeight", findValue(autoHeight, Boolean.class));
         if (clearStyle != null)
-            addParameter("clearStyle", findString(clearStyle));
+            addParameter("clearStyle", findValue(clearStyle, Boolean.class));
         if (collapsible != null)
-            addParameter("collapsible", findString(collapsible));
+            addParameter("collapsible", findValue(collapsible, Boolean.class));
         if (fillSpace != null)
-            addParameter("fillSpace", findString(fillSpace));
-        if (header != null)
-            addParameter("header", findString(header));
+            addParameter("fillSpace", findValue(fillSpace, Boolean.class));
+        if (headerClass != null)
+            addParameter("headerClass", findString(headerClass));
        
         if (this.options != null) {
             addParameter("options", findString(this.options));
         }
     }
+
+	public List<AccordionItem> getItems() {
+		return items;
+	}
         
 	@Override
 	public String getDefaultOpenTemplate() {
@@ -88,9 +108,9 @@ public class Accordion extends AbstractAction  {
 		this.collapsible = collapsible;
 	}
 
-    @StrutsTagAttribute(name="header", type="String", defaultValue="", description = "Selector for the header element")
-	public void setHeader(String header) {
-		this.header = header;
+    @StrutsTagAttribute(name="headerClass", type="String", defaultValue="", description = "The class to assign to the header element div")
+	public void setHeaderClass(String headerClass) {
+		this.headerClass = headerClass;
 	}
 
     @StrutsTagAttribute(name="fillSpace", type="Boolean", defaultValue="false", description = "If set, the accordion completely fills the height of the parent element. Overrides autoheight.")

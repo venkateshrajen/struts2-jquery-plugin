@@ -1,6 +1,6 @@
 <#--
 /*
- * $Id: dialog.ftl,v 1.1 2009/02/09 08:34:16 echijioke Exp $
+ * $Id: accordion.ftl,v 1.1 2009/02/09 08:34:16 echijioke Exp $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,46 +20,33 @@
  * under the License.
  */
 -->
-<div style="display:none" widget="dialog"<#rt/> 
+<div widget="accordion"<#rt/>
 <#if parameters.cssClass?exists>
-  class="${parameters.cssClass?string?html} _struts2_jquery_class_dialog"<#rt/>
+  class="${parameters.cssClass?string?html} _struts2_jquery_class_accordion"<#rt/>
 <#else>
-  class="_struts2_jquery_class_dialog"<#rt/>
+  class="_struts2_jquery_class_accordion"<#rt/>
 </#if>
-<#if parameters.buttons??>
- buttons="${parameters.buttons?html}"<#rt/>
+<#if parameters.active??>
+ active="${parameters.active?string?html}"<#rt/>
 </#if>
-<#if parameters.buttonTopics??>
- buttonTopics="${parameters.buttonTopics?html}"<#rt/>
+<#if parameters.autoHeight?default(true) == false>
+ autoHeight="false"<#rt/>
 </#if>
-<#if parameters.title??>
- title="${parameters.title?html}"<#rt/>
+<#if parameters.clearStyle?default(false)>
+ clearStyle="true"<#rt/>
 </#if>
-<#if parameters.modal??>
- modal="${parameters.modal?string?html}"<#rt/>
+<#if parameters.collapsible?default(false)>
+ collapsible="true"<#rt/>
 </#if>
-<#if parameters.draggable??>
- draggable="${parameters.draggable?string?html}"<#rt/>
+<#if parameters.fillSpace?default(false)>
+ fillSpace="true"<#rt/>
 </#if>
-<#if parameters.resizable??>
- resizable="${parameters.resizable?string?html}"<#rt/>
-</#if>
-<#if parameters.height??>
- height="${parameters.height?html}"<#rt/>
-</#if>
-<#if parameters.width??>
- width="${parameters.width?html}"<#rt/>
-</#if>
-<#if parameters.position??>
- position="${parameters.position?html}"<#rt/>
-</#if>
-<#if parameters.data??>
- data="${parameters.data?html}"<#rt/>
+<#if parameters.headerClass??>
+ headerClass="${parameters.headerClass?string?html}"<#rt/>
 </#if>
 <#if parameters.options??>
  	options="${parameters.options?string?html}"<#rt/>
 </#if>
 <#include "/${parameters.templateDir}/jquery/base.ftl" />
 <#include "/${parameters.templateDir}/jquery/interactive.ftl" />
-<#include "/${parameters.templateDir}/jquery/container.ftl" />
 >

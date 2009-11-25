@@ -13,7 +13,7 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
 	
 	protected String onAlwaysTopics;		//topics that are published before load, after load and on error
     protected String onBeforeTopics;		//topics that are published before a load
-    protected String onCompleteTopics;			//topics that are published before after load
+    protected String onCompleteTopics;		//topics that are published before after load
     protected String onErrorTopics;			//topics that are published on a load error
     protected String onSuccessTopics;		//topics that are published on a load error
     

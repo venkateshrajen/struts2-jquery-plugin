@@ -1,7 +1,8 @@
 /*
  * jquery.struts2.js
  *
- * Integration of jquery with struts 2 for first class suppor tof Ajax in struts 2
+ * Integration of jquery with struts 2 for first class support of Ajax in 
+ * struts 2 using the jQuery javascript library
  *
  * Requires use of jQuery. Tested with jQuery 1.3 and above
  *
@@ -250,7 +251,7 @@
 			
 		select: function($elem, options){
 
-			var loadHandlerName = '_struts2_jquery_select_load';
+			var loadHandlerName = '_struts2_jquery_container_load';
 			
 			this.base($elem, options);
 			this.interactive($elem, options);
@@ -288,8 +289,10 @@
 
 		        var droppableOptionsStr = options.droppableoptions;
 		        var droppableOptions = window[droppableOptionsStr];
-		        if (!droppableOptions) {
+		        if (!droppableOptions && droppableOptionsStr && droppableOptionsStr.length > 0) {
 		        	droppableOptions = eval ("( " + droppableOptionsStr + " )" );
+		        } else {
+		        	sortableOptions = {};
 		        }
 				$elem.droppable(droppableOptions);
 			}
@@ -298,10 +301,82 @@
 
 		        var resizableOptionsStr = options.resizableoptions;
 		        var resizableOptions = window[resizableOptionsStr];
-		        if (!resizableOptions) {
+		        if (!resizableOptions && resizableOptionsStr && resizableOptionsStr.length > 0) {
 		        	resizableOptions = eval ("( " + resizableOptionsStr + " )" );
+		        } else {
+		        	sortableOptions = {};
 		        }
 				$elem.resizable(resizableOptions);
+			}
+			
+			if(options.sortable == 'true') {
+
+		        var sortableOptionsStr = options.sortableoptions;
+		        var sortableOptions = window[sortableOptionsStr];
+		        if (!sortableOptions && sortableOptionsStr && sortableOptionsStr.length > 0) {
+		        	sortableOptions = eval ("(" + sortableOptionsStr + ")" );
+		        } else {
+		        	sortableOptions = {};
+		        }
+		        
+		        var $div = $elem;
+					
+				if(options.onsortableupdatetopics) {  
+					var topics = options.onsortableupdatetopics.split(',');										
+			        sortableOptions.update = function(event,ui) {			        	
+			        	for ( var i = 0; i < topics.length; i++) {
+				        	$div.publish(topics[i], ui, event);
+						}			        	
+			        };
+				}
+					
+				if(options.onsortablestarttopics) {  
+					var topics = options.onsortablestarttopics.split(',');										
+			        sortableOptions.start = function(event,ui) {			        	
+			        	for ( var i = 0; i < topics.length; i++) {
+				        	$div.publish(topics[i], ui, event);
+						}			        	
+			        };
+				}
+					
+				if(options.onsortablesorttopics) {  
+					var topics = options.onsortablesorttopics.split(',');										
+			        sortableOptions.sort = function(event,ui) {			        	
+			        	for ( var i = 0; i < topics.length; i++) {
+				        	$div.publish(topics[i], ui, event);
+						}			        	
+			        };
+				}
+					
+				if(options.onsortablestoptopics) {  
+					var topics = options.onsortablestoptopics.split(',');										
+			        sortableOptions.stop = function(event,ui) {			        	
+			        	for ( var i = 0; i < topics.length; i++) {
+				        	$div.publish(topics[i], ui, event);
+						}			        	
+			        };
+				}
+					
+				if(options.onsortablereceivetopics) {  
+					var topics = options.onsortablereceivetopics.split(',');										
+			        sortableOptions.receive = function(event,ui) {			        	
+			        	for ( var i = 0; i < topics.length; i++) {
+				        	$div.publish(topics[i], ui, event);
+						}			        	
+			        };
+				}
+					
+				if(options.onsortableremovetopics) {  
+					var topics = options.onsortableremovetopics.split(',');										
+			        sortableOptions.remove = function(event,ui) {			        	
+			        	for ( var i = 0; i < topics.length; i++) {
+				        	$div.publish(topics[i], ui, event);
+						}			        	
+			        };
+				}
+				
+				$elem.sortable(sortableOptions);
+				
 			}
 			
 	    	//load div using ajax
@@ -417,10 +492,12 @@
 			parameters.autoOpen = false;
 			parameters.modal = eval(options.modal ? options.modal : false);
 			parameters.resizable = eval(options.resizable ? options.resizable : true);
+			parameters.sortable = eval(options.sortable ? options.sortable : true);
 			parameters.draggable = eval(options.draggable ? options.draggable : true);
 			if(options.height) { parameters.height = eval(options.height); }
 			if(options.width) { parameters.width = eval(options.width); }
 			if(options.position) { parameters.position = eval(options.position); }
+			if(options['class']) { parameters.dialogClass = options['class']; }
 			
 			if(options.title) { $elem.attr("title", options.title); }
 			if(options.data) {  $elem.data = options.data; }	
@@ -497,6 +574,9 @@
 	        
 	        //fix for clash btwn ie & tabbedPane where ie automatically adds ALL possibel element properties as attributes
 	        options.disabled = [];
+	        
+	        //move any static tab content outside the list
+	        $("ul > *:not(li)",$elem).appendTo($elem);
 	        
 	    	var $tabs = $elem.tabs(options);
 	    	
@@ -605,9 +685,99 @@
 	    	});
 		},
 		
+		accordion: function($elem, options){
+			
+	    	//instantiate the tabbed pane
+			if(!options) { options = {}};
+			options.cache = options.iscache || false;
+			
+	        var userOptionsStr = options.options;
+	        var userOptions = window[userOptionsStr];
+	        if (!userOptions) {
+	        	userOptions = eval ("( " + userOptionsStr + " )" );
+	        }
+	        $.extend(options, userOptions);
+	        
+	        options.header = '._struts2_jquery_class_accordionitem_header';
+	        
+	    	var $accordion = $elem.accordion(options);
+	    	
+	    	if(options.disabled) {			  
+	    		$accordion.accordion( 'disable' );
+			}
+	    	
+	    	if(options.removetopics) {			  
+				var topics = options.removetopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					$elem.subscribe(topics[i],'_struts2_jquery_accordion_remove',options);
+				}
+			}
+			
+			if(options.enabletopics) {			  
+				var topics = options.enabletopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					$elem.subscribe(topics[i],'_struts2_jquery_accordion_enable',options);
+				}
+			}
+
+			if(options.disabletopics) {			  
+				var topics = options.disabletopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					$elem.subscribe(topics[i],'_struts2_jquery_accordion_disable',options);
+				}
+			}
+	    	
+	    	$("._struts2_jquery_class_accordionitem_body",$accordion).each( function(itemIndex, el){
+	    			
+	    		$item = $(el);
+	    		
+	    		$item.index = itemIndex;
+	    		    		
+	    		if($item.attr("isactive")){
+					$accordion.accordion('option', 'active', itemIndex);
+	    		}
+	    		
+	    		var hideTopics = $item.attr("hidetopics");
+				if(hideTopics) {			  
+					var topics = hideTopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						$item.subscribe(topics[i],'_struts2_jquery_accordion_hideItem',itemIndex);
+					}
+				}
+
+	    		var showTopics = $item.attr("showtopics");
+				if(showTopics) {			  
+					var topics = showTopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						$item.subscribe(topics[i],'_struts2_jquery_accordion_showItem',itemIndex);
+					}
+				}
+				
+				if($item.attr("src")) {
+
+					var itemAttributes = $item[0].attributes;
+					var itemOptions = {};
+					
+					//attributes names are sometimes returned all lower/upper case so we need to force to a case for uniformity
+					for(var i = 0; i < itemAttributes.length; i++) {
+						itemOptions[itemAttributes[i].name.toLowerCase()] = itemAttributes[i].value;
+					}
+					
+					$accordion.bind('accordionchange', function(event, ui) {
+
+						//publishing not triggering to prevent event propagation issues
+						var loadHandlerName = '_struts2_jquery_container_load';
+						var loadTopic = '_struts2_jquery_topic_load_' + $item.attr("id");
+						$item.subscribe(loadTopic, loadHandlerName);
+						$item.publish(loadTopic,itemOptions);				    		
+					});
+				}							
+	    	});
+		},		
+		
 		textfield: function($elem, options){
 			
-			var loadHandlerName = '_struts2_jquery_textinput_load';
+			var loadHandlerName = '_struts2_jquery_container_load';
 			
 			this.base($elem, options);
 			this.interactive($elem, options);
@@ -625,7 +795,7 @@
 		
 		textarea: function($elem, options){
 			
-			var loadHandlerName = '_struts2_jquery_textinput_load';
+			var loadHandlerName = '_struts2_jquery_container_load';
 			
 			this.base($elem, options);
 			this.interactive($elem, options);
@@ -850,157 +1020,197 @@
 		if(event.originalEvent) {	//means that container load is being triggered by other action (link button/link click) need to see if that button/link is disabled
 			isDisabled = $(event.originalEvent.currentTarget).attr("disabled") == null ? isDisabled : $(event.originalEvent.currentTarget).attr("disabled");
 		}
-							
+
 		if(isDisabled != true && isDisabled != 'true') {
+
+			var tagName = container[0].tagName.toLowerCase();
 			
 			//Show indicator element (if any)
-			if(options) {
+			var indicatorId = options.indicatorid;
+			if(indicatorId) { $('#' + indicatorId).show(); }
 	
-				var indicatorId = options.indicatorid;
-				if(indicatorId) { $('#' + indicatorId).show(); }
-		
-				var onAlwaysTopics = options.onalwaystopics;
+			//Set pre-loading text (if any)
+			if(options.loadingtext) { container.html(options.loadingtext); }
+			
+			var onAlwaysTopics = options.onalwaystopics;
+			
+			//publish all 'before' and 'always' topics
+			if(onAlwaysTopics) {  
+				var topics = onAlwaysTopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					container.publish(topics[i], container);
+				}
+			}
+			
+			if(options.onbeforetopics) {  
+				var topics = options.onbeforetopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					container.publish(topics[i], container);
+				}
+			}
+								
+			var onSuccessTopics = options.onsuccesstopics;
+			
+			options.success = function (data, textStatus) {
+								
+				if(indicatorId) { $('#' + indicatorId).hide(); }
 				
-		    	//publish all 'before' and 'always' topics
+				if(tagName == 'input' || tagName == 'textarea') {
+					
+					container.val(data);
+					
+				} else if (tagName == 'select') {
+				
+					container[0].length = 0;
+                
+					if(typeof(data) == "object" || $.isArray(data)) {
+						
+						var i = -1;
+						
+						if(options.headerkey && options.headervalue) {
+							var option = document.createElement("option");
+							option.value = options.headerkey;
+							option.text = options.headervalue;
+							
+							if(options.value == options.headervalue) {
+								option.selected = true;
+							}
+							
+							container[0].options[++i] = option;
+						}
+						
+						if(options.emptyoption) {
+							container[0].options[++i] = document.createElement("option");
+						}
+						
+						for (var key in data) {
+							
+							var option = document.createElement("option");
+							option.value = key;
+							option.text = data[key];
+	
+							if(options.value == option.value) {
+								option.selected = true;
+							}
+							
+							container[0].options[++i] = option;
+						}		
+					}		  
+					
+				} else {
+				
+					container.html(data);
+				}
+						
+				if(onSuccessTopics) {			  
+					var topics = onSuccessTopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						container.publish(topics[i], container);
+					}
+				}
+				if(onAlwaysTopics) {
+					var topics = onAlwaysTopics.split(',');  
+					for ( var i = 0; i < topics.length; i++) {
+						container.publish(topics[i], container);
+					}
+				}
+			}
+				
+			var onCompleteTopics = options.oncompletetopics;
+			options.complete = function (xhr, textStatus, errorThrown) {
+	
+				if(indicatorId) { $('#' + indicatorId).hide(); }
+				
+				if(xhr.status == 404) {
+					
+					container.html(xhr.responseText);
+				}
+				
+				if(onCompleteTopics) {			  
+					var topics = onCompleteTopics.split(',');
+					for ( var i = 0; i < topics.length; i++) {
+						container.publish(topics[i], container);
+					}
+				}
 				if(onAlwaysTopics) {  
 					var topics = onAlwaysTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
 						container.publish(topics[i], container);
 					}
 				}
+			}
+			
+			var onErrorTopics = options.onerrortopics;
+			options.error = function (XMLHttpRequest, textStatus, errorThrown) {
+
+				if(options.errortext) { container.html(options.errortext); }
 				
-				if(options.onbeforetopics) {  
-					var topics = options.onbeforetopics.split(',');
+				if(onErrorTopics) {			
+					var topics = onErrorTopics.split(',');  
 					for ( var i = 0; i < topics.length; i++) {
 						container.publish(topics[i], container);
 					}
 				}
-		    	
-		    	//Set pre-loading text (if any)
-				if(options.loadingtext) { container.html(options.loadingtext); }
-				    				
-				var onSuccessTopics = options.onsuccesstopics;
-				
-				options.success = function (data, textStatus) {
-									
-					if(indicatorId) { $('#' + indicatorId).hide(); }
-					
-					var tagName = container[0].tagName.toLowerCase();
-					if(tagName == 'input' || tagName == 'textarea') {
-						
-						container.val(data);
-						
-					} else {
-					
-						container.html(data);
-					}
-							
-					if(onSuccessTopics) {			  
-						var topics = onSuccessTopics.split(',');
-						for ( var i = 0; i < topics.length; i++) {
-							container.publish(topics[i], container);
-						}
-					}
-					if(onAlwaysTopics) {
-						var topics = onAlwaysTopics.split(',');  
-						for ( var i = 0; i < topics.length; i++) {
-							container.publish(topics[i], container);
-						}
-					}
-				}
-					
-				var onCompleteTopics = options.oncompletetopics;
-				options.complete = function (xhr, textStatus, errorThrown) {
-		
-					if(indicatorId) { $('#' + indicatorId).hide(); }
-					
-					if(xhr.status == 404) {
-						
-						container.html(xhr.responseText);
-					}
-					
-					if(onCompleteTopics) {			  
-						var topics = onCompleteTopics.split(',');
-						for ( var i = 0; i < topics.length; i++) {
-							container.publish(topics[i], container);
-						}
-					}
-					if(onAlwaysTopics) {  
-						var topics = onAlwaysTopics.split(',');
-						for ( var i = 0; i < topics.length; i++) {
-							container.publish(topics[i], container);
-						}
-					}
-				}
-				
-				var onErrorTopics = options.onerrortopics;
-				options.error = function (XMLHttpRequest, textStatus, errorThrown) {
-	
-					if(options.errortext) { container.html(options.errortext); }
-					
-					if(onErrorTopics) {			
-						var topics = onErrorTopics.split(',');  
-						for ( var i = 0; i < topics.length; i++) {
-							container.publish(topics[i], container);
-						}
-					}
-					if(onAlwaysTopics) {  
-						var topics = onAlwaysTopics.split(',');
-						for ( var i = 0; i < topics.length; i++) {
-							container.publish(topics[i], container);
-						}
-					}
-				}
-				
-				//serialize forms & elements
-				var serializeData;
-				
-				var formIds = options.formids;
-				if(formIds) {
-							
-					var forms = formIds.split(',');  
-					for ( var i = 0; i < forms.length; i++) {
-						serializeData = (serializeData ? (serializeData + "&") : "") + $("#" + forms[i]).serialize();
-					}
-				}    		
-	
-				var elementIds = options.elementids;
-				if(elementIds) {
-							
-					var elements = elementIds.split(',');
-					for ( var i = 0; i < elements.length; i++) {
-						var element = $('#' + elements[i])[0];
-						if(element && element.name){
-							serializeData = (serializeData ? (serializeData + "&") : "") + element.name + "=" + element.value;
-							//serializeData[element.name] = element.value;
-						}
-					}
-				}    
-				if(serializeData && options.validate) {
-					serializeData['struts.enableJSONValidation'] = true;
-				}
-				
-				$.extend(options,{data: serializeData});	
-				
-				//if reloadtopics exist, need to reset reload topics with new options
-				if(options.reloadtopics) {			  
-					var topics = options.reloadtopics.split(',');
+				if(onAlwaysTopics) {  
+					var topics = onAlwaysTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
-						container.unsubscribe(topics[i]);
-						container.subscribe(topics[i], '_struts2_jquery_container_load', options);
+						container.publish(topics[i], container);
 					}
 				}
-	
-				//load container using ajax
-				if(options.src) {
-					
-					options.type = "POST";
-					options.url = options.src;
-				
-					if(!options.data) { options.data = {}; }	//fix 'issue' wherein IIS will reject post without data
-					$.ajax(options);
-				
+			}
+			
+			//serialize forms & elements
+			var serializeData;
+			
+			var formIds = options.formids;
+			if(formIds) {
+						
+				var forms = formIds.split(',');  
+				for ( var i = 0; i < forms.length; i++) {
+					serializeData = (serializeData ? (serializeData + "&") : "") + $("#" + forms[i]).serialize();
 				}
+			}    		
+
+			var elementIds = options.elementids;
+			if(elementIds) {
+						
+				var elements = elementIds.split(',');
+				for ( var i = 0; i < elements.length; i++) {
+					var element = $('#' + elements[i])[0];
+					if(element && element.name){
+						serializeData = (serializeData ? (serializeData + "&") : "") + element.name + "=" + element.value;
+						//serializeData[element.name] = element.value;
+					}
+				}
+			}    
+			if(serializeData && options.validate) {
+				serializeData['struts.enableJSONValidation'] = true;
+			}
+			
+			$.extend(options,{data: serializeData});	
+			
+			//if reloadtopics exist, need to reset reload topics with new options
+			if(options.reloadtopics) {			  
+				var topics = options.reloadtopics.split(',');
+				for ( var i = 0; i < topics.length; i++) {
+					container.unsubscribe(topics[i]);
+					container.subscribe(topics[i], '_struts2_jquery_container_load', options);
+				}
+			}
+
+			//load container using ajax
+			if(options.src) {
+				
+				options.type = "POST";
+				options.url = options.src;
+	
+				if(tagName == 'input' || tagName == 'textarea' || tagName == 'select') {
+					options.dataType = "json";
+				}
+			
+				if(!options.data) { options.data = {}; }	//fix 'issue' wherein IIS will reject post without data
+				$.ajax(options);
+			
 			}
 		}
 	});
@@ -1222,329 +1432,56 @@
 	$.subscribeHandler('_struts2_jquery_hideTab', function(event, data) {
 		$(this).closest("._struts2_jquery_class_tabbedpane").tabs('remove', event.data);
 	});
-
-	/** Select logic */	
-	//Register handler to load an input element
-	$.subscribeHandler('_struts2_jquery_select_load', function(event, data) {
-
-		var input = $(event.target);
-					
-		//need to also make use of original attributes registered with the input (such as elementIds)
-		var attributes = input[0].attributes;
-		var options = {};
-		for(var i = 0; i < attributes.length; i++) {
-			options[attributes[i].name.toLowerCase()] = attributes[i].value;
-		}
-		$.extend(options,data);
-
-		if(input.attr('disabled') != 'true' && options.disabled != 'true') {
-
-			//Show indicator element (if any)
-			var indicatorId = options.indicatorid;
-			if(indicatorId) { $('#' + indicatorId).show(); }
-
-	    	//Set pre-loading text (if any)
-			if(options.loadingtext) { input.txt(options.loadingtext); }
-				
-			var onAlwaysTopics = options.onalwaystopics;
-			
-	    	//publish all 'before' and 'always' topics
-			if(onAlwaysTopics) {  
-				var topics = onAlwaysTopics.split(',');
-				for ( var i = 0; i < topics.length; i++) {
-					input.publish(topics[i], input);
-				}
-			}
-			
-			if(options.onbeforetopics) {  
-				var topics = options.onbeforetopics.split(',');
-				for ( var i = 0; i < topics.length; i++) {
-					input.publish(topics[i], input);
-				}
-			}
-			    				
-			var onSuccessTopics = options.onsuccesstopics;
-			options.success = function (data, textStatus) {
-								
-				if(indicatorId) { $('#' + indicatorId).hide(); }
-				
-				input[0].length = 0;
-				                 
-				if(typeof(data) == "object" || $.isArray(data)) {
-					
-					var i = -1;
-					
-					if(options.headerkey && options.headervalue) {
-						var option = document.createElement("option");
-						option.value = options.headerkey;
-						option.text = options.headervalue;
-						
-						if(options.value == options.headervalue) {
-							option.selected = true;
-						}
-						
-						input[0].options[++i] = option;
-					}
-					
-					if(options.emptyoption) {
-						input[0].options[++i] = document.createElement("option");
-					}
-					
-					for (var key in data) {
-						
-						var option = document.createElement("option");
-						option.value = key;
-						option.text = data[key];
-
-						if(options.value == option.value) {
-							option.selected = true;
-						}
-						
-						input[0].options[++i] = option;
-					}		
-				}		        
-		        
-				if(onSuccessTopics) {			  
-					var topics = onSuccessTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-				if(onAlwaysTopics) {
-					var topics = onAlwaysTopics.split(',');  
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-			}
-				
-			var onCompleteTopics = options.oncompletetopics;
-			options.complete = function (xhr, textStatus, errorThrown) {
 	
-				if(indicatorId) { $('#' + indicatorId).hide(); }
-								
-				if(onCompleteTopics) {			  
-					var topics = onCompleteTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-				if(onAlwaysTopics) {  
-					var topics = onAlwaysTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-			}
-			
-			var onErrorTopics = options.onerrortopics;
-			options.error = function (XMLHttpRequest, textStatus, errorThrown) {
-
-				if(options.errortext) { container.html(options.errortext); }
-				
-				if(onErrorTopics) {			
-					var topics = onErrorTopics.split(',');  
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-				if(onAlwaysTopics) {  
-					var topics = onAlwaysTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-			}
-			
-		    //serialize forms & elements
-			var serializeData;
-			
-			var formIds = options.formids;
-			if(formIds) {
-						
-				var forms = formIds.split(',');  
-				for ( var i = 0; i < forms.length; i++) {
-					serializeData = (serializeData ? (serializeData + "&") : "") + $("#" + forms[i]).serialize();
-				}
-			}    		
-
-			var elementIds = options.elementids;
-			if(elementIds) {
-						
-				var elements = elementIds.split(',');
-				for ( var i = 0; i < elements.length; i++) {
-					var element = $('#' + elements[i])[0];
-					if(element && element.name){
-						serializeData = (serializeData ? (serializeData + "&") : "") + element.name + "=" + element.value;
-						//serializeData[element.name] = element.value;
-					}
-				}
-			}        
-			if(serializeData && options.validate) {
-				serializeData['struts.enableJSONValidation'] = true;
-			}
-			
-			$.extend(options,{data: serializeData});			
-			
-	    	//load input using ajax
-			if(options.src) {
-				
-				options.type = "GET";
-				options.url = options.src;
-				options.dataType = "json";
-			
-				$.ajax(options);
-			
-			}
-		}
+	
+	/** Accordion logic */
+	//Register handler to remove an accordion
+	$.subscribeHandler('_struts2_jquery_accordion_remove', function(event, data) {		
+		$(this).accordion( 'destroy' );
 	});
 	
-
-	/** TextField logic */	
-	//Register handler to load an input element
-	$.subscribeHandler('_struts2_jquery_textinput_load', function(event, data) {
-
-		var input = $(event.target);
-		
-		//need to also make use of original attributes registered with the input (such as elementIds)
-		var attributes = input[0].attributes;
-		var options = {};
-		for(var i = 0; i < attributes.length; i++) {
-			options[attributes[i].name.toLowerCase()] = attributes[i].value;
-		}
-		$.extend(options,data);
-
-		if(input.attr('disabled') != 'true' && options.disabled != 'true') {
-
-			//Show indicator element (if any)
-			var indicatorId = options.indicatorid;
-			if(indicatorId) { $('#' + indicatorId).show(); }
-
-	    	//Set pre-loading text (if any)
-			if(options.loadingtext) { input.txt(options.loadingtext); }
-				
-			var onAlwaysTopics = options.onalwaystopics;
-			
-	    	//publish all 'before' and 'always' topics
-			if(onAlwaysTopics) {  
-				var topics = onAlwaysTopics.split(',');
-				for ( var i = 0; i < topics.length; i++) {
-					input.publish(topics[i], input);
-				}
-			}
-			
-			if(options.onbeforetopics) {  
-				var topics = options.onbeforetopics.split(',');
-				for ( var i = 0; i < topics.length; i++) {
-					input.publish(topics[i], input);
-				}
-			}
-			    				
-			var onSuccessTopics = options.onsuccesstopics;
-			options.success = function (data, textStatus) {
-								
-				if(indicatorId) { $('#' + indicatorId).hide(); }
-								                 
-				if(data) {
-					
-					$(input).val(data);
-				}		        
-		        
-				if(onSuccessTopics) {			  
-					var topics = onSuccessTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-				if(onAlwaysTopics) {
-					var topics = onAlwaysTopics.split(',');  
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-			}
-				
-			var onCompleteTopics = options.oncompletetopics;
-			options.complete = function (xhr, textStatus, errorThrown) {
+	//Register handler to enable an accordion
+	$.subscribeHandler('_struts2_jquery_accordion_enable', function(event, data) {		
+		$(this).accordion( 'enable' );
+	});
 	
-				if(indicatorId) { $('#' + indicatorId).hide(); }
-								
-				if(onCompleteTopics) {			  
-					var topics = onCompleteTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-				if(onAlwaysTopics) {  
-					var topics = onAlwaysTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-			}
-			
-			var onErrorTopics = options.onerrortopics;
-			options.error = function (XMLHttpRequest, textStatus, errorThrown) {
+	//Register handler to disable an accordion
+	$.subscribeHandler('_struts2_jquery_accordion_disable', function(event, data) {		
+		$(this).accordion( 'disable' );
+	});
+	
+	//Register handler to hide an accordion menu item
+	$.subscribeHandler('_struts2_jquery_accordion_hideItem', function(event, data) {		
+		
+		var accordion = $(".accordion");
+		var items = $.map($(this).parent().find("dt"), function(a) { return $(a).hasClass("ui-state-active"); });
+		var activeIndex = $.inArray(true, items);
 
-				if(options.errortext) { container.html(options.errortext); }
-				
-				if(onErrorTopics) {			
-					var topics = onErrorTopics.split(',');  
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-				if(onAlwaysTopics) {  
-					var topics = onAlwaysTopics.split(',');
-					for ( var i = 0; i < topics.length; i++) {
-						input.publish(topics[i], input);
-					}
-				}
-			}
-			
-		    //serialize forms & elements
-			var serializeData;
-			
-			var formIds = options.formids;
-			if(formIds) {
-						
-				var forms = formIds.split(',');  
-				for ( var i = 0; i < forms.length; i++) {
-					serializeData = (serializeData ? (serializeData + "&") : "") + $("#" + forms[i]).serialize();
-				}
-			}    		
+		var $this = $(this);
+		
+		if(activeIndex == $this.index) {
+			$(this).prev().click();
+		}
+	});
 
-			var elementIds = options.elementids;
-			if(elementIds) {
-						
-				var elements = elementIds.split(',');
-				for ( var i = 0; i < elements.length; i++) {
-					var element = $('#' + elements[i])[0];
-					if(element && element.name){
-						serializeData = (serializeData ? (serializeData + "&") : "") + element.name + "=" + element.value;
-						//serializeData[element.name] = element.value;
-					}
-				}
-			}        
-			if(serializeData && options.validate) {
-				serializeData['struts.enableJSONValidation'] = true;
-			}
-			
-			$.extend(options,{data: serializeData});			
-			
-	    	//load input using ajax
-			if(options.src) {
-				
-				options.type = "GET";
-				options.url = options.src;
-				options.dataType = "json";
-			
-				$.ajax(options);
-			
-			}
+	//Register handler to show an accordion menu item
+	$.subscribeHandler('_struts2_jquery_accordion_showItem', function(event, data) {		
+
+		var accordion = $(".accordion");
+		var items = $.map($(this).parent().find("dt"), function(a) { return $(a).hasClass("ui-state-active"); });
+		var activeIndex = $.inArray(true, items);
+
+		var $this = $(this);
+
+		var $this = $(this);
+		
+		if(activeIndex != $this.index) {
+			$(this).prev().click();
 		}
 	});
 		
+	
+	
 	/** Form logic */	
 	//Register handler to submit a form element
 	$.subscribeHandler('_struts2_jquery_form_submit', function(event, data) {
