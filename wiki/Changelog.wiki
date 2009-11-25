@@ -1,6 +1,15 @@
 #summary This tracks a list of changes for each version release
 #labels Featured
+
+==== Version 1.1.0====
+   * Added sortable option to div tag and added integrated with publish/subscribe to publish topics on various sortable events 
+   * Added accordion menu widget
   
+==== Version 1.0.9====
+   * Add version attribute to head tag to allow setting version to prevent browser cache of css and .js files
+   * Fixed URLBuilder to get simple request URI
+   * Added class attribute to dialog
+
 ==== Version 1.0.8====
   * Fixed issue URLBuilder not resolving proper url context
   * Updated dialog to recognize cssClass attribute and pass on to jquery dialogClass attribute
