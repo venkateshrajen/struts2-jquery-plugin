@@ -1,0 +1,33 @@
+#summary Renders a jquery accordion menu widget that can display static or remote content as the content of the menu items
+
+= Introduction =
+This renders a jQuery accordion widget that can... and all the other options provided by the accordion jQuery-ui widget.
+
+= Sample Code=
+The following is a simple example of displaying an accordion menu with two menu items, one with static content and the other with remotely loaded content
+{{{
+   <%@taglib prefix="s" uri="/struts-tags"%>
+   <%@ taglib prefix="sj" uri="/struts2-jquery-tags" %>
+   <html>
+      <head>
+         <sj:head compressed="false"/>
+         <title><s:text name="application.title"/></title>
+      </head>
+      <body>  
+         <sj:accordion options="{collapsible:true}">
+		<sj:accordionItem title="Static Menu Item">
+			These are the static contents of menu item #1.
+                        Click <sj:a href="details.action" targets="detailsFrame">here</sj:a> for more details
+		</sj:accordionItem> 
+		<sj:accordionItem title="Remote Menu Item" src="remote.action"/>
+         </sj:accordion >
+      </body>
+   </html>
+}}}
+
+
+= Significant Attributes =
+ TODO:
+
+= All Attributes =
+TODO:
