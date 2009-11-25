@@ -54,12 +54,20 @@ The following is a an example loading a remote page into a div and reloading it 
  * *loadingText* (_String_) - A text string to display in the target (if a target is provided) while the request is being processed
  * *errorElementId* (_String_) - The id of an element to display if the request returns an error code
  * *errorText* (_String_) - A text string to be displayed in the target (if a target is provided) if the request returns an error code
- * *draggable* (_Boolean_) - If the dialog should be draggable or not (true/false)
+ * *draggable* (_Boolean_) - If the div should be draggable or not (true/false)
  * *draggableOptions* (_String_) - Additional jQuery draggable options (javascript object string) to pass to the draggable() function. Only used with draggable=true
- * *droppable* (_Boolean_) - If the dialog should be a valid droppable container or not (true/false)
+ * *droppable* (_Boolean_) - If the div should be a valid droppable container or not (true/false)
  * *droppableOptions* (_String_) - Additional jQuery droppableoptions (javascript object string) to pass to the droppable() function. Only used with droppable=true
- * *resizable* (_Boolean_) - If the dialog should be resizable or not (true/false)
- * *draggableOptions* (_String_) - Additional jQuery resizable options (javascript object string) to pass to the resizable container. Only used with resizable =true
+ * *resizable* (_Boolean_) - If the div should be resizable or not (true/false)
+ * *resizableOptions* (_String_) - Additional jQuery resizable options (javascript object string) to pass to the resizable container. Only used with resizable=true
+ * *sortable* (_Boolean_) - If the div should be a valid sortable container or not (true/false). If so, child elements of the div can be drag/drop sorted within it.
+ * *sortableOptions* (_String_) - Additional jQuery sortableoptions (javascript object string) to pass to the sortablecontainer. Only used with sortable=true
+ * *onSortableUpdateTopics* (_String_) -  A comma delimited list of topics to be published when a user stops sorting and a contained item in a sortable div has changed position
+ * *onSortableStartTopics* (_String_) -  A comma delimited list of topics to be published when a user starts sorting in a sortable div
+ * *onSortableSortTopics* (_String_) -  A comma delimited list of topics to be published during sorting in a sortable div
+ * *onSortableStopTopics* (_String_) -  A comma delimited list of topics to be published when a user stops sorting in a sortable div
+ * *onSortableReceiveTopics* (_String_) -  A comma delimited list of topics to be published when a connected sortable list has received an item from another list
+ * *onSortableRemoveTopics* (_String_) -  A comma delimited list of topics to be published when a sortable item has been dragged out from the list and into another
  * *onCompleteTopics* (_String_) -  A comma delimited list of topics to be published when the ajax request completes (on success or error)
  * *onErrorTopics* (_String_) -  A comma delimited list of topics to be published when the ajax request returns an error code
  * *onSuccessTopics* (_String_) -  A comma delimited list of topics to be published when the ajax request copletes successfully
@@ -114,6 +122,7 @@ The following is a an example loading a remote page into a div and reloading it 
 ||requiredposition||false|| ||false||String||Define required position of required form element (left|right)||
 ||showTopics||false|| ||false||String||A comma delimited list of topics that will show (display: block) this element||
 ||src||false|| ||false||String||The url from which to load the container contents||
+||sortable||false|| ||false||String||If the div represents a container of sortable items||
 ||tabindex||false|| ||false||String||Set the html tabindex attribute on rendered html element||
 ||template||false|| ||false||String||The template (other than default) to use for rendering the element||
 ||templateDir||false|| ||false||String||The template directory.||
