@@ -16,8 +16,7 @@ The following is a simple example of displaying an accordion menu with two menu 
       <body>  
          <sj:accordion options="{collapsible:true}">
 		<sj:accordionItem title="Static Menu Item">
-			These are the static contents of menu item #1.
-                        Click <sj:a href="details.action" targets="detailsFrame">here</sj:a> for more details
+		   These are the static contents of menu item #1. Click <sj:a href="details.action" targets="detailsFrame">here</sj:a> for more details
 		</sj:accordionItem> 
 		<sj:accordionItem title="Remote Menu Item" src="remote.action"/>
          </sj:accordion >
