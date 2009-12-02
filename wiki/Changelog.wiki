@@ -1,6 +1,9 @@
 #summary This tracks a list of changes for each version release
 #labels Featured
 
+==== Version 1.1.3====
+   * Updated datepicker template to use delayed binding to resolve issues with IE8 
+
 ==== Version 1.1.2====
    * Updated tabbed pane to allow mixing of remote and static tab content (per jQuery-ui tabs markup) 
 
