@@ -1,6 +1,12 @@
 #summary This tracks a list of changes for each version release
 #labels Featured
 
+==== Version 1.1.4====
+   * Added cssStyle attribute to accordion and accordion-item widgets
+   * Fixed accordion widget to load remote content on load
+   * Added lazyLoad functionality to accordion menu items
+   * Added cache functionality to accordion menu items
+
 ==== Version 1.1.3====
    * Updated datepicker template to use delayed binding to resolve issues with IE8 
 
