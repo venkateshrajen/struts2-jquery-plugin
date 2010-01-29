@@ -32,4 +32,5 @@ Checkout a demonstration on the struts2-jquery [http://struts2-jquery.appspot.co
 *TODO*...
  * *data* (_String_) - The name of an object on the value-stack which contains the chart data. The object must  be either: 1) A collection of maps in which each map is a collection and the maps entries are the x,y value pairs in each series.  2) A map which is a single series in which the map entries are the x,y value pairs of the single series. 3) A collection which provides the one-dimensional data for a pie type chart or (if not a pie-chart) provides duplicate x,y value pairs for a single series chart.
  * *src* (_String_) - The src url from which to load the data for the chart. The response must return a JSON string corresponding to the form specified for data by the flot API [http://people.iola.dk/olau/flot/API.txt http://people.iola.dk/olau/flot/API.txt], with the additional allowance that each series data can be an associative array in which each key:value pair represents an x:y pair in the series (eg. {"233.33":"3343.44", "245.33:764.33", "342.1":"452.32"}). This is added to allow the standard serialization of maps using the struts2 JSONResult to work automatically.
-  *TODO....*
+ 
+*TODO*...
