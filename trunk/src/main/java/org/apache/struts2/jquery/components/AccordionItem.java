@@ -16,9 +16,12 @@ public class AccordionItem extends AbstractContainer {
     public static final String TEMPLATE = "accordionitem";
     public static final String TEMPLATE_CLOSE = "accordionitem-close";
 
-    private String isActive;					//set to true to make this the initial active menu item (only one item should have this)
-    private String headerClass;					//The class to add to the header element (not exposed to user)
+    private String isActive;		//set to true to make this the initial active menu item (only one item should have this)
+    private String cache;			//If set to true and the contents are remotely loaded ('src' provided), contents will only be loaded once. Otherwise contents will be reloaded each time the item is expanded (default=false)
+    private String lazyLoad;		//If set to true and the contents are remotely loaded ('src' provided), contents will not be loaded at first until the item is expanded (default=false). 
     
+    private String headerClass;		//The class to add to the header element (not exposed to user)
+   
     public AccordionItem(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
     }
@@ -34,6 +37,10 @@ public class AccordionItem extends AbstractContainer {
             addParameter("title", findString(title));
         if(headerClass != null)
         	addParameter("headerClass", findString(headerClass));
+        if (cache != null)
+            addParameter("cache", findValue(cache, Boolean.class));
+        if (lazyLoad != null)
+            addParameter("lazyLoad", findValue(lazyLoad, Boolean.class));
     }
 
     @Override
@@ -50,9 +57,30 @@ public class AccordionItem extends AbstractContainer {
 	public void setIsActive(String isActive) {
 		this.isActive = isActive;
 	}
+	
+    @StrutsTagAttribute(name="lazyLoad", type="Boolean", defaultValue="false", 
+    		description = "If set to true and the contents are remotely loaded ('src' provided), contents will only be loaded once. " +
+    				"Otherwise contents will be reloaded each time the item is expanded")
+	public void setLazyLoad(String lazyLoad) {
+		this.lazyLoad = lazyLoad;
+	}
+	
+	@StrutsTagAttribute(name="cache", type="Boolean", defaultValue="false", description = "If set to true and the contents are remotely " +
+			"loaded ('src' provided), contents will not be loaded at first until the item is expanded")
+	public void setCache(String cache) {
+		this.cache = cache;
+	}
     
     public void setHeaderClass(String headerClass) {
 		this.headerClass = headerClass;
+	}
+	
+	public String getLazyLoad() {
+		return lazyLoad;
+	}
+	
+	public String getCache() {
+		return cache;
 	}
     
     public String getIsActive() {

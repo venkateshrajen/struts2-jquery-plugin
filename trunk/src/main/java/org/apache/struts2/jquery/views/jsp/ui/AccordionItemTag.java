@@ -15,8 +15,10 @@ public class AccordionItemTag extends AbstractContainerTag {
 
 	private static final long serialVersionUID = 5589579304411513754L;
 
-    private String isActive;					//set to true to make this the initial active menu item (only one item should have this)
-    
+    private String isActive;		//set to true to make this the initial active menu item (only one item should have this)
+    private String cache;			//If set to true and the contents are remotely loaded ('src' provided), contents will only be loaded once. Otherwise contents will be reloaded each time the item is expanded (default=false)
+    private String lazyLoad;		//If set to true and the contents are remotely loaded ('src' provided), contents will not be loaded at first until the item is expanded (default=false). 
+      
 	public AccordionItemTag() {
 		super();
 	}
@@ -33,6 +35,8 @@ public class AccordionItemTag extends AbstractContainerTag {
 		
 		AccordionItem accordionItem = (AccordionItem) component;
 		accordionItem.setIsActive(isActive);
+		accordionItem.setLazyLoad(lazyLoad);
+		accordionItem.setCache(cache);
 	
 	}
 	
@@ -61,5 +65,13 @@ public class AccordionItemTag extends AbstractContainerTag {
 
 	public void setIsActive(String isActive) {
 		this.isActive = isActive;
+	}
+	
+	public void setLazyLoad(String lazyLoad) {
+		this.lazyLoad = lazyLoad;
+	}
+	
+	public void setCache(String cache) {
+		this.cache = cache;
 	}
 }

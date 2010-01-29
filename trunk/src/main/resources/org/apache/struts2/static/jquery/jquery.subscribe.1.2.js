@@ -23,6 +23,10 @@
  *  Code has been added to prevent this when the subscription is made using the non-element subscribe ($.subscribe()), which assures that only one
  *  subscription is made for a topic for a given window/frame. To prevent this from happening for an element subscription ($elem.subscribe()), make
  *  sure that the element has an id attribute.
+ *  
+ *  version 1.2
+ *  Added the isSubscribed() method
+ *  
  */
 
 
@@ -71,7 +75,10 @@
 							
 							for(j in object) {
 								
-								object[j].unbind(topic);
+								//typeof(object) check in case someone has added methods to Array.protoype
+								if(typeof(object[j]) != "function") {
+									object[j].unbind(topic);
+								}
 							}
 						}
 							
@@ -124,11 +131,12 @@
 					
 					if(this[0].nodeType == 9) { //if document is being bound (the case for non-element jQuery subscribing ($.subscribe)
 					
-						for ( var index in noIdObjects) {
+						for (var index in noIdObjects) {
 							
 							var noIdObject = noIdObjects[index];
 														
-							if(noIdObject[0].nodeType == 9 && _subscribe_getDocumentWindow(this[0]).frameElement == _subscribe_getDocumentWindow(noIdObject[0]).frameElement ) {
+							//typeof(noIdObject) check in case someone has added methods to Array.protoype
+							if(typeof(noIdObject) != "function" && noIdObject[0].nodeType == 9 && _subscribe_getDocumentWindow(this[0]).frameElement == _subscribe_getDocumentWindow(noIdObject[0]).frameElement ) {
 								
 								return this;	
 							}
@@ -187,8 +195,9 @@
 						var noIdObjects = _subscribe_topics[topic].objects['__noId__'];
 						
 						for(var i = 0; i < noIdObjects.length; i++){
-							
-							if(noIdObjects[i] == this){
+
+							//typeof(noIdObject) check in case someone has added methods to Array.protoype
+							if(typeof(noIdObject) != "function" && noIdObjects[i] == this){
 								
 								subscribe_topics[topic].objects['__noId__'].splice(index,1);
 								break;
@@ -201,6 +210,44 @@
 			}
 			
 			return this;
+		},
+		
+		/**
+		 * Determine if an element has already subscribed to a topics
+		 * returns true if so, otherwise false
+		 */
+		isSubscribed :  function(topic) {	
+			
+			if(topic) {
+
+				if(_subscribe_topics[topic]) {
+					
+					if(this.attr('id')) {
+						
+						var object = _subscribe_topics[topic].objects[this.attr('id')];
+						
+						if(object) {
+							
+							return true;
+						}
+						
+					} else {
+	
+						var noIdObjects = _subscribe_topics[topic].objects['__noId__'];
+						
+						for(var i = 0; i < noIdObjects.length; i++){
+
+							//typeof(noIdObject) check in case someone has added methods to Array.protoype
+							if(typeof(noIdObject) != "function" && noIdObjects[i] == this){
+
+								return true;
+							}
+						}
+					}
+				}
+			}
+			
+			return false;
 		},
 		
 		/**
@@ -266,7 +313,10 @@
 						
 							for(j in object) {
 								
-								object[j].trigger( event,data);
+								//typeof(object) check in case someone has added methods to Array.protoype
+								if(typeof(object[j]) != "function") {
+									object[j].trigger( event,data);
+								}
 							}
 						}
 						

@@ -4,15 +4,15 @@ Please do not edit it directly.
 -->
 <html>
     <head>
-		<title>textarea</title>
+		<title>chart</title>
 	</head>
 
 	<body>
-		<h1>Tag Name: textarea</h1>
+		<h1>Tag Name: chart</h1>
 		<h2>Description</h2>
 		<p>
 		<!-- START SNIPPET: tagdescription -->
-		Render input field of type textarea providing content from remote call via AJAX
+		Render a dynamic chart providing content from list or remote call via AJAX
 		<!-- END SNIPPET: tagdescription -->
 		</p>
 
@@ -42,12 +42,28 @@ Please do not edit it directly.
 					<td align="left" valign="top">Set the html accesskey attribute on rendered html element</td>
 				</tr>
 				<tr>
-					<td align="left" valign="top">blurTopics</td>
+					<td align="left" valign="top">bar</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">If all series should show bars by default</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">borderWidth</td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
-					<td align="left" valign="top">A comma delimited list of topics that will cause this element to blur</td>
+					<td align="left" valign="top">The width of the border around the plot. 0 = no border</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">colors</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A list or comma-delimited string of colors to use for the chart series; colors can be specified like: #d18b2c, #dba255, #919733</td>
 				</tr>
 				<tr>
 					<td align="left" valign="top">cssClass</td>
@@ -82,12 +98,12 @@ Please do not edit it directly.
 					<td align="left" valign="top">The css style definitions for element to use</td>
 				</tr>
 				<tr>
-					<td align="left" valign="top">disableTopics</td>
+					<td align="left" valign="top">data</td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
-					<td align="left" valign="top">A comma delimited list of topics that will disable this element</td>
+					<td align="left" valign="top">Iterable source to populate chart from. Typically the data will be a collection of series where each series is a Map and the key/value pairs in the map represent the X,Y series data points. If a Map is provided, there will only be a single series.If a collection is provided, the data points in the collection willserve as both the X&Y coordiates in a series except for pie chartsin which the provide the segment values for the pie. This should not be used together with the 'src' attribute</td>
 				</tr>
 				<tr>
 					<td align="left" valign="top">disabled</td>
@@ -106,14 +122,6 @@ Please do not edit it directly.
 					<td align="left" valign="top">A comma delimited list of form elements that should be individually serialized and sent with the container's load request. Input element must have a 'name' attribute and will be serialized as <name>=<value></td>
 				</tr>
 				<tr>
-					<td align="left" valign="top">enableTopics</td>
-					<td align="left" valign="top">false</td>
-					<td align="left" valign="top"></td>
-					<td align="left" valign="top">false</td>
-					<td align="left" valign="top">String</td>
-					<td align="left" valign="top">A comma delimited list of topics that will enable this element</td>
-				</tr>
-				<tr>
 					<td align="left" valign="top">errorText</td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">false</td>
@@ -122,20 +130,36 @@ Please do not edit it directly.
 					<td align="left" valign="top">The text to be displayed on load error. If 'errorElement' is provided, this will display the error in the elemtn (if existing), if not, it will display the error as the contents of this container</td>
 				</tr>
 				<tr>
-					<td align="left" valign="top">focusTopics</td>
-					<td align="left" valign="top">false</td>
-					<td align="left" valign="top"></td>
-					<td align="left" valign="top">false</td>
-					<td align="left" valign="top">String</td>
-					<td align="left" valign="top">A comma delimited list of topics that will cause this element to focus</td>
-				</tr>
-				<tr>
 					<td align="left" valign="top">formIds</td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">Comma delimited list of form ids for which to serialize all fields during contianer load (if multiple forms have overlapping element names, it is indeterminate which will be used)</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">grid</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">true</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">If the grid should be displayed or not</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">gridBackground</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The background chart color or gradient (if shown). Colors can be specified like: #d18b2c, Gradients can be specified as: { colors: ['#000', '#999'] } or  { colors: [{ opacity: 0.8 }, { brightness: 0.6, opacity: 0.8 } ] }</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">gridColor</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">//The color of the grid lines (if shown)</td>
 				</tr>
 				<tr>
 					<td align="left" valign="top">hideTopics</td>
@@ -202,6 +226,46 @@ Please do not edit it directly.
 					<td align="left" valign="top">Define label position of form element (top/left)</td>
 				</tr>
 				<tr>
+					<td align="left" valign="top">labels</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A list of labels for the series. Must be same length as # of series in data</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">legendColor</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A color for the background of the legend</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">legendOpacity</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The opacity of the background of the legend</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">legendPosition</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">Placement of the legend: must be 'ne' or 'nw' or 'se' or 'sw'</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">line</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">If all series should show lines by default</td>
+				</tr>
+				<tr>
 					<td align="left" valign="top">loadingText</td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
@@ -234,22 +298,6 @@ Please do not edit it directly.
 					<td align="left" valign="top">Topics that are published before a load</td>
 				</tr>
 				<tr>
-					<td align="left" valign="top">onBlurTopics</td>
-					<td align="left" valign="top">false</td>
-					<td align="left" valign="top"></td>
-					<td align="left" valign="top">false</td>
-					<td align="left" valign="top">String</td>
-					<td align="left" valign="top">A comma delimited list of topics that published when the element value is changed</td>
-				</tr>
-				<tr>
-					<td align="left" valign="top">onChangeTopics</td>
-					<td align="left" valign="top">false</td>
-					<td align="left" valign="top"></td>
-					<td align="left" valign="top">false</td>
-					<td align="left" valign="top">String</td>
-					<td align="left" valign="top">A comma delimited list of topics that published when the element value is changed</td>
-				</tr>
-				<tr>
 					<td align="left" valign="top">onCompleteTopics</td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
@@ -266,12 +314,20 @@ Please do not edit it directly.
 					<td align="left" valign="top">Topics that are published on a load error</td>
 				</tr>
 				<tr>
-					<td align="left" valign="top">onFocusTopics</td>
+					<td align="left" valign="top">onPlotClickTopic</td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
-					<td align="left" valign="top">A comma delimited list of topics that published when the element value is changed</td>
+					<td align="left" valign="top">A topic that is published whenever the user clicks on the plot</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">onPlotHoverTopic</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A topic that is published whenever the user hovers over the plot</td>
 				</tr>
 				<tr>
 					<td align="left" valign="top">onSuccessTopics</td>
@@ -402,6 +458,30 @@ Please do not edit it directly.
 					<td align="left" valign="top">Set template to use for opening the rendered html.</td>
 				</tr>
 				<tr>
+					<td align="left" valign="top">options</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A catch-all for the user to specify custom flot options above the ones specific provided for as attributes. options provided here will override those set as attributes.</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">pie</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">If the chart should be a pie chart</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">point</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">If all series should show points by default</td>
+				</tr>
+				<tr>
 					<td align="left" valign="top">pollMillis</td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">false</td>
@@ -442,6 +522,54 @@ Please do not edit it directly.
 					<td align="left" valign="top">Define required position of required form element (left|right)</td>
 				</tr>
 				<tr>
+					<td align="left" valign="top">seriesClickTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A list or comma delimited string of topics, one per series, that will be published when the user clicks on a data item in that series;</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">seriesHoverTopics</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A list or comma delimited string of topics, one per series, that will be published when the user hovers over a data item in that series;</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">showBars</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A list of booleans, for each series, if the bars should be shown on the chart</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">showLegend</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">If the legend should be displayed</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">showLines</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A list of booleans, for each series, if the lines should be shown on the chart</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">showPoints</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">A list of booleans, for each series, if the points should be shown on the chart</td>
+				</tr>
+				<tr>
 					<td align="left" valign="top">showTopics</td>
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top"></td>
@@ -456,6 +584,14 @@ Please do not edit it directly.
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">The url from which to load the container contents</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">stacked</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">If the data values should be stacked</td>
 				</tr>
 				<tr>
 					<td align="left" valign="top">tabindex</td>
@@ -488,6 +624,14 @@ Please do not edit it directly.
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">The theme (other than default) to use for rendering the element</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">tickColor</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The color of the plot tick marks</td>
 				</tr>
 				<tr>
 					<td align="left" valign="top">title</td>
@@ -544,6 +688,134 @@ Please do not edit it directly.
 					<td align="left" valign="top">false</td>
 					<td align="left" valign="top">String</td>
 					<td align="left" valign="top">Preset the value of input element.</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">xAxis1Label</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">A label to be shown next to the x-axis 1</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">xAxis1Max</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The max value of the x-axis 1</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">xAxis1Min</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The min value of the x-axis 1</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">xAxis1Time</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">A boolean indicating whether the x-axis 1 uses time-series data</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">xAxis2Label</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">A label to be  shown next to the x-axis 2</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">xAxis2Max</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The max value of the x-axis 2</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">xAxis2Min</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The min value of the x-axis 2</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">xAxis2Time</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">A boolean indicating whether the x-axis 2 uses time-series data</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">yAxis1Label</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">A label to be shown next to the y-axis 1</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">yAxis1Max</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The max value of the y-axis 1</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">yAxis1Min</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The min value of the y-axis 1</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">yAxis1Time</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">A boolean indicating whether the y-axis 1 uses time-series data</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">yAxis2Label</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">A label to be shown next to the y-axis 2</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">yAxis2Max</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The max value of the y-axis 2</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">yAxis2Min</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top"></td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">String</td>
+					<td align="left" valign="top">The min value of the y-axis 2</td>
+				</tr>
+				<tr>
+					<td align="left" valign="top">yAxis2Time</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">false</td>
+					<td align="left" valign="top">Boolean</td>
+					<td align="left" valign="top">A boolean indicating whether the y-axis 2 uses time-series data</td>
 				</tr>
 		</table>
 		<!-- END SNIPPET: tagattributes -->

@@ -26,6 +26,8 @@ public abstract class AbstractContainerTag extends AbstractBaseTag implements Co
     protected String indicatorId;			//Id of element that will be displayed during execution of this element's action and hidden afterwards
     protected String formIds;				//Ids of forms that should be serialized and submitted when this container is loaded
     protected String elementIds;			//Ids of form elements that should be serialized and submitted when this div is loaded
+    
+	protected String pollMillis;		//The interval in milliseconds for the container to poll for data updates. Only valid for a container with 'src' set. No polling if null or 0
 	
 	public AbstractContainerTag() {
 		super();
@@ -49,6 +51,7 @@ public abstract class AbstractContainerTag extends AbstractBaseTag implements Co
         container.setIndicatorId(indicatorId);
         container.setElementIds(elementIds);
         container.setFormIds(formIds);
+        container.setPollMillis(pollMillis);
     }
 	
 	@Override
@@ -100,6 +103,10 @@ public abstract class AbstractContainerTag extends AbstractBaseTag implements Co
 
 	public void setElementIds(String elementIds) {
 		this.elementIds = elementIds;
+	}
+	
+	public void setPollMillis(String pollMillis) {
+		this.pollMillis = pollMillis;
 	}
 	
 }

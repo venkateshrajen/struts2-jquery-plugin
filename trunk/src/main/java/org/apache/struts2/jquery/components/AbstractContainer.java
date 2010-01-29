@@ -24,7 +24,9 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
 
     protected String formIds;			//Ids of forms that should be serialized and submitted when this container is loaded
     protected String elementIds;		//Ids of form elements that should be serialized and submitted when this div is loaded
-		
+
+	protected String pollMillis;		//The interval in milliseconds for the chart to poll for data updates. Only valid for a chart with 'src' set. No polling if null or 0
+	
 	public AbstractContainer(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
 		
 		super(stack, request, response);
@@ -56,6 +58,9 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
             addParameter("formIds", findString(formIds));
         if (elementIds != null)
             addParameter("elementIds", findString(elementIds));
+        if (pollMillis != null){
+        	addParameter("pollMillis", findValue(pollMillis, Integer.class));
+        }
     }
 
     protected void setStack(ValueStack stack){
@@ -122,5 +127,10 @@ public abstract class AbstractContainer extends AbstractBase implements Containe
 			"Input element must have a 'name' attribute and will be serialized as <name>=<value>", type="String", defaultValue="", required=false)
 	public void setElementIds(String elementIds){
 		this.elementIds = elementIds;
+	}
+    
+    @StrutsTagAttribute(description="The interval in milliseconds for the chart to poll for data updates. Only valid for a chart with 'src' set. No polling if null or 0",  type="Integer", defaultValue="false", required=false)
+    public void setPollMillis(String pollMillis) {
+		this.pollMillis = pollMillis;
 	}
 }
