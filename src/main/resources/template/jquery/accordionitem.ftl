@@ -39,8 +39,15 @@
 <#else>
   class="_struts2_jquery_class_accordionitem_body"<#rt/>
 </#if>
+<#if parameters.cssStyle??> style="${parameters.cssStyle?html}"</#if>
 <#if parameters.isActive?default(false)>
   isActive="true"<#rt/>
+</#if>
+<#if parameters.cache?default(false)>
+ cache="true"<#rt/>
+</#if>
+<#if parameters.lazyLoad?default(false)>
+ lazyLoad="true"<#rt/>
 </#if>
   <#if parameters.cssStyle??> style="${parameters.cssStyle?html}"</#if>
   <#include "/${parameters.templateDir}/jquery/base.ftl" />

@@ -19,15 +19,15 @@ public class Accordion extends AbstractInteractive  {
     public static final String TEMPLATE = "accordion";
     public static final String TEMPLATE_CLOSE = "accordion-close";
 
-	protected String active;				//Selector for the active element. Set to false to display none at start. Needs collapsible: true.
-	protected String autoHeight;			//If set, the highest content part is used as height reference for all other parts. Provides more consistent animations
-	protected String clearStyle;			//If set, clears height and overflow styles after finishing animations. This enables accordions to work with dynamic content. Won't work together with autoHeight.
-	protected String collapsible;			//Whether all the sections can be closed at once. Allows collapsing the active section by the triggering event (click is the default).
-	protected String fillSpace;				//If set, the accordion completely fills the height of the parent element. Overrides autoheight.
-	protected String headerClass;			//The class to assign to the header element div
-	protected String options;				//Additional widget options
+    private String active;				//Selector for the active element. Set to false to display none at start. Needs collapsible: true.
+	private String autoHeight;			//If set, the highest content part is used as height reference for all other parts. Provides more consistent animations
+	private String clearStyle;			//If set, clears height and overflow styles after finishing animations. This enables accordions to work with dynamic content. Won't work together with autoHeight.
+	private String collapsible;			//Whether all the sections can be closed at once. Allows collapsing the active section by the triggering event (click is the default).
+	private String fillSpace;				//If set, the accordion completely fills the height of the parent element. Overrides autoheight.
+	private String headerClass;			//The class to assign to the header element div
+	private String options;				//Additional widget options
 
-    protected List<AccordionItem> items;
+	private List<AccordionItem> items;
     
     public Accordion(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         

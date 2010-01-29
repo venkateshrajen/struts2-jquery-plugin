@@ -1,6 +1,6 @@
 <#--
 /*
- * $Id: datepicker-close.ftl,v 1.1 2009/02/09 08:34:16 echijioke Exp $
+ * $Id: select-close.ftl,v 1.1 2009/02/09 08:34:16 echijioke Exp $
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -20,13 +20,7 @@
  * under the License.
  */
 -->
-</input>
-<#-- 
-## Not using standard binding - Using delayed binding to resolve issues on IE8
-	<#include "/${parameters.templateDir}/jquery/jquery-bind.ftl" /> 
--->
-<script type='text/javascript'>
-	$(function() {_struts2_jquery.bind($('#${parameters.id?html}'));});
-</script>
-
+</div>
+</div>
+<#include "/${parameters.templateDir}/jquery/jquery-bind.ftl" />
 

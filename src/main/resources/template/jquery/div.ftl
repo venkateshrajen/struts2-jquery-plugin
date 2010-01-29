@@ -20,6 +20,7 @@
  * under the License.
  */
 -->
+<#setting number_format="#.#####">
 <div 
   <#if parameters.name??> name="${parameters.name?html}"</#if>
   <#if parameters.cssClass??> class="${parameters.cssClass?html}"</#if>

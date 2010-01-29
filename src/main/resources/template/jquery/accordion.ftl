@@ -26,6 +26,7 @@
 <#else>
   class="_struts2_jquery_class_accordion"<#rt/>
 </#if>
+<#if parameters.cssStyle??> style="${parameters.cssStyle?html}"</#if>
 <#if parameters.active??>
  active="${parameters.active?string?html}"<#rt/>
 </#if>

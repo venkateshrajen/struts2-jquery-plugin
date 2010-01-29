@@ -125,9 +125,33 @@
 			if(options.reloadtopics) {			  
 				var topics = options.reloadtopics.split(',');
 				for ( var i = 0; i < topics.length; i++) {
-					$elem.subscribe(topics[i], loadHandlerName, options);
+					var topic = topics[i];
+					if(!$elem.isSubscribed(topic)) {	//need to check because input: also sets reloadTopics
+						$elem.subscribe(topics[i], loadHandlerName, options);
+					}
 				}
-			}
+			};
+			
+			
+			//load container using ajax
+			//using events to solve issue of element existing outside of scope of embedded page and continuing polling when embedded element unloaded / 
+			//, and not losing reference to element ('queuing' multiple polls)
+			$elem.bind('_struts2_jquery_trigger_fetch', function(event, fetchOptions, loadHandlerName) {
+		    	var containerTopic = '_struts2_jquery_topic_load_' + fetchOptions.id;
+	    		$elem.subscribe(containerTopic, loadHandlerName);
+	    		$elem.publish(containerTopic, fetchOptions);	
+	    		
+	    		if(fetchOptions.pollmillis && fetchOptions.pollmillis > 0) {
+	    			var self = $elem;
+	    			setTimeout(function(){
+	    					self.trigger('_struts2_jquery_trigger_fetch', [fetchOptions,loadHandlerName]);},
+	    					fetchOptions.pollmillis
+	    			);
+	    		}
+	    		
+	    		return false;
+			});
+			
 		},
 	
 		input:  function($elem, options, loadHandlerName){
@@ -137,7 +161,10 @@
 			if(options.reloadtopics) {			  
 				var topics = options.reloadtopics.split(',');
 				for ( var i = 0; i < topics.length; i++) {
-					$elem.subscribe(topics[i], loadHandlerName, options);
+					var topic = topics[i];
+					if(!$elem.isSubscribed(topic)) {	//need to check because container: also sets reloadTopics
+						$elem.subscribe(topics[i], loadHandlerName, options);
+					}
 				}
 			}
 			
@@ -255,16 +282,12 @@
 			
 			this.base($elem, options);
 			this.interactive($elem, options);
-			//this.container($elem, options, loadHandlerName);  (reloadTopics already implemented by input)
+			this.container($elem, options, loadHandlerName);  //Note: reloadTopics already implemented by input
 			this.input($elem, options, loadHandlerName);
-
-	    	//load select using ajax
+			
 			if(options.src) {
-
-				//publishing not triggering to prevent event propagation issues
-		    	var selectTopic = '_struts2_jquery_topic_load_' + options.id;
-	    		$elem.subscribe(selectTopic, loadHandlerName);
-	    		$elem.publish(selectTopic,options);
+				
+				$elem.trigger('_struts2_jquery_trigger_fetch', [options,loadHandlerName]);
 			}
 		},
 		
@@ -380,12 +403,14 @@
 			}
 			
 	    	//load div using ajax
-			if(options.src) {
+			if(options.src) {				
 
-				//publishing not triggering to prevent event propagation issues
-		    	var divTopic = '_struts2_jquery_topic_load_' + options.id;
-	    		$elem.subscribe(divTopic, loadHandlerName);
-	    		$elem.publish(divTopic,options);				
+				$elem.trigger('_struts2_jquery_trigger_fetch', [options,loadHandlerName]);
+//				
+//				//publishing not triggering to prevent event propagation issues
+//		    	var divTopic = '_struts2_jquery_topic_load_' + options.id;
+//	    		$elem.subscribe(divTopic, loadHandlerName);
+//	    		$elem.publish(divTopic,options);				
 			}
 		},
 		
@@ -534,17 +559,18 @@
 			$elem.css("display", "none");
 			
 			if(options.src) {
+
+				var loadHandlerName = '_struts2_jquery_container_load';
+				
+				this.container($elem, options, loadHandlerName);
 				
 				$elem.bind('dialogopen', function(event, ui) {
 
-					var loadHandlerName = '_struts2_jquery_container_load';
+					$elem.trigger('_struts2_jquery_trigger_fetch', [options,loadHandlerName]);				
+//					$elem.unbind('struts2_jquery_topic_load');
+//					$elem.bind('struts2_jquery_topic_load', null, _subscribe_handlers[loadHandlerName]);
+//					$elem.trigger('struts2_jquery_topic_load', options);
 					
-					//var $dialogContent = $(".ui-dialog-content",$elem)  //the dialog element has been moved within the dialog frame ($elem not points to contents)
-					$elem.unbind('struts2_jquery_topic_load');
-					$elem.bind('struts2_jquery_topic_load', null, _subscribe_handlers[loadHandlerName]);
-					$elem.trigger('struts2_jquery_topic_load', options);
-					
-					//$(".ui-dialog-content",$elem).load(options.src);
 				});
 			}			
 
@@ -687,26 +713,30 @@
 		
 		accordion: function($elem, options){
 			
-	    	//instantiate the tabbed pane
+			//instantiate the tabbed pane
 			if(!options) { options = {}};
 			options.cache = options.iscache || false;
 			
-	        var userOptionsStr = options.options;
-	        var userOptions = window[userOptionsStr];
-	        if (!userOptions) {
-	        	userOptions = eval ("( " + userOptionsStr + " )" );
-	        }
-	        $.extend(options, userOptions);
-	        
-	        options.header = '._struts2_jquery_class_accordionitem_header';
-	        
-	    	var $accordion = $elem.accordion(options);
-	    	
-	    	if(options.disabled) {			  
-	    		$accordion.accordion( 'disable' );
+			var userOptionsStr = options.options;
+			var userOptions = window[userOptionsStr];
+			if (!userOptions) {
+				userOptions = eval ("( " + userOptionsStr + " )" );
 			}
-	    	
-	    	if(options.removetopics) {			  
+			$.extend(options, userOptions);
+			
+			options.header = '._struts2_jquery_class_accordionitem_header';
+
+			options.autoHeight = options.autoheight;
+			options.fillSpace = options.fillspace;
+			options.clearStyle = options.clearstyle;
+						
+			var $accordion = $elem.accordion(options);
+			
+			if(options.disabled) {			  
+				$accordion.accordion( 'disable' );
+			}
+			
+			if(options.removetopics) {			  
 				var topics = options.removetopics.split(',');
 				for ( var i = 0; i < topics.length; i++) {
 					$elem.subscribe(topics[i],'_struts2_jquery_accordion_remove',options);
@@ -719,33 +749,33 @@
 					$elem.subscribe(topics[i],'_struts2_jquery_accordion_enable',options);
 				}
 			}
-
+			
 			if(options.disabletopics) {			  
 				var topics = options.disabletopics.split(',');
 				for ( var i = 0; i < topics.length; i++) {
 					$elem.subscribe(topics[i],'_struts2_jquery_accordion_disable',options);
 				}
 			}
-	    	
-	    	$("._struts2_jquery_class_accordionitem_body",$accordion).each( function(itemIndex, el){
-	    			
-	    		$item = $(el);
-	    		
-	    		$item.index = itemIndex;
-	    		    		
-	    		if($item.attr("isactive")){
+			
+			$("._struts2_jquery_class_accordionitem_body",$accordion).each( function(itemIndex, el){
+					
+				var $item = $(el);
+				
+				$item.index = itemIndex;
+				    		
+				if($item.attr("isactive")){
 					$accordion.accordion('option', 'active', itemIndex);
-	    		}
-	    		
-	    		var hideTopics = $item.attr("hidetopics");
+				}
+				
+				var hideTopics = $item.attr("hidetopics");
 				if(hideTopics) {			  
 					var topics = hideTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
 						$item.subscribe(topics[i],'_struts2_jquery_accordion_hideItem',itemIndex);
 					}
 				}
-
-	    		var showTopics = $item.attr("showtopics");
+			
+				var showTopics = $item.attr("showtopics");
 				if(showTopics) {			  
 					var topics = showTopics.split(',');
 					for ( var i = 0; i < topics.length; i++) {
@@ -754,7 +784,7 @@
 				}
 				
 				if($item.attr("src")) {
-
+			
 					var itemAttributes = $item[0].attributes;
 					var itemOptions = {};
 					
@@ -762,17 +792,30 @@
 					for(var i = 0; i < itemAttributes.length; i++) {
 						itemOptions[itemAttributes[i].name.toLowerCase()] = itemAttributes[i].value;
 					}
-					
-					$accordion.bind('accordionchange', function(event, ui) {
 
-						//publishing not triggering to prevent event propagation issues
-						var loadHandlerName = '_struts2_jquery_container_load';
-						var loadTopic = '_struts2_jquery_topic_load_' + $item.attr("id");
-						$item.subscribe(loadTopic, loadHandlerName);
-						$item.publish(loadTopic,itemOptions);				    		
+					
+					//publishing not triggering to prevent event propagation issues
+//					var loadHandlerName = '_struts2_jquery_container_load';
+//					var loadTopic = '_struts2_jquery_topic_load_' + $item.attr("id");
+//					$item.subscribe(loadTopic, loadHandlerName);
+
+					this.container($item, options, loadHandlerName);
+					var loadHandlerName = '_struts2_jquery_container_load';
+					$item.trigger('_struts2_jquery_trigger_fetch', [options,loadHandlerName]);
+					
+					$accordion.bind('accordionchange', function(event, ui) {												                                
+						if((ui.newHeader.next()[0] == $item[0]) && (!itemOptions.cache || !$item.data('loaded'))) {
+							$item.publish(loadTopic,itemOptions);			
+						}
 					});
+					
+			    	//load item using ajax if currently selected item or lazyLoad is not true
+					if($item.hasClass(".ui-accordion-content-active") || !itemOptions.lazyload) {
+						//$item.load(itemOptions.src);
+						$item.publish(loadTopic,itemOptions);
+					}
 				}							
-	    	});
+			});
 		},		
 		
 		textfield: function($elem, options){
@@ -781,15 +824,18 @@
 			
 			this.base($elem, options);
 			this.interactive($elem, options);
+			this.container($elem, options, loadHandlerName);
 			this.input($elem, options, loadHandlerName);
 
 	    	//load select using ajax
 			if(options.src) {
 
-				//publishing not triggering to prevent event propagation issues
-		    	var textfieldTopic = '_struts2_jquery_topic_load_' + options.id;
-	    		$elem.subscribe(textfieldTopic, loadHandlerName);
-	    		$elem.publish(textfieldTopic,options);
+				$elem.trigger('_struts2_jquery_trigger_fetch', [options,loadHandlerName]);
+//
+//				//publishing not triggering to prevent event propagation issues
+//		    	var textfieldTopic = '_struts2_jquery_topic_load_' + options.id;
+//	    		$elem.subscribe(textfieldTopic, loadHandlerName);
+//	    		$elem.publish(textfieldTopic,options);
 			}				
 		},
 		
@@ -799,15 +845,18 @@
 			
 			this.base($elem, options);
 			this.interactive($elem, options);
+			this.container($elem, options, loadHandlerName);
 			this.input($elem, options, loadHandlerName);
 
 	    	//load select using ajax
 			if(options.src) {
 
-				//publishing not triggering to prevent event propagation issues
-		    	var textareaTopic = '_struts2_jquery_topic_load_' + options.id;
-	    		$elem.subscribe(textareaTopic, loadHandlerName);
-	    		$elem.publish(textareaTopic,options);
+				$elem.trigger('_struts2_jquery_trigger_fetch', [options,loadHandlerName]);
+//
+//				//publishing not triggering to prevent event propagation issues
+//		    	var textareaTopic = '_struts2_jquery_topic_load_' + options.id;
+//	    		$elem.subscribe(textareaTopic, loadHandlerName);
+//	    		$elem.publish(textareaTopic,options);
 			}				
 		},
 		
@@ -1052,7 +1101,9 @@
 			var onSuccessTopics = options.onsuccesstopics;
 			
 			options.success = function (data, textStatus) {
-								
+
+				container.data('loaded',true);
+				
 				if(indicatorId) { $('#' + indicatorId).hide(); }
 				
 				if(tagName == 'input' || tagName == 'textarea') {
@@ -1243,6 +1294,8 @@
 				var onSuccessTopics = options.onsuccesstopics;
 				
 				options.success = function (data, textStatus) {
+					
+					action.data('loaded',true);
 									
 					if(indicatorId) { $('#' + indicatorId).hide(); }
 	

@@ -23,6 +23,7 @@ public class Head extends org.apache.struts2.components.Head {
     private String locale;				//Default locale to be used by jQuery, locale name must be specified as in RFC3066
     private String uiTheme;				//The jquery ui theme to use or root-relative path to custom theme css
     private String version;				//A version suffix to append at the end of the included scrtip and css files to ensure refreshed browser caches
+    private String enableCharting;		//A boolean to determine whether to include the flot charting tools or not
     
     private static final List<String> uiThemes;
     
@@ -84,6 +85,8 @@ public class Head extends org.apache.struts2.components.Head {
             addParameter("locale", findString(this.locale));
         if (this.version != null)
             addParameter("version", findString(this.version));
+        if (this.enableCharting != null)
+            addParameter("enableCharting", findValue(this.enableCharting, Boolean.class));
     }
 
     @Override
@@ -119,5 +122,10 @@ public class Head extends org.apache.struts2.components.Head {
     @StrutsTagAttribute(name="version", description="A version suffix to append at the end of the included scrtip and css files to ensure refreshed browser caches")
     public void setVersion(String version) {
 		this.version = version;
+	}
+
+    @StrutsTagAttribute(name="enableCharting", description="A boolean to determine whether to include the flot charting tools or not", defaultValue="false")
+    public void setEnableCharting(String enableCharting) {
+		this.enableCharting = enableCharting;
 	}
 }

@@ -30,25 +30,53 @@
 <#if parameters.compressed?default(true)>
   <#assign jqueryFile="jquery-1.3.2.min.js?${version}">
   <#assign jqueryUIFile="jquery-ui-1.7.2.min.js?${version}">
-  <#assign jquerySubscribeFile="jquery.subscribe.1.1.min.js?${version}">
+  <#assign jquerySubscribeFile="jquery.subscribe.1.2.min.js?${version}">
+  <#assign jqueryFlotFile="flot/jquery.flot.0.6.min.js?${version}">
+  <#assign jqueryFlotPieFile="flot/jquery.flot.pie.min.js?${version}">
+  <#assign jqueryFlotFlipVLibFile="flot/cvi_text_lib.min.js?${version}">
+  <#assign jqueryFlotFlipVFile="flot/jquery.flipv.min.js?${version}">
+  <#assign jqueryFlotBindFile="flot/jquery.flot.struts2bind.min.js?${version}">
+  <#assign canvasFile="flot/excanvas.min.js?${version}">
   <#assign jqueryStrutsFile="jquery.struts2.min.js?${version}">
 <#else>
   <#assign jqueryFile="jquery-1.3.2.js?${version}">
   <#assign jqueryUIFile="jquery-ui-1.7.2.js?${version}">
-  <#assign jquerySubscribeFile="jquery.subscribe.1.1.js?${version}">
+  <#assign jquerySubscribeFile="jquery.subscribe.1.2.js?${version}">
+  <#assign jqueryFlotFile="flot/jquery.flot.0.6.js?${version}">
+  <#assign jqueryFlotPieFile="flot/jquery.flot.pie.js?${version}">
+  <#assign jqueryFlotFlipVLibFile="flot/cvi_text_lib.js?${version}">
+  <#assign jqueryFlotFlipVFile="flot/jquery.flipv.js?${version}">
+  <#assign jqueryFlotBindFile="flot/jquery.flot.struts2bind.js?${version}">
+  <#assign canvasFile="flot/excanvas.js?${version}">
   <#assign jqueryStrutsFile="jquery.struts2.js?${version}">
 </#if>
 
 <#if parameters.baseRelativePath?if_exists != "">
-  <script language="JavaScript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryFile}' includeParams='none' encode='false'/>"></script>
-  <script language="JavaScript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryUIFile}' includeParams='none' encode='false'/>"></script>
-  <script language="JavaScript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jquerySubscribeFile}' includeParams='none' encode='false'/>"></script>
-  <script language="JavaScript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryStrutsFile}' includeParams='none' encode='false'/>"></script>
+  <script language="javascript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryFile}' includeParams='none' encode='false'/>"></script>
+  <script language="javascript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryUIFile}' includeParams='none' encode='false'/>"></script>
+  <script language="javascript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jquerySubscribeFile}' includeParams='none' encode='false'/>"></script>
+  <script language="javascript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryStrutsFile}' includeParams='none' encode='false'/>"></script>
+  <#if parameters.enableCharting?default(false)>
+     <script language="javascript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryFlotFile}' includeParams='none' encode='false'/>"></script>
+     <script language="javascript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryFlotPieFile}' includeParams='none' encode='false'/>"></script>
+     <!--[if IE]><script language="javascript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${canvasFile}' includeParams='none' encode='false'/>"></script><![endif]-->
+     <script language="javascript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryFlotFlipVLibFile}' includeParams='none' encode='false'/>"></script>
+     <script language="javascript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryFlotFlipVFile}' includeParams='none' encode='false'/>"></script>
+     <script language="javascript" type="text/javascript" src="<@s.url value='${parameters.baseRelativePath}/${jqueryFlotBindFile}' includeParams='none' encode='false'/>"></script>
+  </#if> 
 <#else>
-  <script language="JavaScript" type="text/javascript" src="${base}/struts/jquery/${jqueryFile}"></script>
-  <script language="JavaScript" type="text/javascript" src="${base}/struts/jquery/${jqueryUIFile}"></script>
-  <script language="JavaScript" type="text/javascript" src="${base}/struts/jquery/${jquerySubscribeFile}"></script>
-  <script language="JavaScript" type="text/javascript" src="${base}/struts/jquery/${jqueryStrutsFile}"></script>
+  <script language="javascript" type="text/javascript" src="${base}/struts/jquery/${jqueryFile}"></script>
+  <script language="javascript" type="text/javascript" src="${base}/struts/jquery/${jqueryUIFile}"></script>
+  <script language="javascript" type="text/javascript" src="${base}/struts/jquery/${jquerySubscribeFile}"></script>
+  <script language="javascript" type="text/javascript" src="${base}/struts/jquery/${jqueryStrutsFile}"></script>
+  <#if parameters.enableCharting?default(false)>
+     <script language="javascript" type="text/javascript" src="${base}/struts/jquery/${jqueryFlotFile}"></script>
+     <script language="javascript" type="text/javascript" src="${base}/struts/jquery/${jqueryFlotPieFile}"></script>
+     <!--[if IE]><script language="javascript" type="text/javascript" src="${base}/struts/jquery/${canvasFile}"></script><![endif]-->
+     <script language="javascript" type="text/javascript" src="${base}/struts/jquery/${jqueryFlotFlipVLibFile}"></script>
+     <script language="javascript" type="text/javascript" src="${base}/struts/jquery/${jqueryFlotFlipVFile}"></script>
+     <script language="javascript" type="text/javascript" src="${base}/struts/jquery/${jqueryFlotBindFile}"></script>
+  </#if> 
 </#if>  
 
 <#if parameters.locale?if_exists != "">

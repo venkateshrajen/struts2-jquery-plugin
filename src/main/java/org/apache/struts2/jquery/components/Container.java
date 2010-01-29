@@ -43,4 +43,7 @@ public interface Container extends Base {
 	@StrutsTagAttribute(name="elementIds", description="A comma delimited list of form elements that should be individually serialized and sent with the container's load request. " +
 			"Input element must have a 'name' attribute and will be serialized as <name>=<value>", type="String", defaultValue="", required=false)
 	public void setElementIds(String elementIds);
+    
+    @StrutsTagAttribute(description="The interval in milliseconds for the chart to poll for data updates. Only valid for a chart with 'src' set. No polling if null or 0",  type="Integer", defaultValue="false", required=false)
+    public void setPollMillis(String pollMillis);
 }

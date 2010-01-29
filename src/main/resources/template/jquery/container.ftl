@@ -55,4 +55,7 @@
   </#if>
   <#if parameters.elementIds?exists>
     elementIds="${parameters.elementIds?html}"<#rt/>
+  </#if>  
+  <#if parameters.pollMillis??> 
+	pollMillis="${parameters.pollMillis?string}"<#rt/>
   </#if>
