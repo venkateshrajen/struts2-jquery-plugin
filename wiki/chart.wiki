@@ -1,6 +1,6 @@
 #summary Renders a beautiful chart using the jquery *flot* plotting framework.
 #labels Featured
-See *flot* at http://code.google.com/p/flot/
+See information about *flot* at http://code.google.com/p/flot/
 
 = Introduction =
 This renders a chart very easily as a struts tag using the jquery flot framework. The charting capability must be enabled by setting the *enableCharting* property on the head tag. Enabling charting imports some additional javascript resources, so this disabled by default to minimize the footprint.
