@@ -24,7 +24,7 @@ public class Chart extends AbstractContainer {
     public static final String TEMPLATE = "chart";
     public static final String TEMPLATE_CLOSE = "chart-close";
     
-    protected Object data;				//If the dialog should be draggable or not (true/false)
+    protected Object data;				//An object with the chart data
     protected String pie;				//If it should be shown as a pie chart
 	protected String stacked;			//If the data values should be stacked
 	protected String showLegend;		//If the legend should be displayed
@@ -250,6 +250,8 @@ public class Chart extends AbstractContainer {
         		value = findValue(parameter.toString());
         		if(value != null) {
         			parameter = value;
+        		}else {
+        			parameter = new String[]{(String)parameter};
         		}
         	} 
         	

@@ -18,7 +18,8 @@ public class AccordionItemTag extends AbstractContainerTag {
     private String isActive;		//set to true to make this the initial active menu item (only one item should have this)
     private String cache;			//If set to true and the contents are remotely loaded ('src' provided), contents will only be loaded once. Otherwise contents will be reloaded each time the item is expanded (default=false)
     private String lazyLoad;		//If set to true and the contents are remotely loaded ('src' provided), contents will not be loaded at first until the item is expanded (default=false). 
-      
+    private String headerClass;		//The class to add to the header element
+    
 	public AccordionItemTag() {
 		super();
 	}
@@ -37,6 +38,7 @@ public class AccordionItemTag extends AbstractContainerTag {
 		accordionItem.setIsActive(isActive);
 		accordionItem.setLazyLoad(lazyLoad);
 		accordionItem.setCache(cache);
+		accordionItem.setHeaderClass(headerClass);
 	
 	}
 	
@@ -62,7 +64,7 @@ public class AccordionItemTag extends AbstractContainerTag {
 		throw new JspTagException("AccordionItem tag must be inside Accordion Tag");
 	
 	}
-
+	
 	public void setIsActive(String isActive) {
 		this.isActive = isActive;
 	}
@@ -73,5 +75,9 @@ public class AccordionItemTag extends AbstractContainerTag {
 	
 	public void setCache(String cache) {
 		this.cache = cache;
+	}
+
+	public void setHeaderClass(String headerClass) {
+		this.headerClass = headerClass;
 	}
 }

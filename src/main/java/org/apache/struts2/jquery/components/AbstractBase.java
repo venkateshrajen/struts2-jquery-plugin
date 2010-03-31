@@ -24,7 +24,7 @@ public abstract class AbstractBase extends ClosingUIBean implements Base {
 	protected String hideTopics;
 	protected String showTopics;
 	protected String removeTopics;
-
+	protected String hideDisabled;
 
 	@Override
     public void evaluateParams() {
@@ -50,6 +50,8 @@ public abstract class AbstractBase extends ClosingUIBean implements Base {
             addParameter("showTopics", findString(showTopics));
         if (removeTopics != null)
             addParameter("removeTopics", findString(removeTopics));
+        if (hideDisabled != null)
+            addParameter("hideDisabled", findValue(hideDisabled, Boolean.class));
     }
 	
 	@Override
@@ -94,5 +96,10 @@ public abstract class AbstractBase extends ClosingUIBean implements Base {
 	@StrutsTagAttribute(name="showTopics", description = "A comma delimited list of topics that will show (display: block) this element", type = "String", defaultValue = "")
 	public void setShowTopics(String showTopics) {
 		this.showTopics = showTopics;
+	}
+
+	@StrutsTagAttribute(name="hideDisabled", description = "Fi set to true, when this element is disabled it will not be shwon in the DOM ('display' will be set to 'none'). Defaults to false", type = "Boolean", defaultValue = "false")
+	public void setHideDisabled(String hideDisabled){
+		this.hideDisabled = hideDisabled;
 	}
 }

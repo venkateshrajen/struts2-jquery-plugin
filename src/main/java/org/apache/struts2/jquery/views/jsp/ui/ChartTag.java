@@ -12,9 +12,9 @@ public class ChartTag extends AbstractContainerTag {
 	
 	private static final long serialVersionUID = -4839207037830558353L;
 
-    protected Object data;			//If the dialog should be draggable or not (true/false)
-    protected String pie;			//If it should be shown as a pie chart
-	protected String stacked;		//If the data values should be stacked
+    protected Object data;				//An object with the chart data
+    protected String pie;				//If it should be shown as a pie chart
+	protected String stacked;			//If the data values should be stacked
 	protected String showLegend;		//If the legend should be displayed
 	protected String legendPosition;	//Placement of the legend: must be "ne" or "nw" or "se" or "sw"
 	protected Object labels;			//A list of labels for the series. Must be same length as # of series in data

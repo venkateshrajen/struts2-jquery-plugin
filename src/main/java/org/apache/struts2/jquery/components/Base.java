@@ -21,4 +21,7 @@ public interface Base {
 
 	@StrutsTagAttribute(name="disabled", description = "If this element is disabled", type = "Boolean", defaultValue = "false")
 	public void setDisabled(String disabled);
+
+	@StrutsTagAttribute(name="hideDisabled", description = "Fi set to true, when this element is disabled it will not be shwon in the DOM ('display' will be set to 'none'). Defaults to false", type = "Boolean", defaultValue = "false")
+	public void setHideDisabled(String hideDisabled);
 }

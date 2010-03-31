@@ -35,6 +35,9 @@
   <#if parameters.disabled?default(false)>
 	 disabled="true"<#rt/>
   </#if>
+  <#if parameters.hideDisabled?default(false)>
+	 hideDisabled="true"<#rt/>
+  </#if>
   <#if parameters.cssClass?exists>
     class="${parameters.cssClass?string?html} _struts2_jquery_bound"<#rt/>
   <#else>

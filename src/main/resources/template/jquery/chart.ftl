@@ -21,7 +21,7 @@
  */
 -->
 <#setting number_format="#.#####">
-<div class='_struts2_jquery_chart_container'>
+<div class='_struts2_jquery_class_chart'>
 <div widget="chart"<#rt/>  
   <#if parameters.name??> name="${parameters.name?html}"</#if>
   <#if parameters.cssClass??> class="${parameters.cssClass?html}"</#if>

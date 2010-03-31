@@ -24,6 +24,7 @@ public class Head extends org.apache.struts2.components.Head {
     private String uiTheme;				//The jquery ui theme to use or root-relative path to custom theme css
     private String version;				//A version suffix to append at the end of the included scrtip and css files to ensure refreshed browser caches
     private String enableCharting;		//A boolean to determine whether to include the flot charting tools or not
+    private String enableGrid;			//A boolean to determine whether to include the jQgrid grid component or not
     
     private static final List<String> uiThemes;
     
@@ -87,6 +88,8 @@ public class Head extends org.apache.struts2.components.Head {
             addParameter("version", findString(this.version));
         if (this.enableCharting != null)
             addParameter("enableCharting", findValue(this.enableCharting, Boolean.class));
+        if (this.enableGrid != null)
+            addParameter("enableGrid", findValue(this.enableGrid, Boolean.class));
     }
 
     @Override
@@ -127,5 +130,10 @@ public class Head extends org.apache.struts2.components.Head {
     @StrutsTagAttribute(name="enableCharting", description="A boolean to determine whether to include the flot charting tools or not", defaultValue="false")
     public void setEnableCharting(String enableCharting) {
 		this.enableCharting = enableCharting;
+	}
+    
+    @StrutsTagAttribute(name="enableGrid", description="A boolean to determine whether to include the jQgrid grid component or not", defaultValue="false")
+    public void setEnableGrid(String enableGrid) {
+		this.enableGrid = enableGrid;
 	}
 }

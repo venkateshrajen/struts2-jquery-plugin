@@ -73,6 +73,20 @@
 			}
 		},
 		
+		presence: function($elem, options) {
+
+			if(options.disabled == 'true') {
+
+				$elem.attr("disabled",true);
+				$elem.addClass("disabled");
+				
+				if(options.hidedisabled == "true") {
+				
+					$elem.hide();
+				}
+			}
+		},
+		
 		base:  function($elem, options){
 		
 			if(options.hidetopics) {			  
@@ -95,12 +109,8 @@
 					$elem.subscribe(topics[i],'_struts2_jquery_remove',options);
 				}
 			}
-			
-			if(options.disabled == 'true') {
 
-				$elem.attr("disabled",true);
-				$elem.addClass("disabled");
-			}
+			this.presence($elem, options);
 		},
 		
 		interactive:  function($elem, options){
@@ -420,7 +430,7 @@
 			var containerLoadHandlerName = '_struts2_jquery_container_load';
 			
 			this.base($elem, options);
-	    	
+	    				
 			//bind submit event to onSubmit topics
 			if(options.onsubmittopics) {  
 				var topics = options.onsubmittopics.split(',');
@@ -429,14 +439,22 @@
 				}
 			}	
 			
+			var formTopic = '_struts2_jquery_form_topic_' + options.id;
+	    	
+	    	var action = options.action;
+	    	if(action == null || action == "") {
+	    		options.action = "#";
+	    	}
+
+    		options.src = options.action;
+			options.formids = options.id;			
+			var targetId = options.targetid;
+			
 			if(options.submittopics) {			  
 				var topics = options.submittopics.split(',');
 				for ( var i = 0; i < topics.length; i++) {
 					
-					var targetId = options.targetid;
-					if(targetId) {
-						options.src = options.action;
-						options.formids = options.id;
+					if(targetId) {						
 						if('#tab' == targetId) {
 							$elem.closest('.ui-tabs-panel').subscribe(topics[i], containerLoadHandlerName, options);
 			    		} else {
@@ -447,8 +465,34 @@
 						$elem.subscribe(topics[i], submitHandlerName, options);
 					}	
 				}
-
 			}
+			
+    		//subscribe all targets to this forms's custom execute topic
+	    	if(targetId) {  
+	    		
+	    		//target subscription needs to be done after document load in case element exists in the dom AFTER the current action object 
+	    		$(function() {
+					if('#tab' == targetId) {
+						$elem.closest('.ui-tabs-panel').subscribe(formTopic, containerLoadHandlerName, options);
+		    		} else {
+		    			$('#' + targetId).subscribe(formTopic, containerLoadHandlerName, options);
+		    		}
+	    		});
+	    		
+			} else {   // if no targets, then the form can still post normally
+					
+				//bind event topic listeners
+		    	//if(options.oncompletetopics || options.onsuccesstopics || options.onerrortopics){
+				$elem.subscribe(formTopic, submitHandlerName, options);
+		    	//}
+			}
+	    	
+	    	//bind custom form topic to submit event
+	    	$elem.submit(function(event){
+	    		event.preventDefault();
+	    		$elem.publish(formTopic, event.data, event);    
+	    	});
+			
 		},
 		
 		a: function($elem, options){
@@ -548,7 +592,7 @@
 					if(buttontopics.length >= i+1) {
 						$dialog.data('buttonTopics')[button] = topic;  
 						parameters.buttons[button] = function(event) { 
-							$elem.publish($dialog.data('buttonTopics')[event.target.innerHTML], $dialog, event);
+							$elem.publish($dialog.data('buttonTopics')[$(event.target).text()], $dialog, event);
 						};
 					} else {
 						parameters.buttons[button] = function(event) {};
@@ -598,7 +642,7 @@
 	        }
 	        $.extend(options, userOptions);
 	        
-	        //fix for clash btwn ie & tabbedPane where ie automatically adds ALL possibel element properties as attributes
+	        //fix for clash btwn ie & tabbedPane where ie automatically adds ALL possible element properties as attributes
 	        options.disabled = [];
 	        
 	        //move any static tab content outside the list
@@ -765,6 +809,25 @@
 				    		
 				if($item.attr("isactive")){
 					$accordion.accordion('option', 'active', itemIndex);
+				}
+				
+				if($item.attr("disabled") == "true"){
+					var $header = $item.prev();
+					if($item.attr("hidedisabled") == "true") {
+						$item.hide();
+						$header.hide();
+					} else {
+						//ubind and rebind click events to bind our's first
+						var clickEvents = $header.data("events").click;	
+						$header.unbind("click");	        
+						$header.addClass("ui-state-disabled").bind("click.__struts2jquery", function(e) {
+					        e.preventDefault();
+					        e.stopImmediatePropagation();
+					    });				
+						for(var i in clickEvents) {	
+							$header.bind("click", clickEvents[i]);
+						}			
+					}
 				}
 				
 				var hideTopics = $item.attr("hidetopics");

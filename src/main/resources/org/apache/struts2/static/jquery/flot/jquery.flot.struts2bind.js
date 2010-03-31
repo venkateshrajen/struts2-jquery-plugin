@@ -133,7 +133,7 @@
 					container.css({'position': 'relative'});
 					var label = $("<div class='_struts2_jquery_chart_label_y1'/>").css({'text-align': 'center', 'position': 'absolute', 'left': 0, 'top': 0}).text(options.yaxis1label);
 					container.prepend(label).css({'padding-left': (label.height() + 3)});
-					label.flipv().css('top', ($elem.height()/2) - (label.height()/2));
+					label.flipv().css({'top': ($elem.height()/2) - (label.height()/2), 'width': label.width() + 5});
 				} 
 
 				if(options.xaxis2label && options.xaxis2label.length > 0) {
@@ -145,7 +145,7 @@
 					container.css({'position': 'relative'});
 					var label = $("<div class='_struts2_jquery_chart_label_y2'/>").css({'position': 'absolute', 'right': 0, 'top': 0}).text(options.yaxis2label);
 					container.append(label).css({'margin-right': label.height() + 3});
-					label.flipv().css({'top': (container.height()/2) - (label.height()/2)});
+					label.flipv().css({'top': (container.height()/2) - (label.height()/2), 'width': label.width() + 5});
 				} 				
 				
 				flotOptions.src = options.src;
