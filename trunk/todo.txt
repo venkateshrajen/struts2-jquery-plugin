@@ -1,1 +1,11 @@
+- Select component should support json object lists (to add to Map support)
+and should use listKey & listValue attributes
+
 - Add 'selectable' attribute to div tag
+
+- Upgrade to jQuery-ui 1.8 (once stable)
+- Add 'rounded' to container with rounded-plugin
+- Add jqGrid component
+- Add color-picker component
+- Add autocomplete component
+- Add mapping (Google maps) component

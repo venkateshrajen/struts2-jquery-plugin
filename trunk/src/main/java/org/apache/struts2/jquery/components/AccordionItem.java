@@ -19,8 +19,7 @@ public class AccordionItem extends AbstractContainer {
     private String isActive;		//set to true to make this the initial active menu item (only one item should have this)
     private String cache;			//If set to true and the contents are remotely loaded ('src' provided), contents will only be loaded once. Otherwise contents will be reloaded each time the item is expanded (default=false)
     private String lazyLoad;		//If set to true and the contents are remotely loaded ('src' provided), contents will not be loaded at first until the item is expanded (default=false). 
-    
-    private String headerClass;		//The class to add to the header element (not exposed to user)
+    private String headerClass;		//The class to add to the header element
    
     public AccordionItem(ValueStack stack, HttpServletRequest request, HttpServletResponse response) {
         super(stack, request, response);
@@ -71,7 +70,8 @@ public class AccordionItem extends AbstractContainer {
 		this.cache = cache;
 	}
     
-    public void setHeaderClass(String headerClass) {
+	@StrutsTagAttribute(defaultValue="false", description = "The class to add to the header element")
+	public void setHeaderClass(String headerClass) {
 		this.headerClass = headerClass;
 	}
 	

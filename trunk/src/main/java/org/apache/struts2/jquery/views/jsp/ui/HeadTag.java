@@ -22,6 +22,7 @@ public class HeadTag extends AbstractUITag {
     private String uiTheme;
     private String version;
     private String enableCharting;
+    private String enableGrid;
     
     public Component getBean(ValueStack stack, HttpServletRequest req, HttpServletResponse res) {
         return new Head(stack, req, res);
@@ -37,6 +38,7 @@ public class HeadTag extends AbstractUITag {
         head.setUiTheme(uiTheme);
         head.setVersion(version);
         head.setEnableCharting(enableCharting);
+        head.setEnableGrid(enableGrid);
     }
 
     public void setBaseRelativePath(String baseRelativePath) {
@@ -61,5 +63,9 @@ public class HeadTag extends AbstractUITag {
 	
 	public void setEnableCharting(String enableCharting) {
 		this.enableCharting = enableCharting;
+	}	
+	
+	public void setEnableGrid(String enableGrid) {
+		this.enableGrid = enableGrid;
 	}
 }

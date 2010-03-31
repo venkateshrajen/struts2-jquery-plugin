@@ -17,6 +17,7 @@ public abstract class AbstractBaseTag extends AbstractClosingTag implements Base
 	protected String hideTopics;
 	protected String showTopics;
 	protected String removeTopics;
+	protected String hideDisabled;
 
     protected void populateParams() {
     	        
@@ -26,10 +27,12 @@ public abstract class AbstractBaseTag extends AbstractClosingTag implements Base
     	jQuery.setHideTopics(hideTopics);
         jQuery.setShowTopics(showTopics);
         jQuery.setRemoveTopics(removeTopics);
+        jQuery.setHideDisabled(hideDisabled);
     }
     
     @Override
     public int doEndTag() throws JspException {
+    	
     	int result = super.doEndTag();
     	
     	setDisabled(null); //Seems necessary to prevent caching of attribute state by pooled/cached tags. weird? 
@@ -57,4 +60,8 @@ public abstract class AbstractBaseTag extends AbstractClosingTag implements Base
 	public void setRemoveTopics(String removeTopics) {
 		this.removeTopics = removeTopics;
 	}	
+	
+	public void setHideDisabled(String hideDisabled) {
+		this.hideDisabled = hideDisabled;
+	}
 }

@@ -32,6 +32,9 @@
 <#if parameters.id??>
  id="${parameters.id?html}"<#rt/>
 </#if>
+<#if parameters.nameValue??>
+ value="<@s.property value="parameters.nameValue"/>"<#rt/>
+</#if>
 <#include "/${parameters.templateDir}/simple/css.ftl" />
 <#if parameters.title??>
  title="${parameters.title?html}"<#rt/>
