@@ -1,0 +1,9 @@
+#summary Uses the jQGrid jquery [http://www.trirand.com/blog/ jgrid] component to provide highly customizable grid component in a simple-to-use struts tag:
+#labels Featured
+
+= Introduction =
+
+TODO...
+
+
+= Details =
