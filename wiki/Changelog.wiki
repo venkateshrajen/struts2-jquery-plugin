@@ -1,6 +1,40 @@
 #summary This tracks a list of changes for each version release
 #labels Featured
 
+==== Version 2.3====
+   * Upgraded to jquery 1.4.2 and final jQuery-ui.1.8.1
+   * Added jQuery-ui button widget
+   * Fixed ie issue with accordion menu always being disabled
+   * Added modal overlay style option for loading indicator to mask contents while action is executing
+   * Fixed issue with tabbed pane indicatorId option not being applied	
+   
+==== Version 1.3====
+   * Added grid tag which provides jQGrid grid plugin. Grid functionality can be enabled/disabled to minimize footprint 
+   * Exposed 'headerClass' attribute on accordionItem to allow styling of accordion item header
+   * Fixed truncation of y-axis label on plot widget
+   * Added hideDisabled attribute to base tag to allow preventing display of disabled components
+   * Fixed disabling/enabling of accordion and added disabling of individual accordion items
+   * Fixed select tag - added capturing of value from name attribute
+   * Fixed form tag to trap default post of submit and handle properly
+   * Added text tag to load simple text remotely
+   * Added confirmationMessage attribute to all action tags (submit, anchor ...) to prompt for comfirmation before submitting
+   * Fixed tab showTopics attribute 
+   * Fixed isDisabled attribute on tab components
+   * Added lazyLoad attribute to containers (div, text, textfield, textarea, 
+   * Fixed error when using loadingText property that prevented form & element posting
+   
+==== Version 1.2.1====
+   * Upgraded to jQuery 1.4.1, jQuery-ui 1.8
+   * Fixed Dialog to work with new dialog DOM structure (upgrade had broken topic publishing for dialog buttons)
+   * Updated jQuery-subscribe to work with jQuery 1.4
+
+==== Version 1.2====
+   * Added chart tag which provides Flot jquery charting framework to struts. Charting functionality can be enabled/disabled to minimize footprint
+   * Added polling functionality out of the box to all container components (div, dialog, chart, accordionItem, select, textarea, textfield)
+   * Added caching and lazy-load capabilities to accordion-item component
+   * Fixed dialog loading to utilize triggers & subscription to prevent embedded page multi-bind issues
+   * Fixed some accordion-item attributes
+
 ==== Version 1.1.4====
    * Added cssStyle attribute to accordion and accordion-item widgets
    * Fixed accordion widget to load remote content on load
