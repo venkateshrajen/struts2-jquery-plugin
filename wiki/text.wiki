@@ -1,0 +1,9 @@
+#summary Renders a plain text string that loads its value remotely via ajax and can be dynamically updated
+
+= Introduction =
+
+TODO:
+
+
+= Details =
+
