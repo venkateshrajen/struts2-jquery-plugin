@@ -1,7 +1,7 @@
 #summary This tracks a list of changes for each version release
 #labels Featured
 
-==== Version 2.3====
+==== Version 1.4====
    * Upgraded to jquery 1.4.2 and final jQuery-ui.1.8.1
    * Added jQuery-ui button widget
    * Fixed ie issue with accordion menu always being disabled
